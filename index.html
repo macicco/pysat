@@ -57,10 +57,28 @@
 <span class="target" id="module-pysat"></span><div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The Python Science Analysis Toolkit (pysat) is a package providing a simple and flexible interface for downloading, loading, cleaning, managing, processing, and analyzing scientific measurements. Though pysat was initially designed for in-situ satellite based measurements it aims to support all instruments in space science.</p>
-<p>Every scientific instrument has unique properties though the general process for science data analysis is independent of platform. Find and download the data, write code to load the data, clean the data, apply custom analysis functions, and plot the results. Pysat provides a framework for this general process that builds upon these commonalities to simply adding new instruments, reduce data management overhead, and enable instrument independent analysis routines.</p>
-<p>This instrument independence is achieved through a pysat.Instrument object which provides a layer of separation between the user and the particulars of any given science data set. Loading data for any instrument becomes the same process with the same result, instrument.load() produces data in instrument.data. Behind the scenes different load functions will actually be called for different instruments, as appropriate, but this an implementation detail that doesn’t matter. Invoking the instrument.load method results in data appearing in instrument.data across all science platforms.</p>
+<p>Every scientific instrument has unique properties though the general process for science data analysis is independent of platform. Find and download the data, write code to load the data, clean the data, apply custom analysis functions, and plot the results. Pysat provides a framework for this general process that builds upon these commonalities to simplify adding new instruments, reduce data management overhead, and enable instrument independent analysis routines.</p>
+<p>This instrument independence is achieved through a pysat.Instrument object which provides a layer of separation between the user and the particulars of any given science data set. Loading data for any instrument becomes the same process with the same result, instrument.load() produces data in instrument.data. Behind the scenes different load functions will actually be called for different instruments, as appropriate, but this is now an implementation detail that doesn’t matter.</p>
 <p>Frequently science data sets don’t have all of the parameters needed for a given analysis. If an analysis routine is to be truly instrument independent then there needs to be a mechanism to get custom data into a routine without having to modify the routine itself. Thus, a nano-kernel is attached to the pysat.Instrument object. Upon each instrument.load call a queue of user selected custom functions are applied before the data is available in instrument.data. The instrument object is ‘fire and forget’, regardless of location the data available in instrument.data will be properly processed.</p>
-<p>The final component for instrument independence requires Python Data Analysis Library (pandas), the underlying data object, capable of handling 1D through nD data in a single structure.</p>
+<p>The final component for instrument independence requires the Python Data Analysis Library (pandas), the underlying data object, capable of handling 1D through nD data in a single structure. Pandas data structures are also indexed, thus math operations between two arrays A and B are aligned before the operation. Measurements across platforms are rarely always at the same time, thus pandas also significantly reduces the overhead while increasing the rigor of inter-platform comparisons.</p>
+<p>This document covers installation, a tutorial on pysat including demonstration codes, an overview of adding new instruments to pysat, and an API reference.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Pysat requires some external non-python libraries for loading science data sets stored in netCDF and CDF formats.</p>
+<ul class="simple">
+<li>CDF: <a class="reference external" href="http://cdf.gsfc.nasa.gov">http://cdf.gsfc.nasa.gov</a></li>
+<li>netCDF: <a class="reference external" href="http://www.unidata.ucar.edu/software/netcdf/">http://www.unidata.ucar.edu/software/netcdf/</a></li>
+</ul>
+<dl class="docutils">
+<dt>Pysat itself may be installed via</dt>
+<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pysat</span></code></dd>
+<dt>Pandas may be obtained similarly,</dt>
+<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code></dd>
+<dt>To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use</dt>
+<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/rstoneback/pandas.git</span></code></dd>
+</dl>
+<p>The forked pandas is required for higher dimensional data sets. A pull-request is planned.</p>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
@@ -1011,10 +1029,11 @@ stop dates.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="supported-instruments">
-<h3>Supported Instruments<a class="headerlink" href="#supported-instruments" title="Permalink to this headline">¶</a></h3>
+<h2>Supported Instruments<a class="headerlink" href="#supported-instruments" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pysat.instruments.cnofs_vefi">
-<span id="c-nofs-vefi"></span><h4>C/NOFS VEFI<a class="headerlink" href="#module-pysat.instruments.cnofs_vefi" title="Permalink to this headline">¶</a></h4>
+<span id="c-nofs-vefi"></span><h3>C/NOFS VEFI<a class="headerlink" href="#module-pysat.instruments.cnofs_vefi" title="Permalink to this headline">¶</a></h3>
 <p>Supports the Vector Electric Field Instrument (VEFI)
 onboard the Communication and Navigation Outage Forecasting
 System (C/NOFS) satellite. Downloads data from the
@@ -1042,7 +1061,7 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 </div>
 </div>
 <div class="section" id="module-pysat.instruments.cnofs_ivm">
-<span id="c-nofs-ivm"></span><h4>C/NOFS IVM<a class="headerlink" href="#module-pysat.instruments.cnofs_ivm" title="Permalink to this headline">¶</a></h4>
+<span id="c-nofs-ivm"></span><h3>C/NOFS IVM<a class="headerlink" href="#module-pysat.instruments.cnofs_ivm" title="Permalink to this headline">¶</a></h3>
 <p>Supports the Ion Velocity Meter (IVM)
 onboard the Communication and Navigation Outage Forecasting
 System (C/NOFS) satellite, part of the Coupled Ion Netural Dynamics
@@ -1068,7 +1087,7 @@ The rate is attached to the instrument object as .sample_rate.</li>
 </div>
 </div>
 <div class="section" id="module-pysat.instruments.cosmic2013_gps">
-<span id="cosmic-2013-gps"></span><h4>COSMIC 2013 GPS<a class="headerlink" href="#module-pysat.instruments.cosmic2013_gps" title="Permalink to this headline">¶</a></h4>
+<span id="cosmic-2013-gps"></span><h3>COSMIC 2013 GPS<a class="headerlink" href="#module-pysat.instruments.cosmic2013_gps" title="Permalink to this headline">¶</a></h3>
 <p>Loads data from the COSMIC satellite, 2013 reprocessing.</p>
 <p>The Constellation Observing System for Meteorology, Ionosphere, and Climate
 (COSMIC) is comprised of six satellites in LEO with GPS receivers. The occultation
@@ -1103,7 +1122,7 @@ Currently only supported for tag=&#8217;ionprf&#8217;.</td>
 </div>
 </div>
 <div class="section" id="module-pysat.instruments.cosmic_gps">
-<span id="cosmic-gps"></span><h4>COSMIC GPS<a class="headerlink" href="#module-pysat.instruments.cosmic_gps" title="Permalink to this headline">¶</a></h4>
+<span id="cosmic-gps"></span><h3>COSMIC GPS<a class="headerlink" href="#module-pysat.instruments.cosmic_gps" title="Permalink to this headline">¶</a></h3>
 <p>Loads and downloads data from the COSMIC satellite.</p>
 <p>The Constellation Observing System for Meteorology, Ionosphere, and Climate
 (COSMIC) is comprised of six satellites in LEO with GPS receivers. The occultation
@@ -1126,7 +1145,6 @@ Archival Center.</p>
 </div>
 </div>
 </div>
-</div>
 
 
           </div>
@@ -1138,6 +1156,7 @@ Archival Center.</p>
   <ul>
 <li><a class="reference internal" href="#">Welcome to pysat&#8217;s documentation!</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#api">API</a><ul>
 <li><a class="reference internal" href="#instrument">Instrument</a><ul>
 </ul>
@@ -1147,13 +1166,13 @@ Archival Center.</p>
 <li><a class="reference internal" href="#meta">Meta</a></li>
 <li><a class="reference internal" href="#orbits">Orbits</a></li>
 <li><a class="reference internal" href="#module-pysat.utils">Utilities</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#supported-instruments">Supported Instruments</a><ul>
 <li><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
 <li><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li><a class="reference internal" href="#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li><a class="reference internal" href="#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
