@@ -18,6 +18,10 @@ Installation
 ^^^^^^^^^^^^
 .. include:: installation.rst
 
+Tutorial
+^^^^^^^^
+.. include:: tutorial.rst
+
 API
 ^^^
 Instrument

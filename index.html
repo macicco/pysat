@@ -59,7 +59,7 @@
 <p>The Python Science Analysis Toolkit (pysat) is a package providing a simple and flexible interface for downloading, loading, cleaning, managing, processing, and analyzing scientific measurements. Though pysat was initially designed for in-situ satellite based measurements it aims to support all instruments in space science.</p>
 <p>Every scientific instrument has unique properties though the general process for science data analysis is independent of platform. Find and download the data, write code to load the data, clean the data, apply custom analysis functions, and plot the results. Pysat provides a framework for this general process that builds upon these commonalities to simplify adding new instruments, reduce data management overhead, and enable instrument independent analysis routines.</p>
 <p>This instrument independence is achieved through a pysat.Instrument object which provides a layer of separation between the user and the particulars of any given science data set. Loading data for any instrument becomes the same process with the same result, instrument.load() produces data in instrument.data. Behind the scenes different load functions will actually be called for different instruments, as appropriate, but this is now a hidden implementation detail.</p>
-<p>Frequently science data sets don’t have all of the parameters needed for a given analysis. If an analysis routine is to be truly instrument independent then there needs to be a mechanism to get custom data into a routine without having to modify the routine itself. Thus, a nano-kernel is attached to the pysat.Instrument object. Upon each instrument.load call a queue of user selected custom functions are applied before the data is available in instrument.data. The instrument object is ‘fire and forget’, regardless of location the data available in instrument.data will be properly processed.</p>
+<p>Frequently science data sets don’t have all of the parameters needed for a given analysis. If an analysis routine is to be truly instrument independent then there needs to be a mechanism to get custom data into a routine without having to modify the routine itself. Thus, a nano-kernel is attached to the pysat.Instrument object. Upon each instrument.load call a queue of user selected custom functions are applied before the data is available in instrument.data. The instrument object is ‘set and forget’, regardless of location the data available in instrument.data will be properly processed.</p>
 <p>The final component for instrument independence requires the Python Data Analysis Library (pandas), the underlying data object, capable of handling 1D through nD data in a single structure. Pandas data structures are also indexed, thus math operations between two arrays A and B are aligned before the operation. Measurements across platforms are rarely always at the same time, thus pandas also significantly reduces the overhead while increasing the rigor of inter-platform comparisons.</p>
 <p>This document covers installation, a tutorial on pysat including demonstration codes, an overview of adding new instruments to pysat, and an API reference.</p>
 </div>
@@ -79,6 +79,84 @@
 <dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/rstoneback/pandas.git</span></code></dd>
 </dl>
 <p>The forked pandas is required for higher dimensional data sets. A pull-request is planned.</p>
+<dl class="docutils">
+<dt>Pysat will maintain organization of data from various platforms. Upon the first</dt>
+<dd><code class="docutils literal"><span class="pre">import</span> <span class="pre">pysat</span></code></dd>
+<dt>pysat will remind you to set the top level directory that will hold the data,</dt>
+<dd><code class="docutils literal"><span class="pre">pysat.utils.set_data_dir(path=path)</span></code></dd>
+</dl>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>The core functionality of pysat is exposed through the pysat.Instrument object. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS) begin with</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with &#8216;dc_b&#8217; data. Let&#8217;s download some data,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
+<span class="c"># define date range to download data and download</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The data is downloaded to pysat_data_dir/platform/name/tag/<a href="#id1"><span class="problematic" id="id2">*</span></a>, in this case
+pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set using</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Data is loaded into vefi using the .load method using year, day of year; by date; or by filename.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The pandas DataFrame holding the data is available in .data. Convenience access is also available at the instrument level.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># all data</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span>
+<span class="c"># particular magnetic component</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dB_mer</span>
+<span class="c"># alternative access</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="c"># slicing</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="c"># slicing by date time</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The whole VEFI data set may be iterated over on a daily basis</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Each loop of the python for initiates a vefi.load() for the next date, starting with the first available date. By default the instrument instance will iterate over all available data. It is equivalent to</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output is,</p>
+<div class="code python highlight-python"><div class="highlight"><pre>Returning cnofs vefi dc_b data for 05/09/10
+Maximum meridional magnetic perturbation  19.3937
+Returning cnofs vefi dc_b data for 05/10/10
+Maximum meridional magnetic perturbation  23.745
+Returning cnofs vefi dc_b data for 05/11/10
+Maximum meridional magnetic perturbation  25.673
+Returning cnofs vefi dc_b data for 05/12/10
+Maximum meridional magnetic perturbation  26.583
+</pre></div>
+</div>
+<p>Bounds may be set to control the dates covered by the iteration,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># continuous season</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="c"># multi-season season</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="n">stop1</span><span class="p">,</span> <span class="n">stop2</span><span class="p">])</span>
+<span class="c"># iterate over custom season</span>
+<span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
+     <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
@@ -1157,6 +1235,7 @@ Archival Center.</p>
 <li><a class="reference internal" href="#">Welcome to pysat&#8217;s documentation!</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
 <li><a class="reference internal" href="#api">API</a><ul>
 <li><a class="reference internal" href="#instrument">Instrument</a><ul>
 </ul>
