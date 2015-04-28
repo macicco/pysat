@@ -88,6 +88,8 @@
 </div>
 <div class="section" id="tutorial">
 <h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basics">
+<h3>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h3>
 <p>The core functionality of pysat is exposed through the pysat.Instrument object. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS) begin with</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">)</span>
 </pre></div>
@@ -124,6 +126,95 @@ pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set 
 <span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>See pysat.Instrument for more.</p>
+<p>Metadata is also stored along with the main science data.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># all metadata</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span>
+<span class="c"># dB_mer metadata</span>
+<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="c"># units</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+<span class="c"># update units for dB_mer</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span><span class="s">&#39;new_units&#39;</span><span class="p">}</span>
+<span class="c"># update display name, long_name</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;long_name&#39;</span><span class="p">:</span><span class="s">&#39;Fancy Name&#39;</span><span class="p">}</span>
+<span class="c"># add new meta data</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;units&#39;</span><span class="p">:</span><span class="s">&#39;fake&#39;</span><span class="p">,</span> <span class="s">&#39;long_name&#39;</span><span class="p">:</span><span class="s">&#39;Display&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Data may be assigned to the instrument, with or without metadata.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;new_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+</pre></div>
+</div>
+<p>The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># assignment with metadata</span>
+<span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+<span class="n">ivm</span><span class="p">[</span><span class="s">&#39;double_mlt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span><span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">],</span> <span class="s">&#39;long_name&#39;</span><span class="p">:</span><span class="s">&#39;Double MLT&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;units&#39;</span><span class="p">:</span><span class="s">&#39;hours&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;ionprf&#39;</span><span class="p">,</span>  <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="c"># requires CDAAC account</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+<span class="c"># the profiles column has a DataFrame in each element which stores</span>
+<span class="c"># all relevant profile information indexed by altitude</span>
+<span class="c"># print part of the first profile, selection by integer location</span>
+<span class="k">print</span> <span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">55</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="c"># print part of profile, selection by altitude value</span>
+<span class="k">print</span> <span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">196</span><span class="p">:</span><span class="mi">207</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Output for both print statements:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>               ELEC_dens    GEO_lat    GEO_lon
+MSL_alt
+196.465454  81807.843750 -15.595786 -73.431015
+198.882019  83305.007812 -15.585764 -73.430191
+201.294342  84696.546875 -15.575747 -73.429382
+203.702469  86303.039062 -15.565735 -73.428589
+206.106354  87460.015625 -15.555729 -73.427803
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-functions">
+<h3>Custom Functions<a class="headerlink" href="#custom-functions" title="Permalink to this headline">¶</a></h3>
+<p>Science analysis is built upon custom data processing. To simplify this task custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded.</p>
+<p>Modify Functions</p>
+<blockquote>
+<div>The instrument object is passed to function without copying, modify in place.</div></blockquote>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_modify</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">inst</span><span class="p">[</span><span class="s">&#39;double_mlt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Add Functions</p>
+<blockquote>
+<div>A copy of the instrument is passed to function, data to be added is returned.</div></blockquote>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Add Function Including Metadata</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param1</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span><span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">],</span> <span class="s">&#39;name&#39;</span><span class="p">:</span><span class="s">&#39;double_mlt&#39;</span><span class="p">,</span>
+            <span class="s">&#39;long_name&#39;</span><span class="p">:</span><span class="s">&#39;doubledouble&#39;</span><span class="p">,</span> <span class="s">&#39;units&#39;</span><span class="p">:</span><span class="s">&#39;hours&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Attaching Custom Function</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_modify</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">ivm</span><span class="p">[</span><span class="s">&#39;double_mlt&#39;</span><span class="p">]</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_add</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<span class="n">custom_complicated_analysis_over_season</span><span class="p">(</span><span class="n">ivm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of custom_func_modify will always be available from instrument object, regardless of what level the science analysis is performed.</p>
+</div>
+<div class="section" id="iteration">
+<h3>Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline">¶</a></h3>
 <p>The whole VEFI data set may be iterated over on a daily basis</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -156,6 +247,118 @@ Maximum meridional magnetic perturbation  26.583
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
      <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="orbit-support">
+<h3>Orbit Support<a class="headerlink" href="#orbit-support" title="Permalink to this headline">¶</a></h3>
+<p>Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at intialization. The &#8216;index&#8217; is the name of the data to be used for determining orbits, and &#8216;kind&#8217; indicates type of orbit. See pysat.Orbit for latest inputs.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;mlt&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;local time&#39;</span><span class="p">}</span>
+<span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+                       <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">info</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ivm</span> <span class="ow">in</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;next available orbit &#39;</span><span class="p">,</span> <span class="n">ivm</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="adding-a-new-instrument">
+<h2>Adding a New Instrument<a class="headerlink" href="#adding-a-new-instrument" title="Permalink to this headline">¶</a></h2>
+<p>pysat works by calling modules written for specific instruments
+that load and process the data consistent with the pysat standard. The name
+of the module corresponds to the combination &#8216;platform_name&#8217; provided when initializing a pysat instrument object. The module should be placed in the pysat instruments directory or in the user specified location (via mechanism to be added) for automatic discovery. A compatible module may also be supplied directly to pysat.Instrument(inst_module=input module) if it also contains attributes platform and name.</p>
+<p>Three functions are required:</p>
+<div class="section" id="list-files">
+<h3>List Files<a class="headerlink" href="#list-files" title="Permalink to this headline">¶</a></h3>
+<p>Pysat maintains a list of files to enable data management functionality. It needs a pandas Series of filenames indexed by time. Pysat expects the module method platform_name.list_files to be:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">datetime_index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where tag indicates a specific subset of the available data from cnofs_vefi.</p>
+<p>See pysat.utils.create_datetime_index for creating a datetime index for an array of irregularly sampled times.</p>
+<p>Pysat will store data in pysat_data_dir/platform/name/tag, helpfully provided in data_path, where pysat_data_dir is specified by user in pysat settings.</p>
+<p>pysat.Files.from_os is a convenience constructor provided for filenames that include time information in the filename and utilize a constant field width. The location and format of the time information is specified using standard python formatting and keywords year, month, day, hour, minute, second. A complete list_files routine could be as simple as</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Files</span><span class="o">.</span><span class="n">from_os</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="n">data_path</span><span class="p">,</span>
+                 <span class="n">format_str</span><span class="o">=</span><span class="s">&#39;cindi-{year:4d}{day:03d}-ivm.hdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-data">
+<h3>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h3>
+<p>Loading is a fundamental pysat activity, this routine enables the user to consider loading a hidden implementation &#8216;detail&#8217;.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">fnames</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The load routine should return a tuple with (data, pysat metadata object).</li>
+<li>data is a pandas DataFrame, column names are the data labels, rows are
+indexed by datetime objects.</li>
+<li>pysat.utils.create_datetime_index provides for quick generation of an
+appropriate datetime index for irregulary sampled data set with gaps</li>
+<li>pysat meta object obtained from pysat.Meta(). Use pandas DataFrame indexed
+by name with columns for &#8216;units&#8217; and &#8216;long_name&#8217;. Additional arbitrary
+columns allowed. See pysat.Meta for more information on creating the
+initial metadata.</li>
+<li>If metadata is already stored with the file, creating the Meta object is
+trivial. If this isn&#8217;t the case, it can be tedious to fill out all
+information if there are many data parameters. In this case it is easier to
+fill out a text file. A convenience function is provided for this  s
+situation. See pysat.Meta.from_csv for more information.</li>
+</ul>
+</div>
+<div class="section" id="download-data">
+<h3>Download Data<a class="headerlink" href="#download-data" title="Permalink to this headline">¶</a></h3>
+<p>Download support significantly lowers the hassle in dealing with any dataset.
+Fetch data from the internet.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">date_array</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>date_array, a list of dates to download data for</li>
+<li>data_path, the full path to the directory to store data</li>
+<li>user, string for username</li>
+<li>password, string for password</li>
+</ul>
+<p>Routine should download data and write it to disk.</p>
+</div>
+<div class="section" id="optional-routines">
+<h3>Optional Routines<a class="headerlink" href="#optional-routines" title="Permalink to this headline">¶</a></h3>
+<p><strong>Initialize</strong></p>
+<p>Initialize any specific instrument info. Runs once.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>inst is a pysat.Instrument() instance. init should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
+<p><strong>Default</strong></p>
+<p>First custom function applied, once per instrument load.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>inst is a pysat.Instrument() instance. default should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
+<p><strong>Clean Data</strong></p>
+<dl class="docutils">
+<dt>Cleans instrument for levels supplied in inst.clean_level.</dt>
+<dd><ul class="first last simple">
+<li>&#8216;clean&#8217; : expectation of good data</li>
+<li>&#8216;dusty&#8217; : probably good data, use with caution</li>
+<li>&#8216;dirty&#8217; : minimal cleaning, only blatant instrument errors removed</li>
+<li>&#8216;none&#8217;  : no cleaning, routine not called</li>
+</ul>
+</dd>
+</dl>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>inst is a pysat.Instrument() instance. clean should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
 </div>
 </div>
 <div class="section" id="api">
@@ -1235,7 +1438,20 @@ Archival Center.</p>
 <li><a class="reference internal" href="#">Welcome to pysat&#8217;s documentation!</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
+<li><a class="reference internal" href="#basics">Basics</a></li>
+<li><a class="reference internal" href="#custom-functions">Custom Functions</a></li>
+<li><a class="reference internal" href="#iteration">Iteration</a></li>
+<li><a class="reference internal" href="#orbit-support">Orbit Support</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-a-new-instrument">Adding a New Instrument</a><ul>
+<li><a class="reference internal" href="#list-files">List Files</a></li>
+<li><a class="reference internal" href="#load-data">Load Data</a></li>
+<li><a class="reference internal" href="#download-data">Download Data</a></li>
+<li><a class="reference internal" href="#optional-routines">Optional Routines</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#api">API</a><ul>
 <li><a class="reference internal" href="#instrument">Instrument</a><ul>
 </ul>

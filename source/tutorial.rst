@@ -1,3 +1,6 @@
+Basics
+------
+
 The core functionality of pysat is exposed through the pysat.Instrument object. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS) begin with
 
 .. code:: python
@@ -44,6 +47,116 @@ The pandas DataFrame holding the data is available in .data. Convenience access 
     # slicing by date time
     print vefi[start:stop, 'dB_mer']
 
+See pysat.Instrument for more.
+
+Metadata is also stored along with the main science data.
+
+.. code:: python
+
+   # all metadata
+   print vefi.meta.data
+   # dB_mer metadata
+   print vefi.meta['dB_mer']
+   # units
+   vefi.meta['dB_mer'].units
+   # update units for dB_mer
+   vefi.meta['dB_mer'] = {'units':'new_units'}
+   # update display name, long_name
+   vefi.meta['dB_mer'] = {'long_name':'Fancy Name'}
+   # add new meta data
+   vefi.meta['new'] = {'units':'fake', 'long_name':'Display'}
+
+Data may be assigned to the instrument, with or without metadata.
+
+.. code:: python
+   
+   vefi['new_data'] = new_data
+
+The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC
+
+.. code:: python
+
+   # assignment with metadata
+   ivm = pysat.Instrument(platform='cnofs', name='ivm', tag='')
+   ivm.load(date=date)
+   ivm['double_mlt'] = {'data':2.*inst['mlt'], 'long_name':'Double MLT', 
+                        'units':'hours'}
+
+.. code:: python
+
+   cosmic = pysat.Instrument('cosmic2013','gps', tag='ionprf',  clean_level='clean')
+   start = pysat.datetime(2009,1,2)
+   stop = pysat.datetime(2009,1,3)
+   # requires CDAAC account 
+   cosmic.download(start, stop, user='', password='')
+   cosmic.load(date=start)
+   # the profiles column has a DataFrame in each element which stores
+   # all relevant profile information indexed by altitude
+   # print part of the first profile, selection by integer location
+   print cosmic[0,'profiles'].iloc[55:60, 0:3]
+   # print part of profile, selection by altitude value
+   print cosmic[0,'profiles'].ix[196:207, 0:3]
+
+Output for both print statements:
+
+.. code:: python
+
+                  ELEC_dens    GEO_lat    GEO_lon
+   MSL_alt                                       
+   196.465454  81807.843750 -15.595786 -73.431015
+   198.882019  83305.007812 -15.585764 -73.430191
+   201.294342  84696.546875 -15.575747 -73.429382
+   203.702469  86303.039062 -15.565735 -73.428589
+   206.106354  87460.015625 -15.555729 -73.427803
+    
+Custom Functions
+----------------
+
+Science analysis is built upon custom data processing. To simplify this task custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded.
+
+Modify Functions
+
+	The instrument object is passed to function without copying, modify in place.
+
+.. code:: python
+
+   def custom_func_modify(inst, optional_param=False):
+       inst['double_mlt'] = 2.*inst['mlt']
+
+Add Functions
+
+	A copy of the instrument is passed to function, data to be added is returned.
+
+.. code:: python
+
+   def custom_func_add(inst, optional_param=False):
+       return 2.*inst['mlt']
+
+Add Function Including Metadata
+
+.. code:: python
+
+   def custom_func_add(inst, optional_param1=False, optional_param2=False):
+       return {'data':2.*inst['mlt'], 'name':'double_mlt', 
+               'long_name':'doubledouble', 'units':'hours'}
+
+Attaching Custom Function
+
+.. code:: python
+
+   ivm.custom.add(custom_func_modify, 'modify', optional_param2=True)
+   ivm.load(2009,1)
+   print ivm['double_mlt']
+   ivm.custom.add(custom_func_add, 'add', optional_param2=True)
+   ivm.bounds = (start,stop)
+   custom_complicated_analysis_over_season(ivm)
+
+The output of custom_func_modify will always be available from instrument object, regardless of what level the science analysis is performed.
+
+
+Iteration
+---------
+
 The whole VEFI data set may be iterated over on a daily basis
 
 .. code:: python
@@ -84,6 +197,25 @@ Bounds may be set to control the dates covered by the iteration,
    # iterate over custom season
    for vefi in vefi:
 	print 'Maximum meridional magnetic perturbation ', vefi['dB_mer'].max()
+
+
+
+
+Orbit Support
+-------------
+
+Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at intialization. The 'index' is the name of the data to be used for determining orbits, and 'kind' indicates type of orbit. See pysat.Orbit for latest inputs.
+
+.. code:: python
+    
+   info = {'index':'mlt', 'kind':'local time'}
+   ivm = pysat.Instrument(platform='cnofs', name='ivm', tag='', 
+                          clean_level='clean', orbit_info=info)
+   start = [pd.datetime(2009,1,1), pd.datetime(2010,1,1)]
+   stop = [pd.datetime(2009,4,1), pd.datetime(2010,4,1)]
+   ivm.bounds = (start, stop)
+   for ivm in ivm.orbits:
+       print 'next available orbit ', ivm.data
 
 
 

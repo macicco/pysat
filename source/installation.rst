@@ -17,3 +17,4 @@ Pysat will maintain organization of data from various platforms. Upon the first
 	``import pysat``
 pysat will remind you to set the top level directory that will hold the data,
 	``pysat.utils.set_data_dir(path=path)``
+
