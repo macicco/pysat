@@ -23,9 +23,13 @@ Tutorial
 .. include:: tutorial.rst
 
 Adding a New Instrument
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 .. include:: new_instrument.rst
 
+Examples
+^^^^^^^^
+.. include:: examples.rst
+.. include:: example_2.rst
 API
 ^^^
 Instrument

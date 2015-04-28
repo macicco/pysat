@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Orbit-by-Orbit Plots &mdash; pysat 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pysat 0.2.0 documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pysat 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="orbit-by-orbit-plots">
+<h1>Orbit-by-Orbit Plots<a class="headerlink" href="#orbit-by-orbit-plots" title="Permalink to this headline">¶</a></h1>
+<p>Plotting a series of orbit-by-orbit plots is a great way to become familiar with a data set. If the data set doesn&#8217;t come with orbit information, this can be a challenge. Orbits also go past day breaks, so if data comes in daily files this requires loading multiple files at once, joining the data together, etc. pysat goes through that trouble for you.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pysat</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pds</span>
+
+<span class="c"># set the directory to save plots to</span>
+<span class="n">results_dir</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="c"># select vefi dc magnetometer data, use longitude to determine where</span>
+<span class="c"># there are changes in the orbit (local time info not in file)</span>
+<span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">}</span>
+<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">,</span>
+                        <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
+
+<span class="c"># set limits on dates analysis will cover, inclusive</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c"># if there is no vefi dc magnetometer data on your system</span>
+<span class="c"># then run command below</span>
+<span class="c"># where start and stop are pandas datetimes (from above)</span>
+<span class="c"># pysat will automatically register the addition of this data at the end</span>
+<span class="c"># of download</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+
+<span class="c"># leave bounds unassigned to cover the whole dataset</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">orbit_count</span><span class="p">,</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">):</span>
+    <span class="c"># for each loop pysat puts a copy of the next available</span>
+    <span class="c"># orbit into   vefi.data</span>
+    <span class="c"># changing .data at this level does not alter other orbits</span>
+    <span class="c"># reloading the same orbit will erase any changes made</span>
+
+    <span class="c"># satellite data can have time gaps, which leads to plots</span>
+    <span class="c"># with erroneous lines connecting measurements on</span>
+    <span class="c"># both sides of the gap</span>
+    <span class="c"># command below fills in any data gaps using a</span>
+    <span class="c"># 1-second cadence with NaNs</span>
+    <span class="c"># see pandas documentation for more info</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;1S&#39;</span><span class="p">,</span>  <span class="n">fill_method</span><span class="o">=</span><span class="s">&#39;ffill&#39;</span><span class="p">,</span>
+                                   <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;left&#39;</span> <span class="p">)</span>
+
+    <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;B_flag&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="o">+</span><span class="s">&#39; - &#39;</span> <span class="o">+</span>
+                     <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Interp. Flag&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">p_params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;B_north&#39;</span><span class="p">,</span> <span class="s">&#39;B_up&#39;</span><span class="p">,</span> <span class="s">&#39;B_west&#39;</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">,</span>
+                <span class="s">&#39;dB_par&#39;</span><span class="p">,</span> <span class="s">&#39;dB_zon&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">p_params</span><span class="p">):</span>
+       <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="n">param</span><span class="p">])</span>
+       <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+       <span class="n">a</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">360</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">))</span>
+
+    <span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;orbit_</span><span class="si">%05i</span><span class="s">.png&#39;</span> <span class="o">%</span> <span class="n">orbit_count</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_dir</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output</p>
+<img alt="./images/orbit_00000.png" src="./images/orbit_00000.png" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/example_2.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Russell Stoneback.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="_sources/example_2.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
