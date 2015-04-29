@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; pysat 0.2.0 documentation</title>
+  <title>Installation &mdash; pysat 0.2.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.2.0 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.2.1 documentation" href="index.html"/>
         <link rel="next" title="Tutorial" href="tutorial.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -138,26 +138,38 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Pysat itself may be installed via:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install pysat
+</pre></div>
+</div>
 <p>Pysat requires some external non-python libraries for loading science data sets stored in netCDF and CDF formats.</p>
 <ul class="simple">
-<li>CDF: <a class="reference external" href="http://cdf.gsfc.nasa.gov">http://cdf.gsfc.nasa.gov</a></li>
-<li>netCDF: <a class="reference external" href="http://www.unidata.ucar.edu/software/netcdf/">http://www.unidata.ucar.edu/software/netcdf/</a></li>
+<li>CDF Library from <a class="reference external" href="http://cdf.gsfc.nasa.gov">http://cdf.gsfc.nasa.gov</a>
+and SpacePy,</li>
 </ul>
-<dl class="docutils">
-<dt>Pysat itself may be installed via</dt>
-<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pysat</span></code></dd>
-<dt>Pandas may be obtained similarly,</dt>
-<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code></dd>
-<dt>To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use</dt>
-<dd><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/rstoneback/pandas.git</span></code></dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre>pip install spacepy
+</pre></div>
+</div>
+<ul class="simple">
+<li>netCDF C Library from <a class="reference external" href="http://www.unidata.ucar.edu/software/netcdf/">http://www.unidata.ucar.edu/software/netcdf/</a>
+and netCDF4-python,</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>pip install netCDF4
+</pre></div>
+</div>
+<p>To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install git+https://github.com/rstoneback/pandas.git
+</pre></div>
+</div>
 <p>The forked pandas is required for higher dimensional data sets. A pull-request is planned.</p>
-<dl class="docutils">
-<dt>Pysat will maintain organization of data from various platforms. Upon the first</dt>
-<dd><code class="docutils literal"><span class="pre">import</span> <span class="pre">pysat</span></code></dd>
-<dt>pysat will remind you to set the top level directory that will hold the data,</dt>
-<dd><code class="docutils literal"><span class="pre">pysat.utils.set_data_dir(path=path)</span></code></dd>
-</dl>
+<p>Pysat will maintain organization of data from various platforms. Upon the first</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
+</pre></div>
+</div>
+<p>pysat will remind you to set the top level directory that will hold the data,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -199,7 +211,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
