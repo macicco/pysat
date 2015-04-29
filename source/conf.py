@@ -21,8 +21,9 @@ import shlex
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-sys.path.insert(0, os.path.abspath('../'))
-import pysat
+sys.path.insert(0, os.path.abspath('/Users/rstoneba/Documents/git/pysat/'))
+print sys.path
+#import pysat
 
 
 

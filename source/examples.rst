@@ -78,7 +78,7 @@ How often does a particular thing occur on a orbit-by-orbit basis? Let's find ou
 
 Result
 
-.. image:: ./images/ssnl_occurrence_by_orbit_demo.png
+.. image:: ../images/ssnl_occurrence_by_orbit_demo.png
 
 Orbit-by-Orbit Plots
 --------------------
@@ -156,5 +156,5 @@ Plotting a series of orbit-by-orbit plots is a great way to become familiar with
 
 Output
 
-.. image:: ./images/orbit_00000.png
+.. image:: ../images/orbit_00000.png
 
