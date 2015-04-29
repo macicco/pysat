@@ -24,7 +24,7 @@ To get the forked pandas that accommodates pandas Series and DataFrames within e
 
    pip install git+https://github.com/rstoneback/pandas.git
 
-The forked pandas is required for higher dimensional data sets. A pull-request is planned.
+The forked pandas is required for full support of higher dimensional data sets. A pull-request is planned.
 
 Pysat will maintain organization of data from various platforms. Upon the first
 
