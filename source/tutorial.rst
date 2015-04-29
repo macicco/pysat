@@ -1,3 +1,7 @@
+
+Tutorial
+========
+
 Basics
 ------
 
@@ -17,7 +21,7 @@ Behind the scenes pysat uses a python module named cnofs_vefi that understands h
    stop = pysat.datetime(2009,5,12)
    vefi.download(start, stop)
 
-The data is downloaded to pysat_data_dir/platform/name/tag/*, in this case
+The data is downloaded to pysat_data_dir/platform/name/tag/, in this case
 pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set using
 
 .. code:: python
@@ -199,8 +203,6 @@ Bounds may be set to control the dates covered by the iteration,
 	print 'Maximum meridional magnetic perturbation ', vefi['dB_mer'].max()
 
 
-
-
 Orbit Support
 -------------
 
@@ -217,13 +219,4 @@ Pysat has functionality to determine orbits on the fly from loaded data. These o
    for ivm in ivm.orbits:
        print 'next available orbit ', ivm.data
 
-
-
-
-
-
-
-
-	  
-
-	  
+  

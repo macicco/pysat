@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Supported Instruments &mdash; pysat 0.2.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pysat 0.2.0 documentation" href="index.html"/>
+        <link rel="prev" title="API" href="api.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> pysat</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basics">Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#custom-functions">Custom Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#iteration">Iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#orbit-support">Orbit Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#list-files">List Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#load-data">Load Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#download-data">Download Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#optional-routines">Optional Routines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#instrument">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#custom">Custom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#meta">Meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#orbits">Orbits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-pysat.utils">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Supported Instruments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pysat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Supported Instruments</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/supported_instruments.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="supported-instruments">
+<h1>Supported Instruments<a class="headerlink" href="#supported-instruments" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pysat.instruments.cnofs_vefi">
+<span id="c-nofs-vefi"></span><h2>C/NOFS VEFI<a class="headerlink" href="#module-pysat.instruments.cnofs_vefi" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Vector Electric Field Instrument (VEFI)
+onboard the Communication and Navigation Outage Forecasting
+System (C/NOFS) satellite. Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">{&#8216;dc_b&#8217;}</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>tag = &#8216;dc_b&#8217;: 1 second DC magnetometer data</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Currently no cleaning routine.</li>
+<li>Module not written by VEFI team.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pysat.instruments.cnofs_ivm">
+<span id="c-nofs-ivm"></span><h2>C/NOFS IVM<a class="headerlink" href="#module-pysat.instruments.cnofs_ivm" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Ion Velocity Meter (IVM)
+onboard the Communication and Navigation Outage Forecasting
+System (C/NOFS) satellite, part of the Coupled Ion Netural Dynamics
+Investigation (CINDI). Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb) in CDF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">No tags supported</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>The sampling rate of the instrument changes on July 29th, 2010.
+The rate is attached to the instrument object as .sample_rate.</li>
+<li>The cleaning parameters for the instrument are still under development.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pysat.instruments.cosmic2013_gps">
+<span id="cosmic-2013-gps"></span><h2>COSMIC 2013 GPS<a class="headerlink" href="#module-pysat.instruments.cosmic2013_gps" title="Permalink to this headline">¶</a></h2>
+<p>Loads data from the COSMIC satellite, 2013 reprocessing.</p>
+<p>The Constellation Observing System for Meteorology, Ionosphere, and Climate
+(COSMIC) is comprised of six satellites in LEO with GPS receivers. The occultation
+of GPS signals by the atmosphere provides a measurement of atmospheric
+parameters. Data downloaded from the COSMIC Data Analaysis and
+Archival Center.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param altitude_bin:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Number of kilometers to bin altitude profiles by when loading.
+Currently only supported for tag=&#8217;ionprf&#8217;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type altitude_bin:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>&#8216;ionprf: &#8216;ionPrf&#8217; ionosphere profiles</li>
+<li>&#8216;sonprf&#8217;: &#8216;sonPrf&#8217; files</li>
+<li>&#8216;wetprf&#8217;: &#8216;wetPrf&#8217; files</li>
+<li>&#8216;atmPrf&#8217;: &#8216;atmPrf&#8217; files</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Routine was not produced by COSMIC team</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pysat.instruments.cosmic_gps">
+<span id="cosmic-gps"></span><h2>COSMIC GPS<a class="headerlink" href="#module-pysat.instruments.cosmic_gps" title="Permalink to this headline">¶</a></h2>
+<p>Loads and downloads data from the COSMIC satellite.</p>
+<p>The Constellation Observing System for Meteorology, Ionosphere, and Climate
+(COSMIC) is comprised of six satellites in LEO with GPS receivers. The occultation
+of GPS signals by the atmosphere provides a measurement of atmospheric
+parameters. Data downloaded from the COSMIC Data Analaysis and
+Archival Center.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>&#8216;ionprf: &#8216;ionPrf&#8217; ionosphere profiles</li>
+<li>&#8216;sonprf&#8217;: &#8216;sonPrf&#8217; files</li>
+<li>&#8216;wetprf&#8217;: &#8216;wetPrf&#8217; files</li>
+<li>&#8216;atmPrf&#8217;: &#8216;atmPrf&#8217; files</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Routine was not produced by COSMIC team</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="api.html" class="btn btn-neutral" title="API"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Russell Stoneback.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

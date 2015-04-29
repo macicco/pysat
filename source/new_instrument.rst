@@ -1,3 +1,7 @@
+
+Adding a New Instrument
+=======================
+
 pysat works by calling modules written for specific instruments
 that load and process the data consistent with the pysat standard. The name
 of the module corresponds to the combination 'platform_name' provided when initializing a pysat instrument object. The module should be placed in the pysat instruments directory or in the user specified location (via mechanism to be added) for automatic discovery. A compatible module may also be supplied directly to pysat.Instrument(inst_module=input module) if it also contains attributes platform and name. 
@@ -114,5 +118,7 @@ Cleans instrument for levels supplied in inst.clean_level.
        return None
 
 inst is a pysat.Instrument() instance. clean should modify inst in-place as needed; equivalent to a 'modify' custom routine.
+
+
 
 
