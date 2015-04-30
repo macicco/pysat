@@ -26,6 +26,14 @@ Orbits
 .. autoclass:: pysat.Orbits
    :members:
 
+Seasonal Analysis
+-----------------
+
+Occurrence Probability
+^^^^^^^^^^^^^^^^^^^^^^
+.. automodule:: pysat.ssnl.occur_prob
+   :members:
+
 Utilities
 ---------
 .. automodule:: pysat.utils

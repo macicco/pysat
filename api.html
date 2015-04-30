@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#files">Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#meta">Meta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#orbits">Orbits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seasonal-analysis">Seasonal Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.utils">Utilities</a></li>
 </ul>
 </li>
@@ -471,7 +472,7 @@ up to hundreds of nanoseconds. Use netCDF4 if this is a problem.</p>
 <em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Custom</code><a class="headerlink" href="#pysat.Custom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a queue of functions when instrument.load called.</p>
 <p>Nano-kernel functionality enables instrument objects that are
-&#8216;fire and forget&#8217;. The functions are always run whenever
+&#8216;set and forget&#8217;. The functions are always run whenever
 the instrument load routine is called so instrument objects may
 be passed safely to other routines and the data will always
 be processed appropriately.</p>
@@ -530,7 +531,7 @@ data is accepted from return.</dd>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Allowed <cite>add</cite> function returns :</p>
+<p>Allowed <cite>add</cite> function returns:</p>
 <ul class="last simple">
 <li>{&#8216;data&#8217; : pandas Series/DataFrame/array_like,
 &#8216;units&#8217; : string/array_like of strings,
@@ -998,6 +999,141 @@ then the last orbit of data from the last day is loaded into .data.</p>
 
 </dd></dl>
 
+</div>
+<div class="section" id="seasonal-analysis">
+<h2>Seasonal Analysis<a class="headerlink" href="#seasonal-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pysat.ssnl.occur_prob">
+<span id="occurrence-probability"></span><h3>Occurrence Probability<a class="headerlink" href="#module-pysat.ssnl.occur_prob" title="Permalink to this headline">¶</a></h3>
+<p>Occurrence probability routines, daily or by orbit.</p>
+<dl class="function">
+<dt id="pysat.ssnl.occur_prob.by_orbit2D">
+<code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">by_orbit2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.by_orbit2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>2D Occurrence Probability of data_label orbit-by-orbit over a season.</p>
+<p>If data_label is greater than gate atleast once per orbit, then a
+100% occurrence probability results. Season delineated by the bounds
+attached to Instrument object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binx</strong> (<em>list</em>) &#8211; [min value, max value, number of bins]</li>
+<li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifyies data product(s) to calculate occurrence probability</li>
+<li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
+<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
+<li><em>returned if requested. Note that arrays are organized for direct</em></li>
+<li><em>plotting, y values along rows, x along columns</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.occur_prob.by_orbit3D">
+<code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">by_orbit3D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>bin3</em>, <em>label3</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.by_orbit3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Occurrence Probability of data_label orbit-by-orbit over a season.</p>
+<p>If data_label is greater than gate atleast once per orbit, then a
+100% occurrence probability results. Season delineated by the bounds
+attached to Instrument object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binx</strong> (<em>list</em>) &#8211; [min value, max value, number of bins]</li>
+<li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifyies data product(s) to calculate occurrence probability</li>
+<li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
+<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
+<li><em>returned if requested. Note that arrays are organized for direct</em></li>
+<li><em>plotting, z,y,x</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.occur_prob.daily2D">
+<code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">daily2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.daily2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>2D Daily Occurrence Probability of data_label &gt; gate over a season.</p>
+<p>If data_label is greater than gate atleast once per day,
+then a 100% occurrence probability results. Season delineated by
+the bounds attached to Instrument object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binx</strong> (<em>list</em>) &#8211; [min, max, number of bins]</li>
+<li><strong>labelx</strong> (<em>string</em>) &#8211; name for data product for binx</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
+<li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
+<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
+<li><em>returned if requested. Note that arrays are organized for direct</em></li>
+<li><em>plotting, y values along rows, x along columns.</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.occur_prob.daily3D">
+<code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">daily3D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>bin3</em>, <em>label3</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.daily3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>3D Daily Occurrence Probability of data_label &gt; gate over a season.</p>
+<p>If data_label is greater than gate atleast once per day,
+then a 100% occurrence probability results. Season delineated by
+the bounds attached to Instrument object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binx</strong> (<em>list</em>) &#8211; [min, max, number of bins]</li>
+<li><strong>labelx</strong> (<em>string</em>) &#8211; name for data product for binx</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
+<li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
+<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217;, &#8216;biny&#8217;, and &#8216;binz&#8217;</em></li>
+<li><em>are also returned if requested. Note that arrays are organized for direct</em></li>
+<li><em>plotting, z,y,x.</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-pysat.utils">
 <span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-pysat.utils" title="Permalink to this headline">¶</a></h2>
