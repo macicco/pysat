@@ -10,12 +10,14 @@ Pysat requires some external non-python libraries for loading science data sets 
 
 - CDF Library from http://cdf.gsfc.nasa.gov
   and SpacePy,
+
 ::
 
    pip install spacepy
 
 - netCDF C Library from http://www.unidata.ucar.edu/software/netcdf/ 
   and netCDF4-python,
+
 ::
 
   pip install netCDF4
