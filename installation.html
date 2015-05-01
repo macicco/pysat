@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html#files">Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#meta">Meta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#orbits">Orbits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#seasonal-analysis">Seasonal Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-pysat.utils">Utilities</a></li>
 </ul>
 </li>
@@ -138,30 +139,57 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Pysat itself may be installed via:</p>
+<dl class="docutils">
+<dt>Starting from scratch:</dt>
+<dd>Python and associated packages for science are freely available from a couple        commercial vendors, <a class="reference external" href="https://store.enthought.com">Enthought</a> and <a class="reference external" href="http://continuum.io/downloads">Contiuum Analytics</a>. Core science packages such as numpy, scipy, matplotlib, pandas and many others may also be installed directly via pip or your favorite package manager.</dd>
+</dl>
+<hr class="docutils" />
+<p><strong>pysat</strong></p>
+<hr class="docutils" />
+<p>Pysat itself may be installed from a terminal command line via:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install pysat
 </pre></div>
 </div>
 <p>Pysat requires some external non-python libraries for loading science data sets stored in netCDF and CDF formats.</p>
-<ul class="simple">
-<li>CDF Library from <a class="reference external" href="http://cdf.gsfc.nasa.gov">http://cdf.gsfc.nasa.gov</a>
-and SpacePy,</li>
+<hr class="docutils" />
+<p><strong>Common Data Format</strong></p>
+<hr class="docutils" />
+<ul>
+<li><dl class="first docutils">
+<dt>CDF Library from NASA (<a class="reference external" href="http://cdf.gsfc.nasa.gov">http://cdf.gsfc.nasa.gov</a>)</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf36_0/macosX/cdf36_0-setup_universal_binary.tar.gz">Mac OS X Installer</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">SpacePy</p>
+</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre>pip install spacepy
 </pre></div>
 </div>
+<hr class="docutils" />
+<p><strong>netCDF</strong></p>
+<hr class="docutils" />
 <ul class="simple">
-<li>netCDF C Library from <a class="reference external" href="http://www.unidata.ucar.edu/software/netcdf/">http://www.unidata.ucar.edu/software/netcdf/</a>
-and netCDF4-python,</li>
+<li>netCDF C Library from Unidata (<a class="reference external" href="http://www.unidata.ucar.edu/downloads/netcdf/index.jsp">http://www.unidata.ucar.edu/downloads/netcdf/index.jsp</a>)</li>
+<li>netCDF4-python</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre>pip install netCDF4
 </pre></div>
 </div>
+<hr class="docutils" />
+<p><strong>pandas</strong></p>
+<hr class="docutils" />
 <p>To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install git+https://github.com/rstoneback/pandas.git
 </pre></div>
 </div>
 <p>The forked pandas is required for full support of higher dimensional data sets. A pull-request is planned.</p>
+<hr class="docutils" />
+<p><strong>Data Directory</strong></p>
+<hr class="docutils" />
 <p>Pysat will maintain organization of data from various platforms. Upon the first</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
 </pre></div>

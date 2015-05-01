@@ -1005,6 +1005,16 @@ then the last orbit of data from the last day is loaded into .data.</p>
 <div class="section" id="module-pysat.ssnl.occur_prob">
 <span id="occurrence-probability"></span><h3>Occurrence Probability<a class="headerlink" href="#module-pysat.ssnl.occur_prob" title="Permalink to this headline">¶</a></h3>
 <p>Occurrence probability routines, daily or by orbit.</p>
+<p>Routines calculate the occurrence of an event greater than a supplied gate
+occuring at least once per day, or once per orbit. The data used to
+determine the occurrence must be 1D. If a property of a 2D or higher dataset
+is needed attach a custom function that performs the check and returns a
+1D Series.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The included routines use the season attached to the supplied instrument
+object as the season of interest.</p>
+</div>
 <dl class="function">
 <dt id="pysat.ssnl.occur_prob.by_orbit2D">
 <code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">by_orbit2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.by_orbit2D" title="Permalink to this definition">¶</a></dt>
@@ -1017,9 +1027,10 @@ attached to Instrument object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inst</strong> (<a class="reference internal" href="#pysat.Instrument" title="pysat.Instrument"><em>pysat.Instrument()</em></a>) &#8211; Instrument to use for calculating occurrence probability</li>
 <li><strong>binx</strong> (<em>list</em>) &#8211; [min value, max value, number of bins]</li>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
-<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifyies data product(s) to calculate occurrence probability</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
 </ul>
 </td>
@@ -1035,6 +1046,10 @@ attached to Instrument object.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Season delineated by the bounds attached to Instrument object.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -1049,9 +1064,10 @@ attached to Instrument object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inst</strong> (<a class="reference internal" href="#pysat.Instrument" title="pysat.Instrument"><em>pysat.Instrument()</em></a>) &#8211; Instrument to use for calculating occurrence probability</li>
 <li><strong>binx</strong> (<em>list</em>) &#8211; [min value, max value, number of bins]</li>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
-<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifyies data product(s) to calculate occurrence probability</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
 </ul>
 </td>
@@ -1067,6 +1083,10 @@ attached to Instrument object.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Season delineated by the bounds attached to Instrument object.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -1074,16 +1094,17 @@ attached to Instrument object.</p>
 <code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">daily2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.daily2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>2D Daily Occurrence Probability of data_label &gt; gate over a season.</p>
 <p>If data_label is greater than gate atleast once per day,
-then a 100% occurrence probability results. Season delineated by
-the bounds attached to Instrument object.</p>
+then a 100% occurrence probability results.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inst</strong> (<a class="reference internal" href="#pysat.Instrument" title="pysat.Instrument"><em>pysat.Instrument()</em></a>) &#8211; Instrument to use for calculating occurrence probability</li>
 <li><strong>binx</strong> (<em>list</em>) &#8211; [min, max, number of bins]</li>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; name for data product for binx</li>
-<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
+<li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability
+e.g. inst[data_label]</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
 </ul>
 </td>
@@ -1099,6 +1120,10 @@ the bounds attached to Instrument object.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Season delineated by the bounds attached to Instrument object.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -1113,6 +1138,7 @@ the bounds attached to Instrument object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inst</strong> (<a class="reference internal" href="#pysat.Instrument" title="pysat.Instrument"><em>pysat.Instrument()</em></a>) &#8211; Instrument to use for calculating occurrence probability</li>
 <li><strong>binx</strong> (<em>list</em>) &#8211; [min, max, number of bins]</li>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; name for data product for binx</li>
 <li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
@@ -1131,6 +1157,10 @@ the bounds attached to Instrument object.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Season delineated by the bounds attached to Instrument object.</p>
+</div>
 </dd></dl>
 
 </div>
