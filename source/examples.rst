@@ -80,6 +80,8 @@ Result
 
 .. image:: ../images/ssnl_occurrence_by_orbit_demo.png
 
+The top plot shows the occurrence probability of a positive magnetic field perturbation as a function of geographic longitude and latitude. The bottom plot shows the number of times  the satellite was in each bin with data (on per orbit basis). Individual orbit tracks may be seen. The satellite doesn't return to the same locations on each pass so there is a reduction in counts in-between. All local times are covered by this plot, over representing the coverage of a single satellite.
+
 Orbit-by-Orbit Plots
 --------------------
 
