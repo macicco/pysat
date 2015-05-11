@@ -895,6 +895,10 @@ consider it a new orbit</li>
 <p class="last">class should not be called directly by the user, use the interface provided
 by inst.orbits where inst = pysat.Instrument()</p>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This class is still under development.</p>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">}</span>
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">,</span>
@@ -1006,13 +1010,14 @@ then the last orbit of data from the last day is loaded into .data.</p>
 <span id="occurrence-probability"></span><h3>Occurrence Probability<a class="headerlink" href="#module-pysat.ssnl.occur_prob" title="Permalink to this headline">¶</a></h3>
 <p>Occurrence probability routines, daily or by orbit.</p>
 <p>Routines calculate the occurrence of an event greater than a supplied gate
-occuring at least once per day, or once per orbit. The data used to
-determine the occurrence must be 1D. If a property of a 2D or higher dataset
-is needed attach a custom function that performs the check and returns a
-1D Series.</p>
+occuring at least once per day, or once per orbit. The probability is
+calculated as the (number of times with at least one hit in bin)/(number
+of times in the bin).The data used to determine the occurrence must be 1D.
+If a property of a 2D or higher dataset is needed attach a custom function
+that performs the check and returns a 1D Series.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The included routines use the season attached to the supplied instrument
+<p class="last">The included routines use the bounds attached to the supplied instrument
 object as the season of interest.</p>
 </div>
 <dl class="function">
@@ -1021,7 +1026,8 @@ object as the season of interest.</p>
 <dd><p>2D Occurrence Probability of data_label orbit-by-orbit over a season.</p>
 <p>If data_label is greater than gate atleast once per orbit, then a
 100% occurrence probability results. Season delineated by the bounds
-attached to Instrument object.</p>
+attached to Instrument object.
+Prob = (# of times with at least one hit)/(# of times in bin)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1032,6 +1038,7 @@ attached to Instrument object.</p>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
 <li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+<li><strong>returnBins</strong> (<em>Boolean</em>) &#8211; if True, return arrays with values of bin edges, useful for pcolor</li>
 </ul>
 </td>
 </tr>
@@ -1058,7 +1065,8 @@ attached to Instrument object.</p>
 <dd><p>3D Occurrence Probability of data_label orbit-by-orbit over a season.</p>
 <p>If data_label is greater than gate atleast once per orbit, then a
 100% occurrence probability results. Season delineated by the bounds
-attached to Instrument object.</p>
+attached to Instrument object.
+Prob = (# of times with at least one hit)/(# of times in bin)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1069,6 +1077,7 @@ attached to Instrument object.</p>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; identifies data product for binx</li>
 <li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+<li><strong>returnBins</strong> (<em>Boolean</em>) &#8211; if True, return arrays with values of bin edges, useful for pcolor</li>
 </ul>
 </td>
 </tr>
@@ -1093,8 +1102,10 @@ attached to Instrument object.</p>
 <dt id="pysat.ssnl.occur_prob.daily2D">
 <code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">daily2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.daily2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>2D Daily Occurrence Probability of data_label &gt; gate over a season.</p>
-<p>If data_label is greater than gate atleast once per day,
-then a 100% occurrence probability results.</p>
+<p>If data_label is greater than gate at least once per day,
+then a 100% occurrence probability results.Season delineated by the bounds
+attached to Instrument object.
+Prob = (# of times with at least one hit)/(# of times in bin)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1106,6 +1117,7 @@ then a 100% occurrence probability results.</p>
 <li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability
 e.g. inst[data_label]</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+<li><strong>returnBins</strong> (<em>Boolean</em>) &#8211; if True, return arrays with values of bin edges, useful for pcolor</li>
 </ul>
 </td>
 </tr>
@@ -1132,7 +1144,8 @@ e.g. inst[data_label]</li>
 <dd><p>3D Daily Occurrence Probability of data_label &gt; gate over a season.</p>
 <p>If data_label is greater than gate atleast once per day,
 then a 100% occurrence probability results. Season delineated by
-the bounds attached to Instrument object.</p>
+the bounds attached to Instrument object.
+Prob = (# of times with at least one hit)/(# of times in bin)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1143,6 +1156,7 @@ the bounds attached to Instrument object.</p>
 <li><strong>labelx</strong> (<em>string</em>) &#8211; name for data product for binx</li>
 <li><strong>data_label</strong> (<em>list of strings</em>) &#8211; identifies data product(s) to calculate occurrence probability</li>
 <li><strong>gate</strong> (<em>list of values</em>) &#8211; values that data_label must achieve to be counted as an occurrence</li>
+<li><strong>returnBins</strong> (<em>Boolean</em>) &#8211; if True, return arrays with values of bin edges, useful for pcolor</li>
 </ul>
 </td>
 </tr>
