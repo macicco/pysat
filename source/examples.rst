@@ -80,7 +80,9 @@ Result
 
 .. image:: ../images/ssnl_occurrence_by_orbit_demo.png
 
-The top plot shows the occurrence probability of a positive magnetic field perturbation as a function of geographic longitude and latitude. The bottom plot shows the number of times  the satellite was in each bin with data (on per orbit basis). Individual orbit tracks may be seen. The satellite doesn't return to the same locations on each pass so there is a reduction in counts in-between. All local times are covered by this plot, over representing the coverage of a single satellite. The blue band that varies in latitude as a function of longitude is the location of the magnetic equator. Torque rod firings that help C/NOFS maintain proper attitude are performed at the magnetic equator. Data during these firings is excluded by the custom function attached to the vefi instrument object.
+The top plot shows the occurrence probability of a positive magnetic field perturbation as a function of geographic longitude and latitude. The bottom plot shows the number of times  the satellite was in each bin with data (on per orbit basis). Individual orbit tracks may be seen. The hatched pattern is formed from the satellite traveling North to South and vice-versa. At the latitudinal extremes of the orbit the latitudinal velocity goes through zero providing a greater coverage density. The satellite doesn't return to the same locations on each pass so there is a reduction in counts in-between. All local times are covered by this plot, over-representing the coverage of a single satellite. 
+
+The horizontal blue band that varies in latitude as a function of longitude is the location of the magnetic equator. Torque rod firings that help C/NOFS maintain proper attitude are performed at the magnetic equator. Data during these firings is excluded by the custom function attached to the vefi instrument object.
 
 Orbit-by-Orbit Plots
 --------------------
