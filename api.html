@@ -307,8 +307,20 @@ using keyword inst_module.</p>
 <dd><p>Iterates instrument object by loading subsequent days or files.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Limits of iteration, and iteration type (date/file)
+<p>Limits of iteration, and iteration type (date/file)
 set by <cite>bounds</cite> attribute.</p>
+<p class="last">Default bounds are the first and last dates from files on local system.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>
+<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Another day loaded&#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -355,7 +367,20 @@ list-like collection also accepted</li>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">both start and stop must be the same type (date, or filename) or None</p>
+<p class="last">Both start and stop must be the same type (date, or filename) or None</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>
+<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+
+<span class="n">start2</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stop2</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">([</span><span class="n">start</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="n">stop</span><span class="p">,</span> <span class="n">stop2</span><span class="p">])</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -368,7 +393,7 @@ list-like collection also accepted</li>
 <dl class="method">
 <dt id="pysat.Instrument.download">
 <code class="descname">download</code><span class="sig-paren">(</span><em>start</em>, <em>stop</em>, <em>user=None</em>, <em>password=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download data for given Instrument object.</p>
+<dd><p>Download data for given Instrument object from start to stop.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -385,7 +410,9 @@ list-like collection also accepted</li>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Data will be downloaded to pysat_data_dir/patform/name/tag</p>
+<p>Data will be downloaded to pysat_data_dir/patform/name/tag</p>
+<p class="last">If Instrument bounds are set to defaults they are updated
+after files are downloaded.</p>
 </div>
 </dd></dl>
 
@@ -447,19 +474,32 @@ first day(default)/file will be loaded.</p>
 <dt id="pysat.Instrument.to_netcdf3">
 <code class="descname">to_netcdf3</code><span class="sig-paren">(</span><em>fname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.to_netcdf3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores loaded data into a netCDF3 64-bit file.</p>
-<p>Stores 1-D data along dimension &#8216;time&#8217; - the date time index.
-Stores object data (dataframes within dataframe) separately:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> (<em>string</em>) &#8211; full path to save instrument object to</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Stores 1-D data along dimension &#8216;time&#8217; - the date time index.</p>
+<p>Stores object data (e.g. dataframes within series) separately</p>
 <blockquote>
-<div><p>The name of the object data is used to prepend extra variable
-dimensions within netCDF, key_2, key_3, first dimension time</p>
-<p>The index organizing the data stored as key_sample_index
-from_netcdf3 uses this naming scheme to reconstruct data structure</p>
+<div><ul class="simple">
+<li>The name of the series is used to prepend extra variable
+dimensions within netCDF, key_2, key_3; first dimension time</li>
+<li>The index organizing the data stored as key_sample_index</li>
+<li>from_netcdf3 uses this naming scheme to reconstruct data structure</li>
+</ul>
 </div></blockquote>
 <p>The datetime index is stored as &#8216;UNIX time&#8217;. netCDF-3 doesn&#8217;t support
 64-bit integers so it is stored as a 64-bit float. This results in a
 loss of datetime precision when converted back to datetime index
 up to hundreds of nanoseconds. Use netCDF4 if this is a problem.</p>
-<p>All attributes attached to instrument meta are written to netCDF attrs.</p>
+<p class="last">All attributes attached to instrument meta are written to netCDF attrs.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
