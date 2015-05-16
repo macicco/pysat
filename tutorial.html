@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html#files">Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#meta">Meta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#orbits">Orbits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#seasonal-analysis">Seasonal Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#module-pysat.utils">Utilities</a></li>
 </ul>
 </li>
@@ -140,35 +141,47 @@
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="basics">
 <h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
-<p>The core functionality of pysat is exposed through the pysat.Instrument object. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS) begin with</p>
+<p>The core functionality of pysat is exposed through the pysat.Instrument object. The intent of the Instrument object is to offer a single interface for interacting with science data that is independent of measurement platform. The layer of abstraction presented by the Instrument object allows for things to occur in the background that can make science data analysis simpler and more rigorous.</p>
+<p>To begin,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
+</pre></div>
+</div>
+<p>The data directory pysat looks in for data (pysat_data_dir) needs to be set upon the first import,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path_to_existing_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Instantiation</strong></p>
+<hr class="docutils" />
+<p>To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), start with a pysat Instrument object.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with &#8216;dc_b&#8217; data. Let&#8217;s download some data,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
-<span class="c"># define date range to download data and download</span>
+<p>Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with &#8216;dc_b&#8217; data.</p>
+<p><strong>Download</strong></p>
+<hr class="docutils" />
+<p>Let&#8217;s download some data,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># define date range to download data and download</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The data is downloaded to pysat_data_dir/platform/name/tag/, in this case
-pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set using</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Data is loaded into vefi using the .load method using year, day of year; by date; or by filename.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<p>The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/.</p>
+<p><strong>Load Data</strong></p>
+<hr class="docutils" />
+<p>Data is loaded into vefi using the .load method using year, day of year; date; or filename.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">129</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
-<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">&#39;cnofs_vefi_bfield_1sec_20090509_v05.cdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The pandas DataFrame holding the data is available in .data. Convenience access is also available at the instrument level.</p>
+<p>When the pysat load routines runs it stores the instrument data into vefi.data. The data structure is a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># all data</span>
 <span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span>
 <span class="c"># particular magnetic component</span>
 <span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dB_mer</span>
-<span class="c"># alternative access</span>
+
+<span class="c"># Convenience access</span>
 <span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
 <span class="c"># slicing</span>
 <span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
@@ -177,6 +190,39 @@ pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set 
 </pre></div>
 </div>
 <p>See pysat.Instrument for more.</p>
+<p><strong>Clean Data</strong></p>
+<hr class="docutils" />
+<p>Before data is available in .data it passes through an instrument specific cleaning routine. The amount of cleaning is set by the clean_level keyword,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span>
+                        <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Four levels of cleaning may be specified,</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>clean_level</strong></td>
+<td><strong>Result</strong></td>
+</tr>
+<tr class="row-even"><td>clean</td>
+<td>Generally good data</td>
+</tr>
+<tr class="row-odd"><td>dusty</td>
+<td>Light cleaning, use with care</td>
+</tr>
+<tr class="row-even"><td>dirty</td>
+<td>Minimal cleaning, use with caution</td>
+</tr>
+<tr class="row-odd"><td>none</td>
+<td>No cleaning, use at your own risk</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Metadata</strong></p>
+<hr class="docutils" />
 <p>Metadata is also stored along with the main science data.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># all metadata</span>
 <span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span>
@@ -196,7 +242,7 @@ pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set 
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;new_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
 </pre></div>
 </div>
-<p>The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC</p>
+<p>The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC,</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># assignment with metadata</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>

@@ -5,38 +5,63 @@ Tutorial
 Basics
 ------
 
-The core functionality of pysat is exposed through the pysat.Instrument object. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS) begin with
+The core functionality of pysat is exposed through the pysat.Instrument object. The intent of the Instrument object is to offer a single interface for interacting with science data that is independent of measurement platform. The layer of abstraction presented by the Instrument object allows for things to occur in the background that can make science data analysis simpler and more rigorous.
+
+To begin, 
+
+.. code:: python
+   
+   import pysat
+
+The data directory pysat looks in for data (pysat_data_dir) needs to be set upon the first import,
+
+.. code:: python
+
+   pysat.utils.set_data_dir(path=path_to_existing_directory)
+
+**Instantiation**
+
+----
+
+To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), start with a pysat Instrument object.
 
 .. code:: python
 
    vefi = pysat.Instrument(platform='cnofs', name='vefi', tag='dc_b')
 
-Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with 'dc_b' data. Let's download some data,
+Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with 'dc_b' data. 
+
+**Download**
+
+----
+
+Let's download some data,
 
 .. code:: python
 
-   import pysat
    # define date range to download data and download
    start = pysat.datetime(2009,5,9)
    stop = pysat.datetime(2009,5,12)
    vefi.download(start, stop)
 
-The data is downloaded to pysat_data_dir/platform/name/tag/, in this case
-pysat_data_dir/cnofs/vefi/dc_b/. pysat_data_dir should have previously been set using
+The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/.
+
+
+**Load Data**
+
+----
+
+Data is loaded into vefi using the .load method using year, day of year; date; or filename.
 
 .. code:: python
-   
-   pysat.utils.set_data_dir(path=path)
 
-Data is loaded into vefi using the .load method using year, day of year; by date; or by filename.
-
-.. code:: python
-
-   vefi.load(2009,1)
+   vefi.load(2009,129)
    vefi.load(date=start)
-   vefi.load(fname=fname)
+   vefi.load(fname='cnofs_vefi_bfield_1sec_20090509_v05.cdf')
    
-The pandas DataFrame holding the data is available in .data. Convenience access is also available at the instrument level.
+When the pysat load routines runs it stores the instrument data into vefi.data. The data structure is a pandas DataFrame_, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.
+
+.. _DataFrame: http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe
 
 .. code:: python
 
@@ -44,7 +69,8 @@ The pandas DataFrame holding the data is available in .data. Convenience access 
     print vefi.data
     # particular magnetic component
     print vefi.data.dB_mer
-    # alternative access
+
+    # Convenience access
     print vefi['dB_mer']
     # slicing
     print vefi[0:10, 'dB_mer']
@@ -52,6 +78,32 @@ The pandas DataFrame holding the data is available in .data. Convenience access 
     print vefi[start:stop, 'dB_mer']
 
 See pysat.Instrument for more.
+
+**Clean Data**
+
+-----
+
+Before data is available in .data it passes through an instrument specific cleaning routine. The amount of cleaning is set by the clean_level keyword,
+
+.. code:: python
+
+   vefi = pysat.Instrument(platform='cnofs', name='vefi', 
+			   tag='dc_b', clean_level='none')
+
+Four levels of cleaning may be specified, 
+
+===============     ===================================
+**clean_level** 	        **Result**
+---------------     -----------------------------------
+  clean		    Generally good data
+  dusty		    Light cleaning, use with care
+  dirty		    Minimal cleaning, use with caution
+  none		    No cleaning, use at your own risk
+===============     ===================================
+
+**Metadata**
+
+----
 
 Metadata is also stored along with the main science data.
 
@@ -76,7 +128,7 @@ Data may be assigned to the instrument, with or without metadata.
    
    vefi['new_data'] = new_data
 
-The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC
+The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC,
 
 .. code:: python
 

@@ -141,9 +141,8 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <dl class="docutils">
 <dt>Starting from scratch:</dt>
-<dd>Python and associated packages for science are freely available from a couple        commercial vendors, <a class="reference external" href="https://store.enthought.com">Enthought</a> and <a class="reference external" href="http://continuum.io/downloads">Contiuum Analytics</a>. Core science packages such as numpy, scipy, matplotlib, pandas and many others may also be installed directly via pip or your favorite package manager.</dd>
+<dd>Python and associated packages for science are freely available. Convenient science python package setups are available from <a class="reference external" href="https://store.enthought.com">Enthought</a> and <a class="reference external" href="http://continuum.io/downloads">Contiuum Analytics</a>. Core science packages such as numpy, scipy, matplotlib, pandas and many others may also be installed directly via pip or your favorite package manager.</dd>
 </dl>
-<hr class="docutils" />
 <p><strong>pysat</strong></p>
 <hr class="docutils" />
 <p>Pysat itself may be installed from a terminal command line via:</p>
@@ -151,7 +150,16 @@
 </pre></div>
 </div>
 <p>Pysat requires some external non-python libraries for loading science data sets stored in netCDF and CDF formats.</p>
+<p><strong>Set Data Directory</strong></p>
 <hr class="docutils" />
+<p>Pysat will maintain organization of data from various platforms. Upon the first</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
+</pre></div>
+</div>
+<p>pysat will remind you to set the top level directory that will hold the data,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
 <p><strong>Common Data Format</strong></p>
 <hr class="docutils" />
 <ul>
@@ -169,7 +177,6 @@
 <div class="highlight-python"><div class="highlight"><pre>pip install spacepy
 </pre></div>
 </div>
-<hr class="docutils" />
 <p><strong>netCDF</strong></p>
 <hr class="docutils" />
 <ul class="simple">
@@ -179,7 +186,6 @@
 <div class="highlight-python"><div class="highlight"><pre>pip install netCDF4
 </pre></div>
 </div>
-<hr class="docutils" />
 <p><strong>pandas</strong></p>
 <hr class="docutils" />
 <p>To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use:</p>
@@ -187,17 +193,6 @@
 </pre></div>
 </div>
 <p>The forked pandas is required for full support of higher dimensional data sets. A pull-request is planned.</p>
-<hr class="docutils" />
-<p><strong>Data Directory</strong></p>
-<hr class="docutils" />
-<p>Pysat will maintain organization of data from various platforms. Upon the first</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
-</pre></div>
-</div>
-<p>pysat will remind you to set the top level directory that will hold the data,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 
 
