@@ -647,8 +647,8 @@ We also don't want to maintain two code bases that do almost the same thing. So 
                       date = inst.date
 
                   if isinstance(data.iloc[0], pandas.DataFrame):
-                     data_panel = pandas.Panel.from_dict(dict([(i,data.iloc[i]) for i in xrange(len(data))]))
-                     mean_val[date] = data_panel.abs().mean(axis=0,skipna=True)
+                      data_panel = pandas.Panel.from_dict(dict([(i,data.iloc[i]) for i in xrange(len(data))]))
+                      mean_val[date] = data_panel.abs().mean(axis=0,skipna=True)
                   elif isinstance(data.iloc[0], pandas.Series):
                       data_frame = pandas.DataFrame(data.tolist())
                       data_frame.index = data.index
