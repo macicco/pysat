@@ -45,7 +45,8 @@ extensions = [
     'sphinx.ext.pngmath',
     'numpydoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 # added by RS

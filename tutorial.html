@@ -69,8 +69,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basics">Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-functions">Custom Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-series-analysis">Time Series Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#iteration">Iteration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#orbit-support">Orbit Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iteration-and-instrument-independent-analysis">Iteration and Instrument Independent Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary-flow-charts">Summary Flow Charts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a><ul>
@@ -161,8 +164,8 @@
 <hr class="docutils" />
 <p>Let&#8217;s download some data,</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># define date range to download data and download</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
-<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -170,9 +173,9 @@
 <p><strong>Load Data</strong></p>
 <hr class="docutils" />
 <p>Data is loaded into vefi using the .load method using year, day of year; date; or filename.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">129</span><span class="p">)</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">126</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
-<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">&#39;cnofs_vefi_bfield_1sec_20090509_v05.cdf&#39;</span><span class="p">)</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">&#39;cnofs_vefi_bfield_1sec_20090506_v05.cdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When the pysat load routines runs it stores the instrument data into vefi.data. The data structure is a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.</p>
@@ -190,6 +193,39 @@
 </pre></div>
 </div>
 <p>See pysat.Instrument for more.</p>
+<p>To load data over a season, pysat provides a convenience function that returns an array of dates over a season. The season need not be continuous.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c"># create empty series to hold result</span>
+<span class="n">mean_dB</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+<span class="c"># get list of dates between start and stop</span>
+<span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="c"># iterate over season, calculate the mean absolute perturbation in</span>
+<span class="c"># meridional magnetic field</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+     <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+         <span class="c"># isolate data to locations near geographic equator</span>
+         <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+         <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+         <span class="c"># compute mean absolute db_Mer using pandas functions and store</span>
+         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c"># plot the result using pandas functionality</span>
+<span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Mean Absolute Perturbation in Meridional Magnetic Field&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Mean Absolute Perturbation (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note, the numpy.where may be removed using the convenience access to the attached pandas data object.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>is equivalent to</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">)]</span>
+</pre></div>
+</div>
 <p><strong>Clean Data</strong></p>
 <hr class="docutils" />
 <p>Before data is available in .data it passes through an instrument specific cleaning routine. The amount of cleaning is set by the clean_level keyword,</p>
@@ -277,28 +313,28 @@ MSL_alt
 </div>
 <div class="section" id="custom-functions">
 <h2>Custom Functions<a class="headerlink" href="#custom-functions" title="Permalink to this headline">¶</a></h2>
-<p>Science analysis is built upon custom data processing. To simplify this task custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded.</p>
-<p>Modify Functions</p>
+<p>Science analysis is built upon custom data processing. To simplify this task and enable instrument independent analysis, custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded.</p>
+<p><strong>Modify Functions</strong></p>
 <blockquote>
 <div>The instrument object is passed to function without copying, modify in place.</div></blockquote>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_modify</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="n">inst</span><span class="p">[</span><span class="s">&#39;double_mlt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Add Functions</p>
+<p><strong>Add Functions</strong></p>
 <blockquote>
 <div>A copy of the instrument is passed to function, data to be added is returned.</div></blockquote>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Add Function Including Metadata</p>
+<p><strong>Add Function Including Metadata</strong></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param1</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span><span class="s">&#39;data&#39;</span><span class="p">:</span><span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s">&#39;mlt&#39;</span><span class="p">],</span> <span class="s">&#39;name&#39;</span><span class="p">:</span><span class="s">&#39;double_mlt&#39;</span><span class="p">,</span>
             <span class="s">&#39;long_name&#39;</span><span class="p">:</span><span class="s">&#39;doubledouble&#39;</span><span class="p">,</span> <span class="s">&#39;units&#39;</span><span class="p">:</span><span class="s">&#39;hours&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Attaching Custom Function</p>
+<p><strong>Attaching Custom Function</strong></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_modify</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">ivm</span><span class="p">[</span><span class="s">&#39;double_mlt&#39;</span><span class="p">]</span>
@@ -308,18 +344,154 @@ MSL_alt
 </pre></div>
 </div>
 <p>The output of custom_func_modify will always be available from instrument object, regardless of what level the science analysis is performed.</p>
+<p>We can repeat the earlier VEFI example, this time using nano-kernel functionality.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">filter_vefi</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="c"># select data near geographic equator</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="k">return</span>
+<span class="c"># attach filter to vefi object, function is run upon every load</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filter_ivm</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">)</span>
+
+<span class="c"># create empty series to hold result</span>
+<span class="n">mean_dB</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+<span class="c"># get list of dates between start and stop</span>
+<span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="c"># iterate over season, calculate the mean absolute perturbation in</span>
+<span class="c"># meridional magnetic field</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+     <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+         <span class="c"># compute mean absolute db_Mer using pandas functions and store</span>
+         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c"># plot the result using pandas functionality</span>
+<span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Mean Absolute Perturbation in Meridional Magnetic Field&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Mean Absolute Perturbation (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the same result is obtained. The VEFI instrument object and analysis are performed at the same level, so there is no strict gain by using the pysat nano-kernel in this simple demonstration. However, we can  use the nano-kernel to translate this daily mean into an versatile instrument independent function.</p>
+<p><strong>Adding Instrument Independence</strong></p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+
+   <span class="c"># create empty series to hold result</span>
+   <span class="n">mean_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+   <span class="c"># get list of dates between start and stop</span>
+   <span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+   <span class="c"># iterate over season, calculate the mean</span>
+   <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="c"># compute mean absolute db_Mer using pandas functions and store</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">mean_val</span>
+
+<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">filter_vefi</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="c"># select data near geographic equator</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="k">return</span>
+<span class="c"># attach filter to vefi object, function is run upon every load</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filter_ivm</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">)</span>
+
+<span class="c"># make a plot of daily dB_mer</span>
+<span class="n">mean_dB</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">)</span>
+
+<span class="c"># plot the result using pandas functionality</span>
+<span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Absolute Daily Mean of &#39;</span>
+             <span class="o">+</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Absolute Daily Mean (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The pysat nano-kernel lets you modify any data set as needed so that you can get the daily mean you desire, without having to modify the daily_mean function.</p>
+<p>Check the instrument independence using a different instrument. Whatever instrument is supplied may be modified in arbitrary ways by the nano-kernel.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;ionprf&#39;</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">filter_cosmic</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="n">cosmic</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">cosmic</span><span class="p">[(</span><span class="n">cosmic</span><span class="p">[</span><span class="s">&#39;edmaxlat&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="s">&#39;edmaxlat&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">)]</span>
+    <span class="k">return</span>
+
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filter_cosmic</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">)</span>
+<span class="n">data_label</span> <span class="o">=</span> <span class="s">&#39;edmax&#39;</span>
+<span class="n">mean_max_dens</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">cosmic</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">)</span>
+
+<span class="c"># plot the result using pandas functionality</span>
+<span class="n">mean_max_dens</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Absolute Daily Mean of &#39;</span> <span class="o">+</span> <span class="n">cosmic</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Absolute Daily Mean (&#39;</span><span class="o">+</span><span class="n">cosmic</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>daily_mean now works for any instrument, as long as the data to be averaged is 1D. This can be fixed.</p>
+<p><strong>Partial Independence from Dimensionality</strong></p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">pysat</span>
+
+<span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+
+    <span class="c"># create empty series to hold result</span>
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="c"># get list of dates between start and stop</span>
+    <span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+    <span class="c"># iterate over season, calculate the mean</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="c"># compute mean absolute using pandas functions and store</span>
+            <span class="c"># data could be an image, or lower dimension, account for 2D and lower</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="c"># 3D data, 2D data at every time</span>
+                <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                <span class="c"># 2D data, 1D data for each time</span>
+                <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="c"># 1D data</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="n">mean_val</span>
+</pre></div>
+</div>
+<p>This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images, covered. It is true the nested if statements aren&#8217;t the most elegant. Particularly the 3D case. However, you may note a commonality across the different dimensions, the mean is calculated in all cases by using .abs().mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up this little mess caused by dimensionality (pending).</p>
+</div>
+<div class="section" id="time-series-analysis">
+<h2>Time Series Analysis<a class="headerlink" href="#time-series-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Pending</p>
 </div>
 <div class="section" id="iteration">
 <h2>Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline">¶</a></h2>
-<p>The whole VEFI data set may be iterated over on a daily basis</p>
+<p>The seasonal analysis loop is repeated commonly:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Iteration support is built into the Instrument object to support this and similar cases. The whole VEFI data set may be iterated over on a daily basis using</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Each loop of the python for initiates a vefi.load() for the next date, starting with the first available date. By default the instrument instance will iterate over all available data. It is equivalent to</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
-    <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+<p>Each loop of the python for iteration initiates a vefi.load() for the next date, starting with the first available date. By default the instrument instance will iterate over all available data. To control the range, set the instrument bounds,</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># multi-season season</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="n">stop1</span><span class="p">,</span> <span class="n">stop2</span><span class="p">])</span>
+<span class="c"># continuous season</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="c"># iterate over custom season</span>
+<span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -334,30 +506,214 @@ Returning cnofs vefi dc_b data for 05/12/10
 Maximum meridional magnetic perturbation  26.583
 </pre></div>
 </div>
-<p>Bounds may be set to control the dates covered by the iteration,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># continuous season</span>
-<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
-<span class="c"># multi-season season</span>
-<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="n">stop1</span><span class="p">,</span> <span class="n">stop2</span><span class="p">])</span>
-<span class="c"># iterate over custom season</span>
+<p>So far, the iteration support has only saved a single line of code, the .load line. However, this line in the examples above is tied to loading by date. What if we wanted to load by file instead? This would require changing the code. However, with the abstraction provided by the Instrument iteration, that is no longer the case.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span> <span class="s">&#39;filename1&#39;</span><span class="p">,</span> <span class="s">&#39;filename2&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
-     <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>For VEFI there is only one file per day so there is no practical difference between the previous example. However, for instruments that have more than one file a day, there is a difference.</p>
+<p>Building support for this iteration into the mean_day example is easy.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">pysat</span>
+
+<span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+
+    <span class="c"># create empty series to hold result</span>
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="c"># compute mean absolute using pandas functions and store</span>
+            <span class="c"># data could be an image, or lower dimension, account for 2D and lower</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="c"># 3D data, 2D data at every time</span>
+                <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                <span class="c"># 2D data, 1D data for each time</span>
+                <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="c"># 1D data</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mean_val</span>
+</pre></div>
+</div>
+<p>Since bounds are attached to the Instrument object, the start and stop dates for the season are no longer required as inputs.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># make a plot of daily dB_mer</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+<span class="n">mean_dB</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">)</span>
+
+<span class="c"># plot the result using pandas functionality</span>
+<span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Absolute Daily Mean of &#39;</span>
+             <span class="o">+</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Absolute Daily Mean (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s">&#39;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The abstraction provided by the iteration support is also used for the next section on orbit data.</p>
 </div>
 <div class="section" id="orbit-support">
 <h2>Orbit Support<a class="headerlink" href="#orbit-support" title="Permalink to this headline">¶</a></h2>
-<p>Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at intialization. The &#8216;index&#8217; is the name of the data to be used for determining orbits, and &#8216;kind&#8217; indicates type of orbit. See pysat.Orbit for latest inputs.</p>
+<p>Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at initialization. The &#8216;index&#8217; is the name of the data to be used for determining orbits, and &#8216;kind&#8217; indicates type of orbit. See pysat.Orbit for latest inputs.</p>
+<p>There are several orbits to choose from,</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>kind</strong></td>
+<td><strong>method</strong></td>
+</tr>
+<tr class="row-even"><td>local time</td>
+<td>Uses negative gradients to delineate orbits</td>
+</tr>
+<tr class="row-odd"><td>longitude</td>
+<td>Uses negative gradients to delineate orbits</td>
+</tr>
+<tr class="row-even"><td>polar</td>
+<td>Uses sign changes to delineate orbits</td>
+</tr>
+</tbody>
+</table>
+<p>Changes in universal time are also used to delineate orbits. Pysat compares any gaps to the supplied orbital period, nominally assumed to be 97 minutes. As orbit periods aren&#8217;t constant, a 100% success rate is not be guaranteed.</p>
+<p>This section of pysat is still under development.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;mlt&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;local time&#39;</span><span class="p">}</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
                        <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">info</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
-<span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Orbit determination acts upon data loaded in the ivm object, so to begin we must load some data.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Orbits may be selected directly from the attached .orbit class. The data for the orbit is stored in .data.</p>
+<div class="code python highlight-python"><div class="highlight"><pre>In [50]: ivm.orbits[1]
+Out[50]:
+Returning cnofs ivm  data for 12/27/12
+Returning cnofs ivm  data for 12/28/12
+Loaded Orbit:1
+</pre></div>
+</div>
+<p>Note that getting the first orbit caused pysat to load the day previous, and then back to the current day. Orbits are one indexed though this will change. Pysat is checking here if the first orbit for 12/28/2012 actually started on 12/27/2012. In this case it does, though the orbit is not complete.</p>
+<div class="code ipython highlight-python"><div class="highlight"><pre>In [51]: ivm[0:5,&#39;mlt&#39;]
+Out[51]:
+2012-12-27 23:53:27.576000    11.649381
+2012-12-27 23:53:28.576000    11.653204
+2012-12-27 23:53:29.576000    11.657028
+2012-12-27 23:53:30.576000    11.660851
+2012-12-27 23:53:31.576000    11.664675
+Name: mlt, dtype: float32
+
+In [52]: ivm[-5:,&#39;mlt&#39;]
+Out[52]:
+2012-12-28 00:38:12.563000    23.234373
+2012-12-28 00:38:13.563000    23.237753
+2012-12-28 00:38:14.563000    23.241133
+2012-12-28 00:38:17.563000    23.251274
+2012-12-28 00:38:18.563000    23.254654
+Name: mlt, dtype: float32
+</pre></div>
+</div>
+<p>Let&#8217;s go back an orbit and check.</p>
+<div class="code ipython highlight-python"><div class="highlight"><pre>In [53]: ivm.orbits.prev()
+Out[53]:
+Returning cnofs ivm  data for 12/27/12
+Loaded Orbit:15
+
+In [54]: ivm[-5:,&#39;mlt&#39;]
+Out[54]:
+2012-12-27 23:02:15.584000    23.309784
+2012-12-27 23:02:16.584000    23.313559
+2012-12-27 23:02:18.584000    23.321108
+2012-12-27 23:02:19.584000    23.324884
+2012-12-27 23:02:20.584000    23.328663
+Name: mlt, dtype: float32
+</pre></div>
+</div>
+<p>pysat loads the previous day, as needed, and returns the last orbit for 12/27/2012 that does not (or should not) extend into 12/28. There is about 96 minutes (UTC) between the last two mlt times of each orbit, indicating the orbit breakdown is correct.</p>
+<p>If we continue to iterate orbits using</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>eventually the next day will be loaded to try and form a complete orbit.</p>
+<p>Orbit iteration is built into ivm.orbits just like iteration by day is built into ivm.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ivm</span> <span class="ow">in</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;next available orbit &#39;</span><span class="p">,</span> <span class="n">ivm</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="iteration-and-instrument-independent-analysis">
+<h2>Iteration and Instrument Independent Analysis<a class="headerlink" href="#iteration-and-instrument-independent-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Now we can generalize daily_mean into two functions, one that averages by day, the other by  orbit. Strictly speaking, the daily_mean above already does this with the right input.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mean_daily_val</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">)</span>
+<span class="n">mean_orbit_val</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, the output of the by_orbit attempt gets rewritten for most orbits since the output from daily_mean is stored by date. Though this could be fixed, supplying an instrument object/iterator in one case and an orbit iterator in the other might be a bit inconsistent. Even if not, let&#8217;s try another route.</p>
+<p>We also don&#8217;t want to maintain two code bases that do almost the same thing. So instead, let&#8217;s create three functions, two of which simply call a hidden third.</p>
+<p><strong>Iteration Independence</strong></p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mean of data_label by day/file over Instrument.bounds&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">by_orbit_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mean of data_label by orbit over Instrument.bounds&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">by_orbit</span><span class="p">:</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">orbits</span>
+    <span class="k">elif</span> <span class="n">by_day</span><span class="p">:</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="n">inst</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;A choice must be made, by day/file, or by orbit&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">by_orbit</span> <span class="ow">and</span> <span class="n">by_day</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;A choice must be made, by day/file, or by orbit&#39;</span><span class="p">)</span>
+
+    <span class="c"># create empty series to hold result</span>
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="c"># iterate over season, calculate the mean</span>
+    <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+           <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+               <span class="c"># compute mean absolute using pandas functions and store</span>
+               <span class="c"># data could be an image, or lower dimension, account for 2D and lower</span>
+               <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
+               <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+               <span class="k">if</span> <span class="n">by_orbit</span><span class="p">:</span>
+                   <span class="n">date</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+               <span class="k">else</span><span class="p">:</span>
+                   <span class="n">date</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span>
+
+               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                  <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
+                  <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+               <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+                   <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                   <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
+                   <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                   <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">iterator</span>
+    <span class="k">return</span> <span class="n">mean_val</span>
+</pre></div>
+</div>
+<p>The addition of a few more lines to the daily_mean function adds support for averages by orbit, or by day, for any platform with data 3D or less. The date issue and the type of iteration are solved with simple if else checks. From a practical perspective, the code doesn&#8217;t really deviate from the first solution of simply passing in vefi.orbits, except for the fact that the .orbits switch is &#8216;hidden&#8217; in the code. NaN values are also dropped from the data. If the first element is a NaN, it isn&#8217;t handled by the simple instance check.</p>
+<p>A name change and a couple more dummy functions separates out the orbit vs daily iteration clearly, without having multiple codebases. Iteration by file and by date are handled by the same Instrument iterator, controlled by the settings in Instrument.bounds. A by_file_mean was not created because bounds could be set by date and then by_file_mean applied. Of course this could set up to produce an error. However, the settings on Instrument.bounds controls the iteration type between files and dates, so we maintain this view with the expressed calls. Similarly, the orbit iteration is a separate iterator, with a separate call. This technique above is used by other seasonal analysis routines in pysat.</p>
+<p>You may notice that the mean call could also easily be replaced by a median, or even a mode. We might also want to return the standard deviation, or appropriate measure. Perhaps another level of generalization is needed?</p>
+</div>
+<div class="section" id="summary-flow-charts">
+<h2>Summary Flow Charts<a class="headerlink" href="#summary-flow-charts" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/pysat_load_flow_chart.png" src="_images/pysat_load_flow_chart.png" />
 </div>
 </div>
 

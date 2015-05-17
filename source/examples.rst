@@ -6,7 +6,7 @@ pysat tends to reduce certain science data investigations to the construction of
 Seasonal Occurrence by Orbit
 ----------------------------
 
-How often does a particular thing occur on a orbit-by-orbit basis? Let's find out. For VEFI, let us calculate the occurrence of a positive perturbation in the meridional component (North/South) of the geomagnetic field.
+How often does a particular thing occur on a orbit-by-orbit basis? Let's find out. For VEFI, let us calculate the occurrence of a positive perturbation in the meridional component of the geomagnetic field.
 
 .. code:: python
 
