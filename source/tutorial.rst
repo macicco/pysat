@@ -382,7 +382,8 @@ daily_mean now works for any instrument, as long as the data to be averaged is 1
                    
    return mean_val
 
-This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images, covered. It is true the nested if statements aren't the most elegant. Particularly the 3D case. However, you may note a commonality across the different dimensions, the mean is calculated in all cases by using .abs().mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up this little mess caused by dimensionality (pending).
+This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren't the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality (pending).
+
 
 Time Series Analysis
 --------------------
@@ -476,7 +477,7 @@ Building support for this iteration into the mean_day example is easy.
                    
        return mean_val
 
-Since bounds are attached to the Instrument object, the start and stop dates for the season are no longer required as inputs.
+Since bounds are attached to the Instrument object, the start and stop dates for the season are no longer required as inputs. If a user forgets to specify the bounds, the loop will start on the first day of data and end on the last day.
 
 .. code:: python
  

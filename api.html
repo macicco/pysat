@@ -315,14 +315,14 @@ set by <cite>bounds</cite> attribute.</p>
 <p class="last">Default bounds are the first and last dates from files on local system.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>
-<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Another day loaded&#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre>inst = pysat.Instrument(platform=platform,
+                        name=name,
+                        tag=tag)
+start = pysat.datetime(2009,1,1)
+stop = pysat.datetime(2009,1,31)
+inst.bounds = (start,stop)
+for inst in inst:
+print(&#39;Another day loaded&#39;, inst.date)
 </pre></div>
 </div>
 </dd></dl>
