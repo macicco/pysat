@@ -20,3 +20,8 @@ COSMIC GPS
 ----------
 .. automodule:: pysat.instruments.cosmic_gps
    :members: __doc__
+
+SuperDARN
+---------
+.. automodule:: pysat.instruments.superdarn_radar
+   :members: __doc__

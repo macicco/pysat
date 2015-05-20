@@ -23,19 +23,40 @@ The data directory pysat looks in for data (pysat_data_dir) needs to be set upon
 
 ----
 
-To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), start with a pysat Instrument object.
+To create a pysat.Instrument object, select a platform, instrument name, and measurement type to be analyzed from the list of :doc:`supported_instruments`. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), use:
 
 .. code:: python
 
    vefi = pysat.Instrument(platform='cnofs', name='vefi', tag='dc_b')
 
-Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with 'dc_b' data. 
+Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with 'dc_b' data. VEFI also measures electric fields in several modes that offer different data products. Though these measurements are not currently supported by the cnofs_vefi module, when they are, they can be selected via the tag string.
+
+To load measurements from a different instrument on C/NOFS, the Ion Velocity Meter, which measures thermal plasma parameters, use:
+
+.. code:: python
+
+   ivm = pysat.Instrument(platform='cnofs', name='ivm')
+
+In the background pysat uses the module cnofs_ivm to handle this data. There is only one measurement option from IVM, so no tag string is required.
+
+Measurements from a constellation of COSMIC satellites are also available. These satellite s measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.
+
+.. code:: python
+
+   # electron density profiles
+   cosmic = pysat.Instrument(platform='cosmic2013', name='gps', tag='ionprf')
+   # atmosphere profiles
+   cosmic = pysat.Instrument(platform='cosmic2013', name='gps', tag='atmprf')
+
+
+
+Though the particulars of VEFI magnetometer data, IVM plasma parameters, and COSMIC atmospheric measurements are going to be quite different, the processes demonstrated below with VEFI also apply equally to IVM and COSMIC.
 
 **Download**
 
 ----
 
-Let's download some data,
+Let's download some data. VEFI data is hosted by the NASA Coordinated Data Analysis Web (CDAWeb) at http://cdaweb.gsfc.nasa.gov. The proper process for downloading VEFI data is built into the cnofs_vefi module, which is handled by pysat. All we have to do is invoke the .download method attached to the VEFI object, or any other pysat Instrument.
 
 .. code:: python
 
@@ -44,7 +65,7 @@ Let's download some data,
    stop = pysat.datetime(2009,5,9)
    vefi.download(start, stop)
 
-The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/.
+The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/. At the end of the download, pysat will update the list of files associated with VEFI.
 
 
 **Load Data**
@@ -59,7 +80,7 @@ Data is loaded into vefi using the .load method using year, day of year; date; o
    vefi.load(date=start)
    vefi.load(fname='cnofs_vefi_bfield_1sec_20090506_v05.cdf')
    
-When the pysat load routines runs it stores the instrument data into vefi.data. The data structure is a pandas DataFrame_, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.
+When the pysat load routine runs it stores the instrument data into vefi.data. The data structure is a pandas DataFrame_, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.
 
 .. _DataFrame: http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe
 
@@ -77,7 +98,7 @@ When the pysat load routines runs it stores the instrument data into vefi.data. 
     # slicing by date time
     print vefi[start:stop, 'dB_mer']
 
-See pysat.Instrument for more.
+See :any:`Instrument` for more. 
 
 To load data over a season, pysat provides a convenience function that returns an array of dates over a season. The season need not be continuous.
 
@@ -497,7 +518,7 @@ The abstraction provided by the iteration support is also used for the next sect
 Orbit Support
 -------------
 
-Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at initialization. The 'index' is the name of the data to be used for determining orbits, and 'kind' indicates type of orbit. See pysat.Orbit for latest inputs.
+Pysat has functionality to determine orbits on the fly from loaded data. These orbits will span day breaks as needed (generally). Information about the orbit needs to be provided at initialization. The 'index' is the name of the data to be used for determining orbits, and 'kind' indicates type of orbit. See :any:`pysat.Orbits` for latest inputs.
 
 There are several orbits to choose from,
 
@@ -516,8 +537,7 @@ This section of pysat is still under development.
 .. code:: python
     
    info = {'index':'mlt', 'kind':'local time'}
-   ivm = pysat.Instrument(platform='cnofs', name='ivm', tag='', 
-                          clean_level='clean', orbit_info=info)
+   ivm = pysat.Instrument(platform='cnofs', name='ivm', orbit_info=info, clean_level='None')
 
 Orbit determination acts upon data loaded in the ivm object, so to begin we must load some data.
 
@@ -535,29 +555,29 @@ Orbits may be selected directly from the attached .orbit class. The data for the
    Returning cnofs ivm  data for 12/28/12
    Loaded Orbit:1
 
-Note that getting the first orbit caused pysat to load the day previous, and then back to the current day. Orbits are one indexed though this will change. Pysat is checking here if the first orbit for 12/28/2012 actually started on 12/27/2012. In this case it does, though the orbit is not complete.
+Note that getting the first orbit caused pysat to load the day previous, and then back to the current day. Orbits are one indexed though this will change. Pysat is checking here if the first orbit for 12/28/2012 actually started on 12/27/2012. In this case it does.
 
 .. code:: ipython
    
    In [51]: ivm[0:5,'mlt']
    Out[51]: 
-   2012-12-27 23:53:27.576000    11.649381
-   2012-12-27 23:53:28.576000    11.653204
-   2012-12-27 23:53:29.576000    11.657028
-   2012-12-27 23:53:30.576000    11.660851
-   2012-12-27 23:53:31.576000    11.664675
+   2012-12-27 23:05:14.584000    0.002449
+   2012-12-27 23:05:15.584000    0.006380
+   2012-12-27 23:05:16.584000    0.010313
+   2012-12-27 23:05:17.584000    0.014245
+   2012-12-27 23:05:18.584000    0.018178
    Name: mlt, dtype: float32
 
    In [52]: ivm[-5:,'mlt']
    Out[52]: 
-   2012-12-28 00:38:12.563000    23.234373
-   2012-12-28 00:38:13.563000    23.237753
-   2012-12-28 00:38:14.563000    23.241133
-   2012-12-28 00:38:17.563000    23.251274
-   2012-12-28 00:38:18.563000    23.254654
+   2012-12-28 00:41:50.563000    23.985415
+   2012-12-28 00:41:51.563000    23.989031
+   2012-12-28 00:41:52.563000    23.992649
+   2012-12-28 00:41:53.563000    23.996267
+   2012-12-28 00:41:54.563000    23.999886
    Name: mlt, dtype: float32
 
-Let's go back an orbit and check.
+Let's go back an orbit.
 
 .. code:: ipython
 
@@ -568,14 +588,14 @@ Let's go back an orbit and check.
 
    In [54]: ivm[-5:,'mlt']
    Out[54]: 
-   2012-12-27 23:02:15.584000    23.309784
-   2012-12-27 23:02:16.584000    23.313559
-   2012-12-27 23:02:18.584000    23.321108
-   2012-12-27 23:02:19.584000    23.324884
-   2012-12-27 23:02:20.584000    23.328663
+   2012-12-27 23:05:09.584000    23.982796
+   2012-12-27 23:05:10.584000    23.986725
+   2012-12-27 23:05:11.584000    23.990656
+   2012-12-27 23:05:12.584000    23.994587
+   2012-12-27 23:05:13.584000    23.998516
    Name: mlt, dtype: float32
 
-pysat loads the previous day, as needed, and returns the last orbit for 12/27/2012 that does not (or should not) extend into 12/28. There is about 96 minutes (UTC) between the last two mlt times of each orbit, indicating the orbit breakdown is correct.
+pysat loads the previous day, as needed, and returns the last orbit for 12/27/2012 that does not (or should not) extend into 12/28. 
 
 If we continue to iterate orbits using 
 
@@ -583,7 +603,43 @@ If we continue to iterate orbits using
 
    ivm.orbits.next()
 
-eventually the next day will be loaded to try and form a complete orbit. 
+eventually the next day will be loaded to try and form a complete orbit. You can skip the iteration and just go for the last orbit of a day,
+
+.. code:: ipython
+   
+   In[] : ivm.orbits[-1]
+   Out[]:
+   Returning cnofs ivm  data for 12/29/12
+   Loaded Orbit:1
+
+.. code:: ipython
+
+   In[72] : ivm[:5,'mlt']
+   Out[72]: 
+   2012-12-28 23:03:34.160000    0.003109
+   2012-12-28 23:03:35.152000    0.007052
+   2012-12-28 23:03:36.160000    0.010996
+   2012-12-28 23:03:37.152000    0.014940
+   2012-12-28 23:03:38.160000    0.018884
+   Name: mlt, dtype: float32
+
+   In[73] : ivm[-5:,'mlt']
+   Out[73]: 
+   2012-12-29 00:40:13.119000    23.982937
+   2012-12-29 00:40:14.119000    23.986605
+   2012-12-29 00:40:15.119000    23.990273
+   2012-12-29 00:40:16.119000    23.993940
+   2012-12-29 00:40:17.119000    23.997608
+   Name: mlt, dtype: float32
+
+Pysat loads the next day of data to see if the last orbit on 12/28/12 extends into 12/29/12, which it does. Note that the last orbit of 12/28/12 is the same as the first orbit of 12/29/12. Thus, if we ask for the next orbit,
+
+.. code:: ipython
+
+   In[] : ivm.orbits.next()
+   Loaded Orbit:2
+
+pysat will indicate it is the second orbit of the day.
 
 Orbit iteration is built into ivm.orbits just like iteration by day is built into ivm.
 
