@@ -39,7 +39,7 @@ To load measurements from a different instrument on C/NOFS, the Ion Velocity Met
 
 In the background pysat uses the module cnofs_ivm to handle this data. There is only one measurement option from IVM, so no tag string is required.
 
-Measurements from a constellation of COSMIC satellites are also available. These satellite s measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.
+Measurements from a constellation of COSMIC satellites are also available. These satellites measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.
 
 .. code:: python
 

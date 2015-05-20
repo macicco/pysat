@@ -166,7 +166,7 @@
 </pre></div>
 </div>
 <p>In the background pysat uses the module cnofs_ivm to handle this data. There is only one measurement option from IVM, so no tag string is required.</p>
-<p>Measurements from a constellation of COSMIC satellites are also available. These satellite s measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.</p>
+<p>Measurements from a constellation of COSMIC satellites are also available. These satellites measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># electron density profiles</span>
 <span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;ionprf&#39;</span><span class="p">)</span>
 <span class="c"># atmosphere profiles</span>
