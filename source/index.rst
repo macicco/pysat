@@ -5,13 +5,14 @@
 
 Welcome to pysat's documentation!
 =================================
+
 .. toctree::
    :maxdepth: 2        
 
    introduction.rst
    installation.rst
    tutorial.rst
-   new_instrument.rst
    examples.rst
-   api.rst
    supported_instruments.rst
+   new_instrument.rst
+   api.rst

@@ -10,6 +10,7 @@ Three functions are required:
 
 List Files
 ----------
+
 Pysat maintains a list of files to enable data management functionality. It needs a pandas Series of filenames indexed by time. Pysat expects the module method platform_name.list_files to be:
 
 .. code:: python
@@ -34,6 +35,7 @@ pysat.Files.from_os is a convenience constructor provided for filenames that inc
 
 Load Data
 ---------
+
 Loading is a fundamental pysat activity, this routine enables the user to consider loading a hidden implementation 'detail'.
 
 .. code:: python
