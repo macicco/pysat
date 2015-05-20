@@ -1,7 +1,7 @@
 Examples
 ========
 
-pysat tends to reduce certain science data investigations to the construction of a routine(s) that makes that investigation unique, a call to a seasonal analysis routine, and some plotting commands. Several demonstrations are offered in this section.
+Pysat tends to reduce certain science data investigations to the construction of a routine(s) that makes that investigation unique, a call to a seasonal analysis routine, and some plotting commands. Several demonstrations are offered in this section.
 
 Seasonal Occurrence by Orbit
 ----------------------------
@@ -79,6 +79,7 @@ How often does a particular thing occur on a orbit-by-orbit basis? Let's find ou
 Result
 
 .. image:: ../images/ssnl_occurrence_by_orbit_demo.png
+   :align: center
 
 The top plot shows the occurrence probability of a positive magnetic field perturbation as a function of geographic longitude and latitude. The bottom plot shows the number of times  the satellite was in each bin with data (on per orbit basis). Individual orbit tracks may be seen. The hatched pattern is formed from the satellite traveling North to South and vice-versa. At the latitudinal extremes of the orbit the latitudinal velocity goes through zero providing a greater coverage density. The satellite doesn't return to the same locations on each pass so there is a reduction in counts between orbit tracks. All local times are covered by this plot, overrepresenting the coverage of a single satellite. 
 
@@ -161,7 +162,7 @@ Plotting a series of orbit-by-orbit plots is a great way to become familiar with
 Output
 
 .. image:: ../images/orbit_00000.png
-
+   :align: center
 
 Seasonal Averaging of Ion Drifts and Density Profiles
 -----------------------------------------------------
