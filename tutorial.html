@@ -86,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#seasonal-averaging-of-ion-drifts-and-density-profiles">Seasonal Averaging of Ion Drifts and Density Profiles</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
@@ -181,6 +182,9 @@
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+
+<span class="c"># download COSMIC data, which requires username and password</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/. At the end of the download, pysat will update the list of files associated with VEFI.</p>
@@ -684,7 +688,12 @@ Name: mlt, dtype: float32
 Loaded Orbit:2
 </pre></div>
 </div>
-<p>pysat will indicate it is the second orbit of the day.</p>
+<p>pysat will indicate it is the second orbit of the day. Going back an orbit gives us orbit 16, but referenced to a different day. Earlier, the same orbit was labeled orbit 1.</p>
+<div class="code ipython highlight-python"><div class="highlight"><pre>In[] : ivm.orbits.prev()
+Returning cnofs ivm  data for 12/28/12
+Loaded Orbit:16
+</pre></div>
+</div>
 <p>Orbit iteration is built into ivm.orbits just like iteration by day is built into ivm.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>

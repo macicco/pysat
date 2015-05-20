@@ -86,6 +86,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seasonal-averaging-of-ion-drifts-and-density-profiles">Seasonal Averaging of Ion Drifts and Density Profiles</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
@@ -103,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.superdarn_radar">SuperDARN</a></li>
 </ul>
 </li>
 </ul>
@@ -291,6 +293,53 @@
 </div>
 <p>Output</p>
 <img alt="_images/orbit_00000.png" src="_images/orbit_00000.png" />
+</div>
+<div class="section" id="seasonal-averaging-of-ion-drifts-and-density-profiles">
+<h2>Seasonal Averaging of Ion Drifts and Density Profiles<a class="headerlink" href="#seasonal-averaging-of-ion-drifts-and-density-profiles" title="Permalink to this headline">¶</a></h2>
+<p>In-situ measurements of the ionosphere by the Ion Velocity Meter onboard C/NOFS provides information on plasma density, composition, ion temperature, and ion drifts. This provides a great deal of information on the ionosphere though this information is limited to the immediate vicinity of the satellite. COSMIC GPS measurements, with some processing, provide information on the vertical electron density distribution in the ionosphere. The vertical motion of ions measured by IVM should be reflected in the vertical plasma densities measured by COSMIC. To look at this relationship over all longitudes and local times, for magnetic latitudes near the geomagnetic equator, use the code below:</p>
+<p>Note the same averaging routine is used for both COSMIC and IVM, and that both 1D and 2D data are handled correctly. The routine below has not yet been uploaded to the repo. (Pending)</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># instantiate IVM Object</span>
+<span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span><span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">)</span>
+<span class="c"># restrict meausurements to those near geomagnetic equator</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">restrictMLAT</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">maxMLAT</span><span class="o">=</span><span class="mf">25.</span><span class="p">)</span>
+<span class="c"># perform seasonal average</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">stopDate</span><span class="p">)</span>
+<span class="n">ivmResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">ivm</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;apex_long&#39;</span><span class="p">,</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;mlt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;iv_mer&#39;</span><span class="p">])</span>
+
+<span class="c"># create CODMIC instrument object</span>
+<span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;gps&#39;</span><span class="p">,</span><span class="n">tag</span><span class="o">=</span><span class="s">&#39;ionprf&#39;</span><span class="p">,</span>
+             <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c"># apply custom functions to all data that is loaded through cosmic</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+<span class="c"># select locations near the magnetic equator</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filterMLAT</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">mlatRange</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">)</span> <span class="p">)</span>
+<span class="c"># take the log of NmF2 and add to the dataframe</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addlogNm</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+<span class="c"># calculates the height above hmF2 to reach Ne &lt; NmF2/e</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addTopsideScaleHeight</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+
+<span class="c"># do an average of multiple COSMIC data products from startDate through stopDate</span>
+<span class="c"># a mixture of 1D and 2D data is averaged</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">stopDate</span><span class="p">)</span>
+<span class="n">cosmicResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">cosmic</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;apex_long&#39;</span><span class="p">,</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span><span class="s">&#39;edmaxlct&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;profiles&#39;</span><span class="p">,</span> <span class="s">&#39;edmaxalt&#39;</span><span class="p">,</span> <span class="s">&#39;lognm&#39;</span><span class="p">,</span> <span class="s">&#39;thf2&#39;</span><span class="p">])</span>
+
+<span class="c"># the work is done, plot the results</span>
+</pre></div>
+</div>
+<img alt="_images/ssnl_median_ivm_cosmic_1d.png" class="align-center" src="_images/ssnl_median_ivm_cosmic_1d.png" />
+<p>The top image is the median ion drift from the IVM, while the remaining plots are derived from the COSMIC density profiles. COSMIC data does not come with the location of the profiles in magnetic coordinates, so this information is added using the nano-kernel.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>call runs a routine that adds the needed information. This routine is currently only using a simple titled dipole model.
+Similarly, using custom functions, locations away from the magnetic equator are filtered out and a couple new quantities are added.</p>
+<p>There is a strong correspondence between the distribution of downward drifts between noon and midnight and a reduction in the height of the peak ionospheric density around local sunset. There isn&#8217;t the same strong correspondence with the other parameters but ion density profiles are also affected by production and loss processes, not measured by IVM.</p>
+<p>The median averaging routine also produced a series a median altitude profiles as a function of longitude and local time. A selection are shown below.</p>
+<img alt="_images/ssnl_median_ivm_cosmic_2d.png" class="align-center" src="_images/ssnl_median_ivm_cosmic_2d.png" />
+<p>There is a gradient in the altitude distribution over longitude near sunset. Between 0-15 longitude an upward slope is seen in bottom-side density levels with local time though higher altitudes have a flatter gradient. This is consistent with the upward ion drifts reported by IVM. Between 45-60 the bottom-side ionosphere is flat with local time, while densities at higher altitudes drop steadily. Ion drifts in this sector become downward at night. Downward drifts lower plasma into higher neutral densities, quickly increasing loss rates. Since neutral densities increase exponentially with decreasing altitude plasma is rapidly neutralized, producing an effective flat bottom. Thus, the COSMIC profile in this sector is also consistent with the IVM drifts.</p>
+<p>Between 15-30 degrees longitude, ion drifts are upward, but less than the 0-15 sector. Similarly, the density profile in the same sector has a weaker upward gradient with local time than the 0-15 sector.  Between 30-45 longitude, drifts are mixed, then transition into weaker downward drifts than between 45-60 longitude. The corresponding profiles have a flatter gradient then when drifts are upward (0-30), and a flatter gradient than when drifts are more downward (45-60), consistent with the ion drifts.</p>
 </div>
 </div>
 

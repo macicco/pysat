@@ -65,6 +65,9 @@ Let's download some data. VEFI data is hosted by the NASA Coordinated Data Analy
    stop = pysat.datetime(2009,5,9)
    vefi.download(start, stop)
 
+   # download COSMIC data, which requires username and password
+   cosmic.download(start, stop, user=user, password=password)
+
 The data is downloaded to pysat_data_dir/platform/name/tag/, in this case pysat_data_dir/cnofs/vefi/dc_b/. At the end of the download, pysat will update the list of files associated with VEFI.
 
 
@@ -639,7 +642,13 @@ Pysat loads the next day of data to see if the last orbit on 12/28/12 extends in
    In[] : ivm.orbits.next()
    Loaded Orbit:2
 
-pysat will indicate it is the second orbit of the day.
+pysat will indicate it is the second orbit of the day. Going back an orbit gives us orbit 16, but referenced to a different day. Earlier, the same orbit was labeled orbit 1.
+
+.. code:: ipython
+
+   In[] : ivm.orbits.prev()
+   Returning cnofs ivm  data for 12/28/12
+   Loaded Orbit:16
 
 Orbit iteration is built into ivm.orbits just like iteration by day is built into ivm.
 
