@@ -192,7 +192,7 @@ Data may be assigned to the instrument, with or without metadata.
    
    vefi['new_data'] = new_data
 
-The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC,
+The same activities may be performed for other instruments in the same manner. In particular, for measurements from the Ion Velocity Meter and profiles of electron density from COSMIC, use
 
 .. code:: python
 
@@ -232,7 +232,7 @@ Output for both print statements:
 Custom Functions
 ----------------
 
-Science analysis is built upon custom data processing. To simplify this task and enable instrument independent analysis, custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded. 
+Science analysis is built upon custom data processing. To simplify this task and enable instrument independent analysis, custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded before it is made available in .data. 
 
 **Modify Functions**
 

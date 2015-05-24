@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.superdarn_radar">SuperDARN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a><ul>
@@ -296,7 +296,7 @@
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;new_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
 </pre></div>
 </div>
-<p>The same activities may be performed for other instruments in the same manner. In particular, measurements from the Ion Velocity Meter and profiles of electron density from COSMIC,</p>
+<p>The same activities may be performed for other instruments in the same manner. In particular, for measurements from the Ion Velocity Meter and profiles of electron density from COSMIC, use</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c"># assignment with metadata</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
@@ -331,7 +331,7 @@ MSL_alt
 </div>
 <div class="section" id="custom-functions">
 <h2>Custom Functions<a class="headerlink" href="#custom-functions" title="Permalink to this headline">¶</a></h2>
-<p>Science analysis is built upon custom data processing. To simplify this task and enable instrument independent analysis, custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded.</p>
+<p>Science analysis is built upon custom data processing. To simplify this task and enable instrument independent analysis, custom functions may be attached to the Instrument object. Each function is run automatically when new data is loaded before it is made available in .data.</p>
 <p><strong>Modify Functions</strong></p>
 <blockquote>
 <div>The instrument object is passed to function without copying, modify in place.</div></blockquote>
