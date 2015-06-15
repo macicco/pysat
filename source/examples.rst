@@ -179,7 +179,7 @@ Note the same averaging routine is used for both COSMIC and IVM, and that both 1
    ivm.custom.add(restrictMLAT, 'modify', maxMLAT=25.)
    # perform seasonal average
    ivm.bounds(startDate, stopDate)
-   ivmResults = pysat.ssnl.median2D(ivm, [0,360,24], 'apex_long', 		                      
+   ivmResults = pysat.ssnl.avg.median2D(ivm, [0,360,24], 'apex_long', 		                      
                      [0,24,24], 'mlt', ['iv_mer'])
 
    # create CODMIC instrument object
@@ -197,7 +197,7 @@ Note the same averaging routine is used for both COSMIC and IVM, and that both 1
    # do an average of multiple COSMIC data products from startDate through stopDate
    # a mixture of 1D and 2D data is averaged
    cosmic.bounds(startDate, stopDate)
-   cosmicResults = pysat.ssnl.median2D(cosmic, [0,360,24], 'apex_long', 
+   cosmicResults = pysat.ssnl.avg.median2D(cosmic, [0,360,24], 'apex_long', 
 	  [0,24,24],'edmaxlct', ['profiles', 'edmaxalt', 'lognm', 'thf2'])
 
    # the work is done, plot the results
