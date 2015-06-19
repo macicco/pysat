@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; pysat 0.2.2 documentation</title>
+  <title>API &mdash; pysat 0.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.2.2 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.3 documentation" href="index.html"/>
         <link rel="prev" title="Adding a New Instrument" href="new_instrument.html"/> 
 
   
@@ -147,7 +147,7 @@
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Instrument">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>clean_level='clean'</em>, <em>update_files=False</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>clean_level='clean'</em>, <em>update_files=False</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=False</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download, load, manage, modify and analyze science data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -169,6 +169,9 @@ See pysat.Orbits for more information.</li>
 <li><strong>update_files</strong> (<em>boolean, optional</em>) &#8211; If True, query filesystem for instrument files and store.
 files.get_new() will return no files after this call until
 additional files are added.</li>
+<li><strong>multi_file_day</strong> (<em>boolean, optional (False by default)</em>) &#8211; Set to True if Instrument data files for a day are spread across
+multiple files and data for day n could be found in a file
+with a timestamp of day n-1 or n+1.</li>
 </ul>
 </td>
 </tr>
@@ -1086,13 +1089,14 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
-<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
-<li><em>returned if requested. Note that arrays are organized for direct</em></li>
-<li><em>plotting, y values along rows, x along columns</em></li>
-</ul>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
+A dict of dicts indexed by data_label. Each entry is dict with entries
+&#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of orbits with any
+data; &#8216;bin_x&#8217; and &#8216;bin_y&#8217; are also returned if requested. Note that arrays
+are organized for direct plotting, y values along rows, x along columns.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
 </td>
 </tr>
 </tbody>
@@ -1125,13 +1129,14 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
-<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
-<li><em>returned if requested. Note that arrays are organized for direct</em></li>
-<li><em>plotting, z,y,x</em></li>
-</ul>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
+A dict of dicts indexed by data_label. Each entry is dict with entries
+&#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of orbits with any
+data; &#8216;bin_x&#8217;, &#8216;bin_y&#8217;, and &#8216;bin_z&#8217; are also returned if requested. Note
+that arrays are organized for direct plotting, z,y,x.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
 </td>
 </tr>
 </tbody>
@@ -1165,13 +1170,14 @@ e.g. inst[data_label]</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
-<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217; and &#8216;biny&#8217; are also</em></li>
-<li><em>returned if requested. Note that arrays are organized for direct</em></li>
-<li><em>plotting, y values along rows, x along columns.</em></li>
-</ul>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
+A dict of dicts indexed by data_label. Each entry is dict with entries
+&#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of days with any
+data; &#8216;bin_x&#8217; and &#8216;bin_y&#8217; are also returned if requested. Note that arrays
+are organized for direct plotting, y values along rows, x along columns.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
 </td>
 </tr>
 </tbody>
@@ -1204,13 +1210,14 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>Returns a dict with numpy arrays, &#8216;prob&#8217; for the probability and</em></li>
-<li><em>&#8216;count&#8217; for the number of days with any data.&#8217;binx&#8217;, &#8216;biny&#8217;, and &#8216;binz&#8217;</em></li>
-<li><em>are also returned if requested. Note that arrays are organized for direct</em></li>
-<li><em>plotting, z,y,x.</em></li>
-</ul>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
+A dict of dicts indexed by data_label. Each entry is dict with entries
+&#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of days with any
+data; &#8216;bin_x&#8217;, &#8216;bin_y&#8217;, and &#8216;bin_z&#8217; are also returned if requested. Note
+that arrays are organized for direct plotting, z,y,x.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
 </td>
 </tr>
 </tbody>
@@ -1219,6 +1226,128 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Season delineated by the bounds attached to Instrument object.</p>
 </div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysat.ssnl.avg">
+<span id="average"></span><h3>Average<a class="headerlink" href="#module-pysat.ssnl.avg" title="Permalink to this headline">¶</a></h3>
+<p>Instrument independent seasonal averaging routine. Supports averaging
+1D and 2D data.</p>
+<dl class="function">
+<dt id="pysat.ssnl.avg.mean_by_day">
+<code class="descclassname">pysat.ssnl.avg.</code><code class="descname">mean_by_day</code><span class="sig-paren">(</span><em>inst</em>, <em>data_label</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.avg.mean_by_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean of data_label by day over Instrument.bounds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
+simple mean of data_label indexed by day</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.avg.mean_by_file">
+<code class="descclassname">pysat.ssnl.avg.</code><code class="descname">mean_by_file</code><span class="sig-paren">(</span><em>inst</em>, <em>data_label</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.avg.mean_by_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean of data_label by orbit over Instrument.bounds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
+simple mean of data_label indexed by start of each file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.avg.mean_by_orbit">
+<code class="descclassname">pysat.ssnl.avg.</code><code class="descname">mean_by_orbit</code><span class="sig-paren">(</span><em>inst</em>, <em>data_label</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.avg.mean_by_orbit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean of data_label by orbit over Instrument.bounds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
+simple mean of data_label indexed by start of each orbit</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pysat.ssnl.avg.median2D">
+<code class="descclassname">pysat.ssnl.avg.</code><code class="descname">median2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>returnData=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.avg.median2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 2D average of data_label over a season and label1, label2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bin#</strong> (<em>[min, max, number of bins]</em>) &#8211; </li>
+<li><strong>label#</strong> (<em>string</em>) &#8211; identifies data product for bin#</li>
+<li><strong>data_label</strong> (<em>list-like</em>) &#8211; contains strings identifying data product(s) to be averaged</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>median</strong> &#8211;
+2D median accessed by data_label as a function of label1 and label2
+over the season delineated by bounds of passed instrument objects.
+Also includes &#8216;count&#8217; and &#8216;avg_abs_dev&#8217; as well as the values of
+the bin edges in &#8216;bin_x&#8217; and &#8216;bin_y&#8217;.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pysat.ssnl.plot">
+<span id="plot"></span><h3>Plot<a class="headerlink" href="#module-pysat.ssnl.plot" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pysat.ssnl.plot.scatterplot">
+<code class="descclassname">pysat.ssnl.plot.</code><code class="descname">scatterplot</code><span class="sig-paren">(</span><em>inst</em>, <em>labelx</em>, <em>labely</em>, <em>data_label</em>, <em>datalim</em>, <em>xlim=None</em>, <em>ylim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.plot.scatterplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return scatterplot of data_label(s) as functions of labelx,y over a season.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>labelx</strong> (<em>string</em>) &#8211; data product for x-axis</li>
+<li><strong>labely</strong> (<em>string</em>) &#8211; data product for y-axis</li>
+<li><strong>data_label</strong> (<em>string, array-like of strings</em>) &#8211; data product(s) to be scatter plotted</li>
+<li><strong>datalim</strong> (<em>numyp array</em>) &#8211; plot limits for data_label</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a list of scatter plots of data_label as a function</em></li>
+<li><em>of labelx and labely over the season delineated by start and</em></li>
+<li><em>stop datetime objects.</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -1336,7 +1465,7 @@ stop dates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

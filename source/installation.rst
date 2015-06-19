@@ -42,6 +42,8 @@ pysat will remind you to set the top level directory that will hold the data,
 
 ----
 
+The CDF library must be installed, along with python support, before pysat is able to load CDF files.
+
 - CDF Library from NASA (http://cdf.gsfc.nasa.gov) 
    - `Mac OS X Installer <http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf36_0/macosX/cdf36_0-setup_universal_binary.tar.gz>`_
 - SpacePy
@@ -54,6 +56,8 @@ pysat will remind you to set the top level directory that will hold the data,
 **netCDF**
 
 ----
+
+netCDF libraries must be installed, along with python support, before pysat is able to load netCDF files.
 
 - netCDF C Library from Unidata (http://www.unidata.ucar.edu/downloads/netcdf/index.jsp)
 - netCDF4-python
