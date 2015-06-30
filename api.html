@@ -265,8 +265,8 @@ using keyword inst_module.</p>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;db_mer&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;db_mer&#39;</span><span class="p">])</span>
 
 <span class="c"># 1-second thermal plasma parameters</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span>
@@ -275,7 +275,7 @@ using keyword inst_module.</p>
                         <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">ivm</span><span class="p">[</span><span class="s">&#39;ionVelmeridional&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s">&#39;ionVelmeridional&#39;</span><span class="p">])</span>
 
 <span class="c"># Ionosphere profiles from GPS occultation</span>
 <span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span>
@@ -532,7 +532,7 @@ be processed appropriately.</p>
     <span class="k">return</span> <span class="n">data_to_be_added</span>
 <span class="n">instrument</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func2</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">instrument</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">instrument</span><span class="p">[</span><span class="s">&#39;data_to_be_added&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">instrument</span><span class="p">[</span><span class="s">&#39;data_to_be_added&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
@@ -657,13 +657,13 @@ in generating the appropriate output for an instrument routine.</p>
 <span class="c"># files from start up to stop (exclusive on stop)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
 
 <span class="c"># files for date</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">])</span>
 
 <span class="c"># files by slicing</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
 
 <span class="c"># get a list of new files</span>
 <span class="c"># new files are those that weren&#39;t present the last time</span>
@@ -826,7 +826,7 @@ with additional user provided labels.</p>
 <dd><p>Convenience method for obtaining metadata.</p>
 <p>Maps to pandas DataFrame.ix method.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">meta</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -957,7 +957,7 @@ by inst.orbits where inst = pysat.Instrument()</p>
 
 <span class="c"># iterate over orbits</span>
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">&#39;Next available orbit &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Next available orbit &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">])</span>
 
 <span class="c"># load fifth orbit of first day</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
@@ -979,7 +979,7 @@ by inst.orbits where inst = pysat.Instrument()</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
 <span class="n">inst</span><span class="o">.</span><span class="n">orbits</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-<span class="k">print</span> <span class="s">&#39;Orbit data &#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Orbit data &#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1055,18 +1055,6 @@ then the last orbit of data from the last day is loaded into .data.</p>
 <h2>Seasonal Analysis<a class="headerlink" href="#seasonal-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-pysat.ssnl.occur_prob">
 <span id="occurrence-probability"></span><h3>Occurrence Probability<a class="headerlink" href="#module-pysat.ssnl.occur_prob" title="Permalink to this headline">¶</a></h3>
-<p>Occurrence probability routines, daily or by orbit.</p>
-<p>Routines calculate the occurrence of an event greater than a supplied gate
-occuring at least once per day, or once per orbit. The probability is
-calculated as the (number of times with at least one hit in bin)/(number
-of times in the bin).The data used to determine the occurrence must be 1D.
-If a property of a 2D or higher dataset is needed attach a custom function
-that performs the check and returns a 1D Series.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The included routines use the bounds attached to the supplied instrument
-object as the season of interest.</p>
-</div>
 <dl class="function">
 <dt id="pysat.ssnl.occur_prob.by_orbit2D">
 <code class="descclassname">pysat.ssnl.occur_prob.</code><code class="descname">by_orbit2D</code><span class="sig-paren">(</span><em>inst</em>, <em>bin1</em>, <em>label1</em>, <em>bin2</em>, <em>label2</em>, <em>data_label</em>, <em>gate</em>, <em>returnBins=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.occur_prob.by_orbit2D" title="Permalink to this definition">¶</a></dt>
@@ -1231,8 +1219,6 @@ that arrays are organized for direct plotting, z,y,x.</p>
 </div>
 <div class="section" id="module-pysat.ssnl.avg">
 <span id="average"></span><h3>Average<a class="headerlink" href="#module-pysat.ssnl.avg" title="Permalink to this headline">¶</a></h3>
-<p>Instrument independent seasonal averaging routine. Supports averaging
-1D and 2D data.</p>
 <dl class="function">
 <dt id="pysat.ssnl.avg.mean_by_day">
 <code class="descclassname">pysat.ssnl.avg.</code><code class="descname">mean_by_day</code><span class="sig-paren">(</span><em>inst</em>, <em>data_label</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.ssnl.avg.mean_by_day" title="Permalink to this definition">¶</a></dt>

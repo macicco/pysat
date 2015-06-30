@@ -64,23 +64,4 @@ netCDF libraries must be installed, along with python support, before pysat is a
 
 ::
 
-  pip install netCDF4
-
-
-
-**pandas**
-
-----
-
-To get the forked pandas that accommodates pandas Series and DataFrames within each cell of a Series use::
-
-   pip install git+https://github.com/rstoneback/pandas.git
-
-The forked pandas is required for full support of higher dimensional data sets. A pull-request is planned.
-
-
-
-
-
-
 
