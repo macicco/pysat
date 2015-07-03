@@ -26,6 +26,12 @@ COSMIC GPS
 .. automodule:: pysat.instruments.cosmic_gps
    :members: __doc__
 
+OMNI
+----
+
+.. automodule:: pysat.instruments.omni_hro
+   :members: __doc__
+
 SuperDARN
 ---------
 

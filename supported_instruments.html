@@ -87,6 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.omni_hro">OMNI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
 </ul>
 </li>
@@ -154,16 +155,26 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
 </tr>
-<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">{&#8216;dc_b&#8217;}</td>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;vefi&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">Select measurement type, one of {&#8216;dc_b&#8217;}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<ul class="simple">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>tag = &#8216;dc_b&#8217;: 1 second DC magnetometer data</li>
 </ul>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <ul class="last simple">
@@ -183,7 +194,15 @@ NASA Coordinated Data Analysis Web (CDAWeb) in CDF format.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">No tags supported</td>
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;ivm&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">None supported</td>
 </tr>
 <tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
 </tr>
@@ -217,15 +236,29 @@ Currently only supported for tag=&#8217;ionprf&#8217;.</td>
 <tr class="field-even field"><th class="field-name" colspan="2">type altitude_bin:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">integer</td>
 </tr>
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cosmic2013&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;gps&#8217; for Radio Occultation profiles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">Select profile type, one of {&#8216;ionprf&#8217;, &#8216;sonprf&#8217;, &#8216;wetprf&#8217;, &#8216;atmprf&#8217;}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<ul class="simple">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>&#8216;ionprf: &#8216;ionPrf&#8217; ionosphere profiles</li>
 <li>&#8216;sonprf&#8217;: &#8216;sonPrf&#8217; files</li>
 <li>&#8216;wetprf&#8217;: &#8216;wetPrf&#8217; files</li>
 <li>&#8216;atmPrf&#8217;: &#8216;atmPrf&#8217; files</li>
 </ul>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <ul class="last simple">
@@ -241,13 +274,33 @@ Currently only supported for tag=&#8217;ionprf&#8217;.</td>
 of GPS signals by the atmosphere provides a measurement of atmospheric
 parameters. Data downloaded from the COSMIC Data Analaysis and
 Archival Center.</p>
-<p class="rubric">Notes</p>
-<ul class="simple">
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cosmic&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;gps&#8217; for Radio Occultation profiles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">Select profile type, one of {&#8216;ionprf&#8217;, &#8216;sonprf&#8217;, &#8216;wetprf&#8217;, &#8216;atmprf&#8217;}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>&#8216;ionprf: &#8216;ionPrf&#8217; ionosphere profiles</li>
 <li>&#8216;sonprf&#8217;: &#8216;sonPrf&#8217; files</li>
 <li>&#8216;wetprf&#8217;: &#8216;wetPrf&#8217; files</li>
 <li>&#8216;atmPrf&#8217;: &#8216;atmPrf&#8217; files</li>
 </ul>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <ul class="last simple">
@@ -255,9 +308,77 @@ Archival Center.</p>
 </ul>
 </div>
 </div>
+<div class="section" id="module-pysat.instruments.omni_hro">
+<span id="omni"></span><h2>OMNI<a class="headerlink" href="#module-pysat.instruments.omni_hro" title="Permalink to this headline">¶</a></h2>
+<p>Supports OMNI Combined, Definitive, IMF and Plasma Data, and Energetic Proton Fluxes,
+Time-Shifted to the Nose of the Earth&#8217;s Bow Shock, plus Solar and Magnetic Indices. Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb). Supports both 5 and 1 minute files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;omni&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;hro&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">Select time between samples, one of {&#8216;1min&#8217;, &#8216;5min&#8217;}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Files are stored by the first day of each month. When downloading use
+omni.download(start, stop, freq=&#8217;MS&#8217;) to only download days that could possibly have data.
+&#8216;MS&#8217; gives a monthly start frequency.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Currently no cleaning routine. Though the CDAWEB description indicates that these level-2 products
+are expected to be ok.</li>
+<li>Module not written by OMNI team.</li>
+</ul>
+</div>
+</div>
 <div class="section" id="module-pysat.instruments.superdarn_grdex">
 <span id="superdarn"></span><h2>SuperDARN<a class="headerlink" href="#module-pysat.instruments.superdarn_grdex" title="Permalink to this headline">¶</a></h2>
-<p>SuperDARN data support (Alpha Level!)</p>
+<p>SuperDARN data support for grdex files(Alpha Level!)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;superdarn&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;grdex&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">&#8216;north&#8217; or &#8216;south&#8217; for Northern/Southern hemisphere data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Requires davitpy and pydarn to load SuperDARN files.
+Uses environment variables set by davitpy to download files
+from Virginia Tech SuperDARN data servers. Pydarn routines
+are used to load SuperDARN data.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Cleaning only removes entries that have 0 vectors, grdex files
+are constituted from what it is thought to be good data.</p>
+</div>
 </div>
 </div>
 
