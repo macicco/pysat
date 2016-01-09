@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; pysat 0.3.1 documentation</title>
+  <title>API &mdash; pysat 0.3.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.3.1 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.3.3 documentation" href="index.html"/>
         <link rel="prev" title="Adding a New Instrument" href="new_instrument.html"/> 
 
   
@@ -148,7 +148,7 @@
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Instrument">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>clean_level='clean'</em>, <em>update_files=False</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=False</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>clean_level='clean'</em>, <em>update_files=False</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=False</em>, <em>manual_org=False</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download, load, manage, modify and analyze science data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -173,6 +173,8 @@ additional files are added.</li>
 <li><strong>multi_file_day</strong> (<em>boolean, optional (False by default)</em>) &#8211; Set to True if Instrument data files for a day are spread across
 multiple files and data for day n could be found in a file
 with a timestamp of day n-1 or n+1.</li>
+<li><strong>manual_org</strong> (<em>bool</em>) &#8211; if True, then pysat will look directly in pysat data directory
+for data files and will not use /platform/name/tag</li>
 </ul>
 </td>
 </tr>
@@ -606,7 +608,7 @@ data is accepted from return.</dd>
 <h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Files">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em>, <em>manual_org=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maintains collection of files for instrument object.</p>
 <p>Uses the list_files functions for each specific instrument
 to create an ordered collection of files in time. Used by
@@ -642,6 +644,14 @@ object</p>
 <dd><p><em>string</em></p>
 <p>path to the directory containing instrument files,
 top_dir/platform/name/tag/</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Files.manual_org">
+<code class="descname">manual_org</code><a class="headerlink" href="#Files.manual_org" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em></p>
+<p>if True, then Files will look directly in pysat data directory
+for data files and will not use /platform/name/tag</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -1437,7 +1447,7 @@ stop dates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1',
+            VERSION:'0.3.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
