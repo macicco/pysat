@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; pysat 0.3.3 documentation</title>
+  <title>API &mdash; pysat 0.4.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.3.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.0 documentation" href="index.html"/>
         <link rel="prev" title="Adding a New Instrument" href="new_instrument.html"/> 
 
   
@@ -148,7 +148,7 @@
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Instrument">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>clean_level='clean'</em>, <em>update_files=False</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=False</em>, <em>manual_org=False</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>sat_id=None</em>, <em>clean_level='clean'</em>, <em>update_files=None</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=None</em>, <em>manual_org=None</em>, <em>directory_format=None</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download, load, manage, modify and analyze science data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -158,8 +158,7 @@
 <li><strong>platform</strong> (<em>string</em>) &#8211; name of platform/satellite.</li>
 <li><strong>name</strong> (<em>string</em>) &#8211; name of instrument.</li>
 <li><strong>tag</strong> (<em>string, optional</em>) &#8211; identifies particular subset of instrument data.</li>
-<li><strong>inst_module</strong> (<em>module, optional</em>) &#8211; Provide instrument module directly.
-Takes precedence over platform/name.</li>
+<li><strong>sat_id</strong> (<em>string, optional</em>) &#8211; identity within constellation</li>
 <li><strong>clean_level</strong> (<em>{&#8216;clean&#8217;,&#8217;dusty&#8217;,&#8217;dirty&#8217;,&#8217;none&#8217;}, optional</em>) &#8211; level of data quality</li>
 <li><strong>pad</strong> (<em>pandas.DateOffset, or dictionary, optional</em>) &#8211; Length of time to pad the begining and end of loaded data for
 time-series processing. Extra data is removed after applying all
@@ -167,14 +166,18 @@ custom functions. Dictionary, if supplied, is simply passed to
 pandas DateOffset.</li>
 <li><strong>orbit_info</strong> (<em>dict</em>) &#8211; Orbit information, {&#8216;index&#8217;:index, &#8216;kind&#8217;:kind, &#8216;period&#8217;:period}.
 See pysat.Orbits for more information.</li>
-<li><strong>update_files</strong> (<em>boolean, optional</em>) &#8211; If True, query filesystem for instrument files and store.
-files.get_new() will return no files after this call until
-additional files are added.</li>
-<li><strong>multi_file_day</strong> (<em>boolean, optional (False by default)</em>) &#8211; Set to True if Instrument data files for a day are spread across
+<li><strong>inst_module</strong> (<em>module, optional</em>) &#8211; Provide instrument module directly.
+Takes precedence over platform/name.</li>
+<li><strong>update_files</strong> (<em>boolean, optional</em>) &#8211; If True, immediately query filesystem for instrument files and store.</li>
+<li><strong>multi_file_day</strong> (<em>boolean, optional</em>) &#8211; Set to True if Instrument data files for a day are spread across
 multiple files and data for day n could be found in a file
 with a timestamp of day n-1 or n+1.</li>
 <li><strong>manual_org</strong> (<em>bool</em>) &#8211; if True, then pysat will look directly in pysat data directory
-for data files and will not use /platform/name/tag</li>
+for data files and will not use default /platform/name/tag</li>
+<li><strong>directory_format</strong> (<em>str</em>) &#8211; directory naming structure in string format. Variables such as
+platform, name, and tag will be filled in as needed using python
+string formatting. The default directory structure would be
+expressed as &#8216;{platform}/{name}/{tag}&#8217;</li>
 </ul>
 </td>
 </tr>
@@ -322,14 +325,14 @@ set by <cite>bounds</cite> attribute.</p>
 <p class="last">Default bounds are the first and last dates from files on local system.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre>inst = pysat.Instrument(platform=platform,
-                        name=name,
-                        tag=tag)
-start = pysat.datetime(2009,1,1)
-stop = pysat.datetime(2009,1,31)
-inst.bounds = (start,stop)
-for inst in inst:
-print(&#39;Another day loaded&#39;, inst.date)
+<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>
+<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Another day loaded&#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -482,14 +485,19 @@ first day(default)/file will be loaded.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pysat.Instrument.to_netcdf3">
-<code class="descname">to_netcdf3</code><span class="sig-paren">(</span><em>fname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.to_netcdf3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores loaded data into a netCDF3 64-bit file.</p>
+<dt id="pysat.Instrument.to_netcdf4">
+<code class="descname">to_netcdf4</code><span class="sig-paren">(</span><em>fname=None</em>, <em>format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.to_netcdf4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores loaded data into a netCDF3/4 file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> (<em>string</em>) &#8211; full path to save instrument object to</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> (<em>string</em>) &#8211; full path to save instrument object to</li>
+<li><strong>format</strong> (<em>string</em>) &#8211; format keyword passed to netCDF4 routine
+NETCDF3_CLASSIC, NETCDF3_64BIT, NETCDF4_CLASSIC, and NETCDF4</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -608,7 +616,7 @@ data is accepted from return.</dd>
 <h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Files">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em>, <em>manual_org=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em>, <em>manual_org=False</em>, <em>directory_format=None</em>, <em>update_files=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maintains collection of files for instrument object.</p>
 <p>Uses the list_files functions for each specific instrument
 to create an ordered collection of files in time. Used by
@@ -654,6 +662,13 @@ top_dir/platform/name/tag/</p>
 for data files and will not use /platform/name/tag</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Files.update_files">
+<code class="descname">update_files</code><a class="headerlink" href="#Files.update_files" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em></p>
+<p>updates files on instantiation if True</p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">User should generally use the interface provided by a pysat.Instrument
@@ -662,7 +677,8 @@ in generating the appropriate output for an instrument routine.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># convenient file access</span>
-<span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+<span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+                        <span class="n">sat_id</span><span class="o">=</span><span class="n">sat_id</span><span class="p">)</span>
 <span class="c"># first file</span>
 <span class="n">inst</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -873,18 +889,6 @@ assumed if col_names is None.</p>
 </div>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="pysat.Meta.from_dict">
-<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Meta.from_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>not implemented yet, load metadata from dict of items/list types</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="pysat.Meta.from_nc">
-<em class="property">classmethod </em><code class="descname">from_nc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Meta.from_nc" title="Permalink to this definition">¶</a></dt>
-<dd><p>not implemented yet, load metadata from netCDF</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="pysat.Meta.replace">
 <code class="descname">replace</code><span class="sig-paren">(</span><em>metadata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Meta.replace" title="Permalink to this definition">¶</a></dt>
@@ -1038,7 +1042,7 @@ then the first orbit from the first date of data is returned.</p>
 <dl class="method">
 <dt id="pysat.Orbits.prev">
 <code class="descname">prev</code><span class="sig-paren">(</span><em>*arg</em>, <em>**kwarg</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Orbits.prev" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the next orbit into .data.</p>
+<dd><p>Load the previous orbit into .data.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Forms complete orbits across day boundaries. If no data loaded
@@ -1339,6 +1343,25 @@ the bin edges in &#8216;bin_x&#8217; and &#8216;bin_y&#8217;.</p>
 <div class="section" id="module-pysat.utils">
 <span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-pysat.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="pysat.utils.computational_form">
+<code class="descclassname">pysat.utils.</code><code class="descname">computational_form</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.computational_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input Series of numbers, Series, or DataFrames repackaged
+for calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>pandas.Series</em>) &#8211; Series of numbers, Series, DataFrames</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">repacked data, aligned by indices, ready for calculation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas.Series, DataFrame, or Panel</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pysat.utils.create_datetime_index">
 <code class="descclassname">pysat.utils.</code><code class="descname">create_datetime_index</code><span class="sig-paren">(</span><em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>uts=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.create_datetime_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a timeseries index using supplied year, month, day, and ut in seconds.</p>
@@ -1375,9 +1398,9 @@ the bin edges in &#8216;bin_x&#8217; and &#8216;bin_y&#8217;.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pysat.utils.load_netcdf3">
-<code class="descclassname">pysat.utils.</code><code class="descname">load_netcdf3</code><span class="sig-paren">(</span><em>fnames=None</em>, <em>strict_meta=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.load_netcdf3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load netCDF-3 file produced by pysat.</p>
+<dt id="pysat.utils.load_netcdf4">
+<code class="descclassname">pysat.utils.</code><code class="descname">load_netcdf4</code><span class="sig-paren">(</span><em>fnames=None</em>, <em>strict_meta=False</em>, <em>format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.load_netcdf4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load netCDF-3/4 file produced by pysat.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1385,6 +1408,8 @@ the bin edges in &#8216;bin_x&#8217; and &#8216;bin_y&#8217;.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>fnames</strong> (<em>string or array_like of strings</em>) &#8211; filenames to load</li>
 <li><strong>strict_meta</strong> (<em>boolean</em>) &#8211; check if metadata across fnames is the same</li>
+<li><strong>format</strong> (<em>string</em>) &#8211; format keyword passed to netCDF4 routine
+NETCDF3_CLASSIC, NETCDF3_64BIT, NETCDF4_CLASSIC, and NETCDF4</li>
 </ul>
 </td>
 </tr>
@@ -1403,8 +1428,20 @@ stop dates.</p>
 
 <dl class="function">
 <dt id="pysat.utils.set_data_dir">
-<code class="descclassname">pysat.utils.</code><code class="descname">set_data_dir</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.set_data_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>set the top level directory pysat uses to look for data.</p>
+<code class="descclassname">pysat.utils.</code><code class="descname">set_data_dir</code><span class="sig-paren">(</span><em>path=None</em>, <em>store=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.utils.set_data_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the top level directory pysat uses to look for data and reload.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>string</em>) &#8211; valid path to directory pysat uses to look for data</li>
+<li><strong>store</strong> (<em>bool</em>) &#8211; if True, store data directory for future runs</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -1447,7 +1484,7 @@ stop dates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.3',
+            VERSION:'0.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
