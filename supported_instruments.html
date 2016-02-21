@@ -83,11 +83,13 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Supported Instruments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_plp">C/NOFS PLP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.omni_hro">OMNI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.rocsat_ivm">ROCSAT-1 IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
 </ul>
 </li>
@@ -145,6 +147,68 @@
             
   <div class="section" id="supported-instruments">
 <h1>Supported Instruments<a class="headerlink" href="#supported-instruments" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pysat.instruments.cnofs_ivm">
+<span id="c-nofs-ivm"></span><h2>C/NOFS IVM<a class="headerlink" href="#module-pysat.instruments.cnofs_ivm" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Ion Velocity Meter (IVM)
+onboard the Communication and Navigation Outage Forecasting
+System (C/NOFS) satellite, part of the Coupled Ion Netural Dynamics
+Investigation (CINDI). Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb) in CDF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;ivm&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">None supported</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>The sampling rate of the instrument changes on July 29th, 2010.
+The rate is attached to the instrument object as .sample_rate.</li>
+<li>The cleaning parameters for the instrument are still under development.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pysat.instruments.cnofs_plp">
+<span id="c-nofs-plp"></span><h2>C/NOFS PLP<a class="headerlink" href="#module-pysat.instruments.cnofs_plp" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Planar Langmuir Probe (PLP)
+onboard the Communication and Navigation Outage Forecasting
+System (C/NOFS) satellite. Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;plp&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Currently no cleaning routine.</li>
+<li>Module not written by PLP team.</li>
+</ul>
+</div>
+</div>
 <div class="section" id="module-pysat.instruments.cnofs_vefi">
 <span id="c-nofs-vefi"></span><h2>C/NOFS VEFI<a class="headerlink" href="#module-pysat.instruments.cnofs_vefi" title="Permalink to this headline">¶</a></h2>
 <p>Supports the Vector Electric Field Instrument (VEFI)
@@ -180,40 +244,6 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 <ul class="last simple">
 <li>Currently no cleaning routine.</li>
 <li>Module not written by VEFI team.</li>
-</ul>
-</div>
-</div>
-<div class="section" id="module-pysat.instruments.cnofs_ivm">
-<span id="c-nofs-ivm"></span><h2>C/NOFS IVM<a class="headerlink" href="#module-pysat.instruments.cnofs_ivm" title="Permalink to this headline">¶</a></h2>
-<p>Supports the Ion Velocity Meter (IVM)
-onboard the Communication and Navigation Outage Forecasting
-System (C/NOFS) satellite, part of the Coupled Ion Netural Dynamics
-Investigation (CINDI). Downloads data from the
-NASA Coordinated Data Analysis Web (CDAWeb) in CDF format.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;ivm&#8217;</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">None supported</td>
-</tr>
-<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<ul class="last simple">
-<li>The sampling rate of the instrument changes on July 29th, 2010.
-The rate is attached to the instrument object as .sample_rate.</li>
-<li>The cleaning parameters for the instrument are still under development.</li>
 </ul>
 </div>
 </div>
@@ -348,6 +378,36 @@ of the National Science Foundation.</p>
 <li>Currently no cleaning routine. Though the CDAWEB description indicates that these level-2 products
 are expected to be ok.</li>
 <li>Module not written by OMNI team.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pysat.instruments.rocsat_ivm">
+<span id="rocsat-1-ivm"></span><h2>ROCSAT-1 IVM<a class="headerlink" href="#module-pysat.instruments.rocsat_ivm" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Ion Velocity Meter (IVM)
+onboard the Republic of China Satellite (ROCSAT-1). Downloads data from the
+NASA Coordinated Data Analysis Web (CDAWeb).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;rocsat&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;ivm&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Currently no cleaning routine.</li>
 </ul>
 </div>
 </div>

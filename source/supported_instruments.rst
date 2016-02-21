@@ -2,16 +2,22 @@
 Supported Instruments
 =====================
 
-C/NOFS VEFI
------------
-
-.. automodule:: pysat.instruments.cnofs_vefi
-   :members: __doc__
-
 C/NOFS IVM
 ----------
 
 .. automodule:: pysat.instruments.cnofs_ivm
+   :members: __doc__
+
+C/NOFS PLP
+----------
+
+.. automodule:: pysat.instruments.cnofs_plp
+   :members: __doc__
+
+C/NOFS VEFI
+-----------
+
+.. automodule:: pysat.instruments.cnofs_vefi
    :members: __doc__
 
 COSMIC 2013 GPS
@@ -30,6 +36,12 @@ OMNI
 ----
 
 .. automodule:: pysat.instruments.omni_hro
+   :members: __doc__
+
+ROCSAT-1 IVM
+------------
+
+.. automodule:: pysat.instruments.rocsat_ivm
    :members: __doc__
 
 SuperDARN
