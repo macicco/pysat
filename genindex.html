@@ -6,6 +6,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Index &mdash; pysat 0.4.0 documentation</title>
@@ -15,7 +16,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -34,7 +34,7 @@
     <link rel="top" title="pysat 0.4.0 documentation" href="index.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -44,11 +44,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="index.html" class="fa fa-home"> pysat</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pysat
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -56,65 +72,28 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-              <ul>
+            
+            
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basics">Basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#custom-functions">Custom Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#time-series-analysis">Time Series Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#iteration">Iteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#orbit-support">Orbit Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#iteration-and-instrument-independent-analysis">Iteration and Instrument Independent Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#summary-flow-charts">Summary Flow Charts</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#seasonal-averaging-of-ion-drifts-and-density-profiles">Seasonal Averaging of Ion Drifts and Density Profiles</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_plp">C/NOFS PLP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.omni_hro">OMNI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.rocsat_ivm">ROCSAT-1 IVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#list-files">List Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#load-data">Load Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#download-data">Download Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#optional-routines">Optional Routines</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#instrument">Instrument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#custom">Custom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#files">Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#meta">Meta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#orbits">Orbits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#seasonal-analysis">Seasonal Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-pysat.utils">Utilities</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -129,18 +108,27 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
     <li></li>
       <li class="wy-breadcrumbs-aside">
         
+          
+        
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
 
 <h1 id="index">Index</h1>
@@ -495,6 +483,10 @@
 
       </dl></dd>
       
+  <dt><a href="supported_instruments.html#module-pysat.instruments.champ_star">pysat.instruments.champ_star (module)</a>
+  </dt>
+
+      
   <dt><a href="supported_instruments.html#module-pysat.instruments.cnofs_ivm">pysat.instruments.cnofs_ivm (module)</a>
   </dt>
 
@@ -526,6 +518,10 @@
 
       
   <dt><a href="supported_instruments.html#module-pysat.instruments.superdarn_grdex">pysat.instruments.superdarn_grdex (module)</a>
+  </dt>
+
+      
+  <dt><a href="supported_instruments.html#module-pysat.instruments.sw_kp">pysat.instruments.sw_kp (module)</a>
   </dt>
 
       
@@ -623,6 +619,7 @@
 
 
 
+           </div>
           </div>
           <footer>
   
@@ -632,12 +629,13 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Russell Stoneback.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 

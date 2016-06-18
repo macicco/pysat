@@ -20,6 +20,12 @@ C/NOFS VEFI
 .. automodule:: pysat.instruments.cnofs_vefi
    :members: __doc__
 
+CHAMP-STAR
+---------
+
+.. automodule:: pysat.instruments.champ_star
+   :members: __doc__
+
 COSMIC 2013 GPS
 ---------------
 
@@ -30,6 +36,12 @@ COSMIC GPS
 ----------
 
 .. automodule:: pysat.instruments.cosmic_gps
+   :members: __doc__
+
+Kp
+--
+
+.. automodule:: pysat.instruments.sw_kp
    :members: __doc__
 
 OMNI

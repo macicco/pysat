@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Examples &mdash; pysat 0.4.0 documentation</title>
@@ -14,7 +15,6 @@
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -35,7 +35,7 @@
         <link rel="prev" title="Tutorial" href="tutorial.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -45,11 +45,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
-          <a href="index.html" class="fa fa-home"> pysat</a>
-        
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pysat
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -57,63 +73,33 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
           
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-              <ul class="current">
+            
+            
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basics">Basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#custom-functions">Custom Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#time-series-analysis">Time Series Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#iteration">Iteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#orbit-support">Orbit Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#iteration-and-instrument-independent-analysis">Iteration and Instrument Independent Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#summary-flow-charts">Summary Flow Charts</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#seasonal-averaging-of-ion-drifts-and-density-profiles">Seasonal Averaging of Ion Drifts and Density Profiles</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.omni_hro">OMNI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="supported_instruments.html#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#list-files">List Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#load-data">Load Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#download-data">Download Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_instrument.html#optional-routines">Optional Routines</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#instrument">Instrument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#custom">Custom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#files">Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#meta">Meta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#orbits">Orbits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#seasonal-analysis">Seasonal Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-pysat.utils">Utilities</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -128,20 +114,29 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
     <li>Examples</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/examples.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/examples.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
@@ -155,65 +150,65 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pds</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="c"># set the directory to save plots to</span>
-<span class="n">results_dir</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># set the directory to save plots to</span>
+<span class="n">results_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-<span class="c"># select vefi dc magnetometer data, use longitude to determine where</span>
-<span class="c"># there are changes in the orbit (local time info not in file)</span>
-<span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">}</span>
-<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">,</span>
+<span class="c1"># select vefi dc magnetometer data, use longitude to determine where</span>
+<span class="c1"># there are changes in the orbit (local time info not in file)</span>
+<span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
+<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
                         <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
 
-<span class="c"># define function to remove flagged values</span>
+<span class="c1"># define function to remove flagged values</span>
 <span class="k">def</span> <span class="nf">filter_vefi</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-    <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;B_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;B_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
     <span class="k">return</span>
-<span class="c"># attach function to vefi</span>
-<span class="n">vefi</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filter_vefi</span><span class="p">,</span><span class="s">&#39;modify&#39;</span><span class="p">)</span>
-<span class="c"># set limits on dates analysis will cover, inclusive</span>
+<span class="c1"># attach function to vefi</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filter_vefi</span><span class="p">,</span><span class="s1">&#39;modify&#39;</span><span class="p">)</span>
+<span class="c1"># set limits on dates analysis will cover, inclusive</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pds</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pds</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
 
-<span class="c"># if there is no vefi dc magnetometer data on your system</span>
-<span class="c"># run command below</span>
-<span class="c"># where start and stop are pandas datetimes (from above)</span>
-<span class="c"># pysat will automatically register the addition of this data at the end</span>
-<span class="c"># of download</span>
+<span class="c1"># if there is no vefi dc magnetometer data on your system</span>
+<span class="c1"># run command below</span>
+<span class="c1"># where start and stop are pandas datetimes (from above)</span>
+<span class="c1"># pysat will automatically register the addition of this data at the end</span>
+<span class="c1"># of download</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 
-<span class="c"># leave bounds unassigned to cover the whole dataset</span>
+<span class="c1"># leave bounds unassigned to cover the whole dataset</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 
-<span class="c"># perform occurrence probability calculation</span>
-<span class="c"># any data added by custom functions is available within routine below</span>
-<span class="n">ans</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">occur_prob</span><span class="o">.</span><span class="n">by_orbit2D</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">144</span><span class="p">],</span> <span class="s">&#39;longitude&#39;</span><span class="p">,</span>
-             <span class="p">[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">104</span><span class="p">],</span> <span class="s">&#39;latitude&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">returnBins</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># perform occurrence probability calculation</span>
+<span class="c1"># any data added by custom functions is available within routine below</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">occur_prob</span><span class="o">.</span><span class="n">by_orbit2D</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">144</span><span class="p">],</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span>
+             <span class="p">[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">104</span><span class="p">],</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">returnBins</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="c"># a dict indexed by data_label is returned</span>
-<span class="c"># in this case, only one, we&#39;ll pull it out</span>
-<span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="s">&#39;dB_mer&#39;</span><span class="p">]</span>
-<span class="c"># plot occurrence probability</span>
+<span class="c1"># a dict indexed by data_label is returned</span>
+<span class="c1"># in this case, only one, we&#39;ll pull it out</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="c1"># plot occurrence probability</span>
 <span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;prob&#39;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;prob&#39;</span><span class="p">]))</span>
-<span class="n">im</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_x&#39;</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_y&#39;</span><span class="p">],</span> <span class="n">masked</span><span class="p">)</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Occurrence Probability Delta-B Meridional &gt; 0&#39;</span><span class="p">)</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Latitude&#39;</span><span class="p">)</span>
+<span class="n">masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;prob&#39;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;prob&#39;</span><span class="p">]))</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_x&#39;</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_y&#39;</span><span class="p">],</span> <span class="n">masked</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Occurrence Probability Delta-B Meridional &gt; 0&#39;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
 <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">((</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_y&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Occurrence Probability&#39;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_y&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Occurrence Probability&#39;</span><span class="p">)</span>
 
-<span class="n">im</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_x&#39;</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_y&#39;</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;count&#39;</span><span class="p">])</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Longitude&#39;</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_x&#39;</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_y&#39;</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">)</span>
 <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">360</span><span class="p">))</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s">&#39;bin_x&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Latitude&#39;</span><span class="p">)</span>
-<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;Number of Orbits in Bin&#39;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_x&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
+<span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Number of Orbits in Bin&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Counts&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_dir</span><span class="p">,</span><span class="s">&#39;ssnl_occurrence_by_orbit_demo&#39;</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_dir</span><span class="p">,</span><span class="s1">&#39;ssnl_occurrence_by_orbit_demo&#39;</span><span class="p">)</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>Result</p>
@@ -229,65 +224,65 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pds</span>
 
-<span class="c"># set the directory to save plots to</span>
-<span class="n">results_dir</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="c1"># set the directory to save plots to</span>
+<span class="n">results_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-<span class="c"># select vefi dc magnetometer data, use longitude to determine where</span>
-<span class="c"># there are changes in the orbit (local time info not in file)</span>
-<span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">,</span> <span class="s">&#39;kind&#39;</span><span class="p">:</span><span class="s">&#39;longitude&#39;</span><span class="p">}</span>
-<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">&#39;dc_b&#39;</span><span class="p">,</span>
+<span class="c1"># select vefi dc magnetometer data, use longitude to determine where</span>
+<span class="c1"># there are changes in the orbit (local time info not in file)</span>
+<span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
+<span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
                         <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
 
-<span class="c"># set limits on dates analysis will cover, inclusive</span>
+<span class="c1"># set limits on dates analysis will cover, inclusive</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 
-<span class="c"># if there is no vefi dc magnetometer data on your system</span>
-<span class="c"># then run command below</span>
-<span class="c"># where start and stop are pandas datetimes (from above)</span>
-<span class="c"># pysat will automatically register the addition of this data at the end</span>
-<span class="c"># of download</span>
+<span class="c1"># if there is no vefi dc magnetometer data on your system</span>
+<span class="c1"># then run command below</span>
+<span class="c1"># where start and stop are pandas datetimes (from above)</span>
+<span class="c1"># pysat will automatically register the addition of this data at the end</span>
+<span class="c1"># of download</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 
-<span class="c"># leave bounds unassigned to cover the whole dataset</span>
+<span class="c1"># leave bounds unassigned to cover the whole dataset</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">orbit_count</span><span class="p">,</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">):</span>
-    <span class="c"># for each loop pysat puts a copy of the next available</span>
-    <span class="c"># orbit into   vefi.data</span>
-    <span class="c"># changing .data at this level does not alter other orbits</span>
-    <span class="c"># reloading the same orbit will erase any changes made</span>
+    <span class="c1"># for each loop pysat puts a copy of the next available</span>
+    <span class="c1"># orbit into   vefi.data</span>
+    <span class="c1"># changing .data at this level does not alter other orbits</span>
+    <span class="c1"># reloading the same orbit will erase any changes made</span>
 
-    <span class="c"># satellite data can have time gaps, which leads to plots</span>
-    <span class="c"># with erroneous lines connecting measurements on</span>
-    <span class="c"># both sides of the gap</span>
-    <span class="c"># command below fills in any data gaps using a</span>
-    <span class="c"># 1-second cadence with NaNs</span>
-    <span class="c"># see pandas documentation for more info</span>
-    <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;1S&#39;</span><span class="p">,</span>  <span class="n">fill_method</span><span class="o">=</span><span class="s">&#39;ffill&#39;</span><span class="p">,</span>
-                                   <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;left&#39;</span> <span class="p">)</span>
+    <span class="c1"># satellite data can have time gaps, which leads to plots</span>
+    <span class="c1"># with erroneous lines connecting measurements on</span>
+    <span class="c1"># both sides of the gap</span>
+    <span class="c1"># command below fills in any data gaps using a</span>
+    <span class="c1"># 1-second cadence with NaNs</span>
+    <span class="c1"># see pandas documentation for more info</span>
+    <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1S&#39;</span><span class="p">,</span>  <span class="n">fill_method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span>
+                                   <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;left&#39;</span> <span class="p">)</span>
 
     <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
 
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="s">&#39;B_flag&#39;</span><span class="p">])</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="o">+</span><span class="s">&#39; - &#39;</span> <span class="o">+</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;B_flag&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="o">+</span><span class="s1">&#39; - &#39;</span> <span class="o">+</span>
                      <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Interp. Flag&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Interp. Flag&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 
-    <span class="n">p_params</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;B_north&#39;</span><span class="p">,</span> <span class="s">&#39;B_up&#39;</span><span class="p">,</span> <span class="s">&#39;B_west&#39;</span><span class="p">,</span> <span class="s">&#39;dB_mer&#39;</span><span class="p">,</span>
-                <span class="s">&#39;dB_par&#39;</span><span class="p">,</span> <span class="s">&#39;dB_zon&#39;</span><span class="p">]</span>
+    <span class="n">p_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B_north&#39;</span><span class="p">,</span> <span class="s1">&#39;B_up&#39;</span><span class="p">,</span> <span class="s1">&#39;B_west&#39;</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;dB_par&#39;</span><span class="p">,</span> <span class="s1">&#39;dB_zon&#39;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">p_params</span><span class="p">):</span>
-       <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="n">param</span><span class="p">])</span>
+       <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="n">param</span><span class="p">])</span>
        <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
        <span class="n">a</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">360</span><span class="p">])</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">))</span>
 
     <span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;orbit_</span><span class="si">%05i</span><span class="s">.png&#39;</span> <span class="o">%</span> <span class="n">orbit_count</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;orbit_</span><span class="si">%05i</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="n">orbit_count</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_dir</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span> <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -299,39 +294,39 @@
 <h2>Seasonal Averaging of Ion Drifts and Density Profiles<a class="headerlink" href="#seasonal-averaging-of-ion-drifts-and-density-profiles" title="Permalink to this headline">¶</a></h2>
 <p>In-situ measurements of the ionosphere by the Ion Velocity Meter onboard C/NOFS provides information on plasma density, composition, ion temperature, and ion drifts. This provides a great deal of information on the ionosphere though this information is limited to the immediate vicinity of the satellite. COSMIC GPS measurements, with some processing, provide information on the vertical electron density distribution in the ionosphere. The vertical motion of ions measured by IVM should be reflected in the vertical plasma densities measured by COSMIC. To look at this relationship over all longitudes and local times, for magnetic latitudes near the geomagnetic equator, use the code below:</p>
 <p>Note the same averaging routine is used for both COSMIC and IVM, and that both 1D and 2D data are handled correctly. The routine below has not yet been uploaded to the repo. (Pending)</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># instantiate IVM Object</span>
-<span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cnofs&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;ivm&#39;</span><span class="p">,</span><span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">)</span>
-<span class="c"># restrict meausurements to those near geomagnetic equator</span>
-<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">restrictMLAT</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">maxMLAT</span><span class="o">=</span><span class="mf">25.</span><span class="p">)</span>
-<span class="c"># perform seasonal average</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># instantiate IVM Object</span>
+<span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">,</span><span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">)</span>
+<span class="c1"># restrict meausurements to those near geomagnetic equator</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">restrictMLAT</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">maxMLAT</span><span class="o">=</span><span class="mf">25.</span><span class="p">)</span>
+<span class="c1"># perform seasonal average</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">stopDate</span><span class="p">)</span>
-<span class="n">ivmResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">avg</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">ivm</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;apex_long&#39;</span><span class="p">,</span>
-                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;mlt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;iv_mer&#39;</span><span class="p">])</span>
+<span class="n">ivmResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">avg</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">ivm</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s1">&#39;apex_long&#39;</span><span class="p">,</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s1">&#39;mlt&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;iv_mer&#39;</span><span class="p">])</span>
 
-<span class="c"># create CODMIC instrument object</span>
-<span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;gps&#39;</span><span class="p">,</span><span class="n">tag</span><span class="o">=</span><span class="s">&#39;ionprf&#39;</span><span class="p">,</span>
-             <span class="n">clean_level</span><span class="o">=</span><span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="c"># apply custom functions to all data that is loaded through cosmic</span>
-<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
-<span class="c"># select locations near the magnetic equator</span>
-<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filterMLAT</span><span class="p">,</span> <span class="s">&#39;modify&#39;</span><span class="p">,</span> <span class="n">mlatRange</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">)</span> <span class="p">)</span>
-<span class="c"># take the log of NmF2 and add to the dataframe</span>
-<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addlogNm</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
-<span class="c"># calculates the height above hmF2 to reach Ne &lt; NmF2/e</span>
-<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addTopsideScaleHeight</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+<span class="c1"># create CODMIC instrument object</span>
+<span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">,</span>
+             <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># apply custom functions to all data that is loaded through cosmic</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<span class="c1"># select locations near the magnetic equator</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filterMLAT</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">mlatRange</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">)</span> <span class="p">)</span>
+<span class="c1"># take the log of NmF2 and add to the dataframe</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addlogNm</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<span class="c1"># calculates the height above hmF2 to reach Ne &lt; NmF2/e</span>
+<span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addTopsideScaleHeight</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
 
-<span class="c"># do an average of multiple COSMIC data products from startDate through stopDate</span>
-<span class="c"># a mixture of 1D and 2D data is averaged</span>
+<span class="c1"># do an average of multiple COSMIC data products from startDate through stopDate</span>
+<span class="c1"># a mixture of 1D and 2D data is averaged</span>
 <span class="n">cosmic</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">stopDate</span><span class="p">)</span>
-<span class="n">cosmicResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">avg</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">cosmic</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s">&#39;apex_long&#39;</span><span class="p">,</span>
-       <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span><span class="s">&#39;edmaxlct&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;profiles&#39;</span><span class="p">,</span> <span class="s">&#39;edmaxalt&#39;</span><span class="p">,</span> <span class="s">&#39;lognm&#39;</span><span class="p">,</span> <span class="s">&#39;thf2&#39;</span><span class="p">])</span>
+<span class="n">cosmicResults</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">avg</span><span class="o">.</span><span class="n">median2D</span><span class="p">(</span><span class="n">cosmic</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span> <span class="s1">&#39;apex_long&#39;</span><span class="p">,</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">24</span><span class="p">],</span><span class="s1">&#39;edmaxlct&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;profiles&#39;</span><span class="p">,</span> <span class="s1">&#39;edmaxalt&#39;</span><span class="p">,</span> <span class="s1">&#39;lognm&#39;</span><span class="p">,</span> <span class="s1">&#39;thf2&#39;</span><span class="p">])</span>
 
-<span class="c"># the work is done, plot the results</span>
+<span class="c1"># the work is done, plot the results</span>
 </pre></div>
 </div>
 <img alt="_images/ssnl_median_ivm_cosmic_1d.png" class="align-center" src="_images/ssnl_median_ivm_cosmic_1d.png" />
 <p>The top image is the median ion drift from the IVM, while the remaining plots are derived from the COSMIC density profiles. COSMIC data does not come with the location of the profiles in magnetic coordinates, so this information is added using the nano-kernel.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s">&#39;add&#39;</span><span class="p">)</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>call runs a routine that adds the needed information. This routine is currently only using a simple titled dipole model.
@@ -345,15 +340,16 @@ Similarly, using custom functions, locations away from the magnetic equator are 
 </div>
 
 
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="supported_instruments.html" class="btn btn-neutral float-right" title="Supported Instruments">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="supported_instruments.html" class="btn btn-neutral float-right" title="Supported Instruments" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -363,12 +359,13 @@ Similarly, using custom functions, locations away from the magnetic equator are 
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Russell Stoneback.
+
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
 </footer>
+
         </div>
       </div>
 
