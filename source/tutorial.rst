@@ -90,16 +90,16 @@ When the pysat load routine runs it stores the instrument data into vefi.data. T
 .. code:: python
 
     # all data
-    print vefi.data
+    vefi.data
     # particular magnetic component
-    print vefi.data.dB_mer
+    vefi.data.dB_mer
 
     # Convenience access
-    print vefi['dB_mer']
+    vefi['dB_mer']
     # slicing
-    print vefi[0:10, 'dB_mer']
+    vefi[0:10, 'dB_mer']
     # slicing by date time
-    print vefi[start:stop, 'dB_mer']
+    vefi[start:stop, 'dB_mer']
 
 See :any:`Instrument` for more. 
 
@@ -174,9 +174,9 @@ Metadata is also stored along with the main science data.
 .. code:: python
 
    # all metadata
-   print vefi.meta.data
+   vefi.meta.data
    # dB_mer metadata
-   print vefi.meta['dB_mer']
+   vefi.meta['dB_mer']
    # units
    vefi.meta['dB_mer'].units
    # update units for dB_mer
@@ -213,9 +213,9 @@ The same activities may be performed for other instruments in the same manner. I
    # the profiles column has a DataFrame in each element which stores
    # all relevant profile information indexed by altitude
    # print part of the first profile, selection by integer location
-   print cosmic[0,'profiles'].iloc[55:60, 0:3]
+   print(cosmic[0,'profiles'].iloc[55:60, 0:3])
    # print part of profile, selection by altitude value
-   print cosmic[0,'profiles'].ix[196:207, 0:3]
+   print(cosmic[0,'profiles'].ix[196:207, 0:3])
 
 Output for both print statements:
 
@@ -266,7 +266,7 @@ Science analysis is built upon custom data processing. To simplify this task and
 
    ivm.custom.add(custom_func_modify, 'modify', optional_param2=True)
    ivm.load(2009,1)
-   print ivm['double_mlt']
+   print (ivm['double_mlt'])
    ivm.custom.add(custom_func_add, 'add', optional_param2=True)
    ivm.bounds = (start,stop)
    custom_complicated_analysis_over_season(ivm)
@@ -406,7 +406,30 @@ daily_mean now works for any instrument, as long as the data to be averaged is 1
                    
    return mean_val
 
-This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren't the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality (pending).
+This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren't the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality.
+
+.. code:: python
+
+   import pandas
+   import pysat
+
+   def daily_mean(inst, start, stop, data_label):
+
+       # create empty series to hold result
+       mean_val = pandas.Series()
+       # get list of dates between start and stop
+       date_array = pysat.utils.season_date_range(start, stop)
+       # iterate over season, calculate the mean
+       for date in date_array:
+           inst.load(date=date)
+	   if not inst.data.empty:
+               # compute mean absolute using pandas functions and store
+               # data could be an image, or lower dimension, account for 2D and lower
+               data = inst[data_label]
+               data = pysat.utils.computational_form(data)
+               mean_val[inst.date] = data.abs().mean(axis=0, skipna=True)
+                   
+   return mean_val
 
 
 Time Series Analysis
@@ -486,18 +509,8 @@ Building support for this iteration into the mean_day example is easy.
                # compute mean absolute using pandas functions and store
                # data could be an image, or lower dimension, account for 2D and lower
                data = inst[data_label]
-               if isinstance(data.iloc[0], pandas.DataFrame):
-	           # 3D data, 2D data at every time
-                   data_panel = pandas.Panel.from_dict(dict([(i,data.iloc[i]) for i in xrange(len(data))]))
-                   mean_val[inst.date] = data_panel.abs().mean(axis=0,skipna=True)
-               elif isinstance(data.iloc[0], pandas.Series):
-	           # 2D data, 1D data for each time
-                   data_frame = pandas.DataFrame(data.tolist())
-                   data_frame.index = data.index
-                   mean_val[inst.date] = data_frame.abs().mean(axis=0, skipna=True)
-               else:
-		  # 1D data
-                   mean_val[inst.date] = inst[data_label].abs().mean(axis=0,skipna=True)
+               data = pysat.utils.computational_form(data)
+               mean_val[inst.date] = data.abs().mean(axis=0, skipna=True)
                    
        return mean_val
 
@@ -711,16 +724,10 @@ We also don't want to maintain two code bases that do almost the same thing. So 
                       date = inst.data.index[0]
                   else:
                       date = inst.date
+        
+                  data = pysat.utils.computational_form(data)
+                  mean_val[date] = data.abs().mean(axis=0, skipna=True)
 
-                  if isinstance(data.iloc[0], pandas.DataFrame):
-                      data_panel = pandas.Panel.from_dict(dict([(i,data.iloc[i]) for i in xrange(len(data))]))
-                      mean_val[date] = data_panel.abs().mean(axis=0,skipna=True)
-                  elif isinstance(data.iloc[0], pandas.Series):
-                      data_frame = pandas.DataFrame(data.tolist())
-                      data_frame.index = data.index
-                      mean_val[date] = data_frame.abs().mean(axis=0, skipna=True)
-                  else:
-                      mean_val[date] = inst[data_label].abs().mean(axis=0,skipna=True)
        del iterator               
        return mean_val
 

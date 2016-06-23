@@ -1,5 +1,5 @@
-Examples
-========
+Code Examples
+=============
 
 Pysat tends to reduce certain science data investigations to the construction of a routine(s) that makes that investigation unique, a call to a seasonal analysis routine, and some plotting commands. Several demonstrations are offered in this section.
 

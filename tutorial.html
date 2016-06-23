@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="pysat 0.4.3.dev1 documentation" href="index.html"/>
-        <link rel="next" title="Examples" href="examples.html"/>
+        <link rel="next" title="Code Examples" href="examples.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
   
@@ -94,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#summary-flow-charts">Summary Flow Charts</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html#supported-data-templates">Supported Data Templates</a></li>
@@ -199,16 +199,16 @@
 </div>
 <p>When the pysat load routine runs it stores the instrument data into vefi.data. The data structure is a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># all data</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">data</span>
 <span class="c1"># particular magnetic component</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dB_mer</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dB_mer</span>
 
 <span class="c1"># Convenience access</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
 <span class="c1"># slicing</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="n">vefi</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
 <span class="c1"># slicing by date time</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="n">vefi</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="api.html#pysat.Instrument" title="pysat.Instrument"><code class="xref any py py-class docutils literal"><span class="pre">Instrument</span></code></a> for more.</p>
@@ -280,9 +280,9 @@
 <hr class="docutils" />
 <p>Metadata is also stored along with the main science data.</p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># all metadata</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span>
 <span class="c1"># dB_mer metadata</span>
-<span class="k">print</span> <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
+<span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
 <span class="c1"># units</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
 <span class="c1"># update units for dB_mer</span>
@@ -314,9 +314,9 @@
 <span class="c1"># the profiles column has a DataFrame in each element which stores</span>
 <span class="c1"># all relevant profile information indexed by altitude</span>
 <span class="c1"># print part of the first profile, selection by integer location</span>
-<span class="k">print</span> <span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">55</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">55</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
 <span class="c1"># print part of profile, selection by altitude value</span>
-<span class="k">print</span> <span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">196</span><span class="p">:</span><span class="mi">207</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">196</span><span class="p">:</span><span class="mi">207</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Output for both print statements:</p>
@@ -356,7 +356,7 @@ MSL_alt
 <p><strong>Attaching Custom Function</strong></p>
 <div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_modify</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">])</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_add</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 <span class="n">custom_complicated_analysis_over_season</span><span class="p">(</span><span class="n">ivm</span><span class="p">)</span>
@@ -484,7 +484,29 @@ MSL_alt
 <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
 </div>
-<p>This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren&#8217;t the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality (pending).</p>
+<p>This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren&#8217;t the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">pysat</span>
+
+<span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+
+    <span class="c1"># create empty series to hold result</span>
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="c1"># get list of dates between start and stop</span>
+    <span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+    <span class="c1"># iterate over season, calculate the mean</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="c1"># compute mean absolute using pandas functions and store</span>
+            <span class="c1"># data could be an image, or lower dimension, account for 2D and lower</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="n">mean_val</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="time-series-analysis">
 <h2>Time Series Analysis<a class="headerlink" href="#time-series-analysis" title="Permalink to this headline">¶</a></h2>
@@ -546,18 +568,8 @@ Maximum meridional magnetic perturbation  26.583
             <span class="c1"># compute mean absolute using pandas functions and store</span>
             <span class="c1"># data could be an image, or lower dimension, account for 2D and lower</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-                <span class="c1"># 3D data, 2D data at every time</span>
-                <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-                <span class="c1"># 2D data, 1D data for each time</span>
-                <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-                <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-               <span class="c1"># 1D data</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
@@ -748,15 +760,9 @@ Loaded Orbit:16
                <span class="k">else</span><span class="p">:</span>
                    <span class="n">date</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span>
 
-               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-                   <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
-                   <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-               <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-                   <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-                   <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
-                   <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-               <span class="k">else</span><span class="p">:</span>
-                   <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+               <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+               <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
     <span class="k">del</span> <span class="n">iterator</span>
     <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
@@ -778,7 +784,7 @@ Loaded Orbit:16
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Code Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
