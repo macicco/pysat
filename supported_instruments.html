@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported Instruments &mdash; pysat 0.4.2 documentation</title>
+  <title>Supported Instruments &mdash; pysat 0.4.3.dev1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.2 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.3.dev1 documentation" href="index.html"/>
         <link rel="next" title="Adding a New Instrument" href="new_instrument.html"/>
         <link rel="prev" title="Examples" href="examples.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.2
+                0.4.3
               </div>
             
           
@@ -90,16 +90,17 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_plp">C/NOFS PLP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#champ-star">CHAMP-STAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.champ_star">CHAMP-STAR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic2013_gps">COSMIC 2013 GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cosmic_gps">COSMIC GPS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.sw_kp">Kp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.omni_hro">OMNI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.rocsat_ivm">ROCSAT-1 IVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.rocsat1_ivm">ROCSAT-1 IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new_instrument.html#supported-data-templates">Supported Data Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
@@ -242,14 +243,14 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <ul class="last simple">
-<li>Currently no cleaning routine.</li>
+<li>Limited cleaning routine.</li>
 <li>Module not written by VEFI team.</li>
 </ul>
 </div>
 </div>
-<div class="section" id="champ-star">
-<h2>CHAMP-STAR<a class="headerlink" href="#champ-star" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pysat.instruments.champ_star"></span><p>Supports the Spatial Triaxial Accelerometer for Research (STAR) instrument
+<div class="section" id="module-pysat.instruments.champ_star">
+<span id="champ-star"></span><h2>CHAMP-STAR<a class="headerlink" href="#module-pysat.instruments.champ_star" title="Permalink to this headline">¶</a></h2>
+<p>Supports the Spatial Triaxial Accelerometer for Research (STAR) instrument
 onboard the Challenging Minipayload (CHAMP) satellite.  Accesses local data in
 ASCII format.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -376,11 +377,11 @@ Archival Center.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;cnofs&#8217;</td>
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;sw&#8217;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;ivm&#8217;</td>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;kp&#8217;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
 </tr>
@@ -401,6 +402,37 @@ National Science Foundation under Grant Number 1259508.</p>
 material are those of the author(s) and do not necessarily reflect the views
 of the National Science Foundation.</p>
 </div>
+<dl class="function">
+<dt id="pysat.instruments.sw_kp.filter_geoquiet">
+<code class="descclassname">pysat.instruments.sw_kp.</code><code class="descname">filter_geoquiet</code><span class="sig-paren">(</span><em>sat</em>, <em>maxKp=None</em>, <em>filterTime=None</em>, <em>kpData=None</em>, <em>kp_inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.sw_kp.filter_geoquiet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters pysat.Instrument data for given time after Kp drops below gate.</p>
+<p>Loads Kp data for the same timeframe covered by sat and sets sat.data to
+NaN for times when Kp &gt; maxKp and for filterTime after Kp drops below maxKp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sat</strong> (<a class="reference internal" href="api.html#pysat.Instrument" title="pysat.Instrument"><em>pysat.Instrument</em></a>) &#8211; Instrument to be filtered</li>
+<li><strong>maxKp</strong> (<em>float</em>) &#8211; Maximum Kp value allowed. Kp values above this trigger
+sat.data filtering.</li>
+<li><strong>filterTime</strong> (<em>int</em>) &#8211; Number of hours to filter data after Kp drops below maxKp</li>
+<li><strong>kpData</strong> (<em>pysat.Instrument (optional)</em>) &#8211; Kp pysat.Instrument object with data already loaded</li>
+<li><strong>kp_inst</strong> (<em>pysat.Instrument (optional)</em>) &#8211; Kp pysat.Instrument object ready to load Kp data.Overrides kpData.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>None</strong> &#8211;
+sat Instrument object modified in place</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">NoneType</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-pysat.instruments.omni_hro">
 <span id="omni"></span><h2>OMNI<a class="headerlink" href="#module-pysat.instruments.omni_hro" title="Permalink to this headline">¶</a></h2>
@@ -446,8 +478,8 @@ these level-2 products are expected to be ok.</li>
 </ul>
 </div>
 </div>
-<div class="section" id="module-pysat.instruments.rocsat_ivm">
-<span id="rocsat-1-ivm"></span><h2>ROCSAT-1 IVM<a class="headerlink" href="#module-pysat.instruments.rocsat_ivm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pysat.instruments.rocsat1_ivm">
+<span id="rocsat-1-ivm"></span><h2>ROCSAT-1 IVM<a class="headerlink" href="#module-pysat.instruments.rocsat1_ivm" title="Permalink to this headline">¶</a></h2>
 <p>Supports the Ion Velocity Meter (IVM)
 onboard the Republic of China Satellite (ROCSAT-1). Downloads data from the
 NASA Coordinated Data Analysis Web (CDAWeb).</p>
@@ -455,7 +487,7 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;rocsat&#8217;</td>
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;rocsat1&#8217;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
 </tr>
@@ -463,12 +495,18 @@ NASA Coordinated Data Analysis Web (CDAWeb).</p>
 </tr>
 <tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">None</td>
 </tr>
 <tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>no tag required</li>
+</ul>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <ul class="last simple">
@@ -558,7 +596,7 @@ are constituted from what it is thought to be good data.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.2',
+            VERSION:'0.4.3.dev1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

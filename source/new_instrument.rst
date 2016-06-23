@@ -1,4 +1,8 @@
 
+.. |br| raw:: html
+
+    <br>
+
 Adding a New Instrument
 =======================
 
@@ -6,7 +10,9 @@ pysat works by calling modules written for specific instruments
 that load and process the data consistent with the pysat standard. The name
 of the module corresponds to the combination 'platform_name' provided when initializing a pysat instrument object. The module should be placed in the pysat instruments directory or in the user specified location (via mechanism to be added) for automatic discovery. A compatible module may also be supplied directly to pysat.Instrument(inst_module=input module) if it also contains attributes platform and name. 
 
-Three functions are required:
+Some data repositories have pysat templates prepared to assist in integrating a new instrument. See Supported Templates for more.
+
+Three functions are required by pysat:
 
 List Files
 ----------
@@ -121,6 +127,33 @@ Cleans instrument for levels supplied in inst.clean_level.
 
 inst is a pysat.Instrument() instance. clean should modify inst in-place as needed; equivalent to a 'modify' custom routine.
 
+
+Supported Data Templates
+========================
+
+
+NASA CDAWeb
+-----------
+
+A template for NASA CDAWeb pysat support is provided. Several of the routines within are intended to be used with functools.partial in the new instrument support code. When writing custom routines with a new instrument file download support would be added via
+
+.. code:: python
+
+   def download(.....)
+
+Using the CDAWeb template the equivalent action is
+
+.. code:: python
+
+   download = functools.partial(nasa_cdaweb_methods.download, 
+                                supported_tags)
+
+where supported_tags is defined as dictated by the download function. See the routines for cnofs_vefi and cnofs_ivm for practical uses of the NASA CDAWeb support code.
+|br|
+
+
+.. automodule:: pysat.instruments.nasa_cdaweb_methods
+   :members: 
 
 
 

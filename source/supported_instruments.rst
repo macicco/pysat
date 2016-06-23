@@ -21,7 +21,7 @@ C/NOFS VEFI
    :members: __doc__
 
 CHAMP-STAR
----------
+----------
 
 .. automodule:: pysat.instruments.champ_star
    :members: __doc__
@@ -42,7 +42,7 @@ Kp
 --
 
 .. automodule:: pysat.instruments.sw_kp
-   :members: __doc__
+   :members: __doc__, filter_geoquiet
 
 OMNI
 ----
@@ -53,7 +53,7 @@ OMNI
 ROCSAT-1 IVM
 ------------
 
-.. automodule:: pysat.instruments.rocsat_ivm
+.. automodule:: pysat.instruments.rocsat1_ivm
    :members: __doc__
 
 SuperDARN
