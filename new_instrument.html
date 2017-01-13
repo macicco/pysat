@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Adding a New Instrument &mdash; pysat 0.4.3 documentation</title>
+  <title>Adding a New Instrument &mdash; pysat 0.4.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.4 documentation" href="index.html"/>
         <link rel="next" title="API" href="api.html"/>
         <link rel="prev" title="Supported Instruments" href="supported_instruments.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Adding a New Instrument</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding a New Instrument</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#list-files">List Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#load-data">Load Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#download-data">Download Data</a></li>
@@ -121,7 +121,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -153,7 +153,7 @@ of the module corresponds to the combination &#8216;platform_name&#8217; provide
 <div class="section" id="list-files">
 <h2>List Files<a class="headerlink" href="#list-files" title="Permalink to this headline">¶</a></h2>
 <p>Pysat maintains a list of files to enable data management functionality. It needs a pandas Series of filenames indexed by time. Pysat expects the module method platform_name.list_files to be:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">datetime_index</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -161,16 +161,16 @@ of the module corresponds to the combination &#8216;platform_name&#8217; provide
 <p>See pysat.utils.create_datetime_index for creating a datetime index for an array of irregularly sampled times.</p>
 <p>Pysat will store data in pysat_data_dir/platform/name/tag, helpfully provided in data_path, where pysat_data_dir is specified by user in pysat settings.</p>
 <p>pysat.Files.from_os is a convenience constructor provided for filenames that include time information in the filename and utilize a constant field width. The location and format of the time information is specified using standard python formatting and keywords year, month, day, hour, minute, second. A complete list_files routine could be as simple as</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Files</span><span class="o">.</span><span class="n">from_os</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="n">data_path</span><span class="p">,</span>
-                 <span class="n">format_str</span><span class="o">=</span><span class="s1">&#39;cindi-{year:4d}{day:03d}-ivm.hdf&#39;</span><span class="p">)</span>
+                 <span class="n">format_str</span><span class="o">=</span><span class="s1">&#39;cindi-</span><span class="si">{year:4d}{day:03d}</span><span class="s1">-ivm.hdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="load-data">
 <h2>Load Data<a class="headerlink" href="#load-data" title="Permalink to this headline">¶</a></h2>
 <p>Loading is a fundamental pysat activity, this routine enables the user to consider loading a hidden implementation &#8216;detail&#8217;.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">fnames</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">fnames</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">meta</span>
 </pre></div>
 </div>
@@ -195,7 +195,7 @@ situation. See pysat.Meta.from_csv for more information.</li>
 <h2>Download Data<a class="headerlink" href="#download-data" title="Permalink to this headline">¶</a></h2>
 <p>Download support significantly lowers the hassle in dealing with any dataset.
 Fetch data from the internet.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">date_array</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">date_array</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span>
 </pre></div>
 </div>
@@ -211,15 +211,15 @@ Fetch data from the internet.</p>
 <h2>Optional Routines<a class="headerlink" href="#optional-routines" title="Permalink to this headline">¶</a></h2>
 <p><strong>Initialize</strong></p>
 <p>Initialize any specific instrument info. Runs once.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">None</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <p>inst is a pysat.Instrument() instance. init should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
 <p><strong>Default</strong></p>
 <p>First custom function applied, once per instrument load.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">None</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <p>inst is a pysat.Instrument() instance. default should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
@@ -234,8 +234,8 @@ Fetch data from the internet.</p>
 </ul>
 </dd>
 </dl>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">None</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <p>inst is a pysat.Instrument() instance. clean should modify inst in-place as needed; equivalent to a &#8216;modify&#8217; custom routine.</p>
@@ -246,11 +246,11 @@ Fetch data from the internet.</p>
 <div class="section" id="nasa-cdaweb">
 <h2>NASA CDAWeb<a class="headerlink" href="#nasa-cdaweb" title="Permalink to this headline">¶</a></h2>
 <p>A template for NASA CDAWeb pysat support is provided. Several of the routines within are intended to be used with functools.partial in the new instrument support code. When writing custom routines with a new instrument file download support would be added via</p>
-<div class="code python highlight-python"><div class="highlight"><pre>def download(.....)
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="o">.....</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Using the CDAWeb template the equivalent action is</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">download</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">nasa_cdaweb_methods</span><span class="o">.</span><span class="n">download</span><span class="p">,</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">download</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">nasa_cdaweb_methods</span><span class="o">.</span><span class="n">download</span><span class="p">,</span>
                              <span class="n">supported_tags</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -259,7 +259,7 @@ Fetch data from the internet.</p>
 <span class="target" id="module-pysat.instruments.nasa_cdaweb_methods"></span><p>Provides default routines for integrating NASA CDAWeb instruments into pysat.</p>
 <dl class="function">
 <dt id="pysat.instruments.nasa_cdaweb_methods.download">
-<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">download</code><span class="sig-paren">(</span><em>supported_tags</em>, <em>date_array</em>, <em>tag</em>, <em>sat_id</em>, <em>ftp_site='cdaweb.gsfc.nasa.gov'</em>, <em>data_path=None</em>, <em>user=None</em>, <em>password=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.download" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">download</code><span class="sig-paren">(</span><em>supported_tags</em>, <em>date_array</em>, <em>tag</em>, <em>sat_id</em>, <em>ftp_site='cdaweb.gsfc.nasa.gov'</em>, <em>data_path=None</em>, <em>user=None</em>, <em>password=None</em>, <em>fake_daily_files_from_monthly=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.download" title="Permalink to this definition">¶</a></dt>
 <dd><p>Routine to download NASA CDAWeb CDF data</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -278,11 +278,13 @@ set in Instrument.files.data_path is used.  (default=None)</li>
 (default=None)</li>
 <li><strong>password</strong> (<em>(string or NoneType)</em>) &#8211; User password to be passed along to resource with relevant data.
 (default=None)</li>
+<li><strong>fake_daily_files_from_monthly</strong> (<em>bool</em>) &#8211; Some CDAWeb instrument data files are stored by month.This flag,
+when true, accomodates this reality with user feedback on a monthly
+time frame.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Void</strong> &#8211;
-Downloads data to disk.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Void</strong> &#8211; Downloads data to disk.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(NoneType)</p>
@@ -291,8 +293,8 @@ Downloads data to disk.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">rn</span> <span class="o">=</span> <span class="s1">&#39;{year:4d}/cnofs_vefi_bfield_1sec_{year:4d}{month:02d}{day:02d}_v05.cdf&#39;</span>
-<span class="n">ln</span> <span class="o">=</span> <span class="s1">&#39;cnofs_vefi_bfield_1sec_{year:4d}{month:02d}{day:02d}_v05.cdf&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rn</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{year:4d}</span><span class="s1">/cnofs_vefi_bfield_1sec_</span><span class="si">{year:4d}{month:02d}{day:02d}</span><span class="s1">_v05.cdf&#39;</span>
+<span class="n">ln</span> <span class="o">=</span> <span class="s1">&#39;cnofs_vefi_bfield_1sec_</span><span class="si">{year:4d}{month:02d}{day:02d}</span><span class="s1">_v05.cdf&#39;</span>
 <span class="n">dc_b_tag</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dir&#39;</span><span class="p">:</span><span class="s1">&#39;/pub/data/cnofs/vefi/bfield_1sec&#39;</span><span class="p">,</span>
             <span class="s1">&#39;remote_fname&#39;</span><span class="p">:</span><span class="n">rn</span><span class="p">,</span>
             <span class="s1">&#39;local_fname&#39;</span><span class="p">:</span><span class="n">ln</span><span class="p">}</span>
@@ -306,7 +308,7 @@ Downloads data to disk.</p>
 
 <dl class="function">
 <dt id="pysat.instruments.nasa_cdaweb_methods.list_files">
-<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">list_files</code><span class="sig-paren">(</span><em>tag=None</em>, <em>sat_id=None</em>, <em>data_path=None</em>, <em>format_str=None</em>, <em>supported_tags=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.list_files" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">list_files</code><span class="sig-paren">(</span><em>tag=None</em>, <em>sat_id=None</em>, <em>data_path=None</em>, <em>format_str=None</em>, <em>supported_tags=None</em>, <em>fake_daily_files_from_monthly=False</em>, <em>two_digit_year_break=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.list_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a Pandas Series of every file for chosen satellite data</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -322,11 +324,14 @@ set in Instrument.files.data_path is used.  (default=None)</li>
 formats associated with the supplied tags are used. (default=None)</li>
 <li><strong>supported_tags</strong> (<em>(dict or NoneType)</em>) &#8211; keys are tags supported by list_files routine. Values are the
 default format_str values for key. (default=None)</li>
+<li><strong>fake_daily_files_from_monthly</strong> (<em>bool</em>) &#8211; Some CDAWeb instrument data files are stored by month, interfering
+with pysat&#8217;s functionality of loading by day. This flag, when true,
+appends daily dates to monthly files internally. These dates are
+used by load routine in this module to provide data by day.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pysat.Files.from_os</strong> &#8211;
-A class containing the verified available files</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pysat.Files.from_os</strong> &#8211; A class containing the verified available files</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(pysat._files.Files)</p>
@@ -335,12 +340,12 @@ A class containing the verified available files</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;cnofs_vefi_bfield_1sec_{year:04d}{month:02d}{day:02d}_v05.cdf&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;cnofs_vefi_bfield_1sec_</span><span class="si">{year:04d}{month:02d}{day:02d}</span><span class="s1">_v05.cdf&#39;</span>
 <span class="n">supported_tags</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dc_b&#39;</span><span class="p">:</span><span class="n">fname</span><span class="p">}</span>
 <span class="n">list_files</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">nasa_cdaweb_methods</span><span class="o">.</span><span class="n">list_files</span><span class="p">,</span>
                                <span class="n">supported_tags</span><span class="o">=</span><span class="n">supported_tags</span><span class="p">)</span>
 
-<span class="n">ivm_fname</span> <span class="o">=</span> <span class="s1">&#39;cnofs_cindi_ivm_500ms_{year:4d}{month:02d}{day:02d}_v01.cdf&#39;</span>
+<span class="n">ivm_fname</span> <span class="o">=</span> <span class="s1">&#39;cnofs_cindi_ivm_500ms_</span><span class="si">{year:4d}{month:02d}{day:02d}</span><span class="s1">_v01.cdf&#39;</span>
 <span class="n">supported_tags</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&#39;</span><span class="p">:</span><span class="n">ivm_fname</span><span class="p">}</span>
 <span class="n">list_files</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">cdw</span><span class="o">.</span><span class="n">list_files</span><span class="p">,</span>
                                <span class="n">supported_tags</span><span class="o">=</span><span class="n">supported_tags</span><span class="p">)</span>
@@ -350,7 +355,7 @@ A class containing the verified available files</p>
 
 <dl class="function">
 <dt id="pysat.instruments.nasa_cdaweb_methods.load">
-<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">load</code><span class="sig-paren">(</span><em>fnames</em>, <em>tag=None</em>, <em>sat_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.load" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pysat.instruments.nasa_cdaweb_methods.</code><code class="descname">load</code><span class="sig-paren">(</span><em>fnames</em>, <em>tag=None</em>, <em>sat_id=None</em>, <em>fake_daily_files_from_monthly=False</em>, <em>flatten_twod=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.instruments.nasa_cdaweb_methods.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load NASA CDAWeb CDF files</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -360,14 +365,17 @@ A class containing the verified available files</p>
 <li><strong>fnames</strong> (<em>(pandas.Series)</em>) &#8211; Series of filenames</li>
 <li><strong>tag</strong> (<em>(str or NoneType)</em>) &#8211; tag or None (default=None)</li>
 <li><strong>sat_id</strong> (<em>(str or NoneType)</em>) &#8211; satellite id or None (default=None)</li>
+<li><strong>fake_daily_files_from_monthly</strong> (<em>bool</em>) &#8211; Some CDAWeb instrument data files are stored by month, interfering
+with pysat&#8217;s functionality of loading by day. This flag, when true,
+parses of daily dates to monthly files that were added internally
+by the list_files routine, when flagged. These dates are
+used here to provide data by day.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>data</strong> (<em>(pandas.DataFrame)</em>) &#8211;
-Object containing satellite data</li>
-<li><strong>meta</strong> (<em>(pysat.Meta)</em>) &#8211;
-Object containing metadata such as column names and units</li>
+<li><strong>data</strong> (<em>(pandas.DataFrame)</em>) &#8211; Object containing satellite data</li>
+<li><strong>meta</strong> (<em>(pysat.Meta)</em>) &#8211; Object containing metadata such as column names and units</li>
 </ul>
 </p>
 </td>
@@ -398,7 +406,7 @@ Object containing metadata such as column names and units</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Russell Stoneback.
+        &copy; Copyright 2017, Russell Stoneback.
 
     </p>
   </div>
@@ -420,7 +428,7 @@ Object containing metadata such as column names and units</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.3',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

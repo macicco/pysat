@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial &mdash; pysat 0.4.3 documentation</title>
+  <title>Tutorial &mdash; pysat 0.4.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.4 documentation" href="index.html"/>
         <link rel="next" title="Code Examples" href="examples.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -84,7 +84,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basics">Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-functions">Custom Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#time-series-analysis">Time Series Analysis</a></li>
@@ -121,7 +121,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -149,27 +149,27 @@
 <h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
 <p>The core functionality of pysat is exposed through the pysat.Instrument object. The intent of the Instrument object is to offer a single interface for interacting with science data that is independent of measurement platform. The layer of abstraction presented by the Instrument object allows for things to occur in the background that can make science data analysis simpler and more rigorous.</p>
 <p>To begin,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pysat</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pysat</span>
 </pre></div>
 </div>
 <p>The data directory pysat looks in for data (pysat_data_dir) needs to be set upon the first import,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path_to_existing_directory</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path_to_existing_directory</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Instantiation</strong></p>
 <hr class="docutils" />
-<p>To create a pysat.Instrument object, select a platform, instrument name, and measurement type to be analyzed from the list of <a class="reference internal" href="supported_instruments.html"><em>Supported Instruments</em></a>. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), use:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">)</span>
+<p>To create a pysat.Instrument object, select a platform, instrument name, and measurement type to be analyzed from the list of <a class="reference internal" href="supported_instruments.html"><span class="doc">Supported Instruments</span></a>. To work with Magnetometer data from the Vector Electric Field Instrument onboard the Communications/Navigation Outage Forecasting System (C/NOFS), use:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Behind the scenes pysat uses a python module named cnofs_vefi that understands how to interact with &#8216;dc_b&#8217; data. VEFI also measures electric fields in several modes that offer different data products. Though these measurements are not currently supported by the cnofs_vefi module, when they are, they can be selected via the tag string.</p>
 <p>To load measurements from a different instrument on C/NOFS, the Ion Velocity Meter, which measures thermal plasma parameters, use:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In the background pysat uses the module cnofs_ivm to handle this data. There is only one measurement option from IVM, so no tag string is required.</p>
 <p>Measurements from a constellation of COSMIC satellites are also available. These satellites measure GPS signals as they travel through the atmosphere. A number of different data sets are available from COSMIC, and are also supported by the relevant module.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># electron density profiles</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># electron density profiles</span>
 <span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">)</span>
 <span class="c1"># atmosphere profiles</span>
 <span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;atmprf&#39;</span><span class="p">)</span>
@@ -179,7 +179,7 @@
 <p><strong>Download</strong></p>
 <hr class="docutils" />
 <p>Let&#8217;s download some data. VEFI data is hosted by the NASA Coordinated Data Analysis Web (CDAWeb) at <a class="reference external" href="http://cdaweb.gsfc.nasa.gov">http://cdaweb.gsfc.nasa.gov</a>. The proper process for downloading VEFI data is built into the cnofs_vefi module, which is handled by pysat. All we have to do is invoke the .download method attached to the VEFI object, or any other pysat Instrument.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># define date range to download data and download</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># define date range to download data and download</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
@@ -192,13 +192,13 @@
 <p><strong>Load Data</strong></p>
 <hr class="docutils" />
 <p>Data is loaded into vefi using the .load method using year, day of year; date; or filename.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">126</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">126</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s1">&#39;cnofs_vefi_bfield_1sec_20090506_v05.cdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When the pysat load routine runs it stores the instrument data into vefi.data. The data structure is a pandas <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>, a highly capable structure with labeled rows and columns. Convenience access to the data is also available at the instrument level.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># all data</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># all data</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">data</span>
 <span class="c1"># particular magnetic component</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dB_mer</span>
@@ -213,9 +213,9 @@
 </div>
 <p>See <a class="reference internal" href="api.html#pysat.Instrument" title="pysat.Instrument"><code class="xref any py py-class docutils literal"><span class="pre">Instrument</span></code></a> for more.</p>
 <p>To load data over a season, pysat provides a convenience function that returns an array of dates over a season. The season need not be continuous.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># create empty series to hold result</span>
 <span class="n">mean_dB</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
@@ -230,25 +230,25 @@
          <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
          <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
          <span class="c1"># compute mean absolute db_Mer using pandas functions and store</span>
-         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># plot the result using pandas functionality</span>
 <span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean Absolute Perturbation in Meridional Magnetic Field&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mean Absolute Perturbation (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note, the numpy.where may be removed using the convenience access to the attached pandas data object.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>is equivalent to</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">)]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">5</span><span class="p">)]</span>
 </pre></div>
 </div>
 <p><strong>Clean Data</strong></p>
 <hr class="docutils" />
 <p>Before data is available in .data it passes through an instrument specific cleaning routine. The amount of cleaning is set by the clean_level keyword,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span>
                         <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -279,7 +279,7 @@
 <p><strong>Metadata</strong></p>
 <hr class="docutils" />
 <p>Metadata is also stored along with the main science data.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># all metadata</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># all metadata</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span>
 <span class="c1"># dB_mer metadata</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
@@ -294,18 +294,18 @@
 </pre></div>
 </div>
 <p>Data may be assigned to the instrument, with or without metadata.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;new_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;new_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_data</span>
 </pre></div>
 </div>
 <p>The same activities may be performed for other instruments in the same manner. In particular, for measurements from the Ion Velocity Meter and profiles of electron density from COSMIC, use</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># assignment with metadata</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># assignment with metadata</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
 <span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s1">&#39;mlt&#39;</span><span class="p">],</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="s1">&#39;Double MLT&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="s1">&#39;hours&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">,</span>  <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">,</span>  <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="c1"># requires CDAAC account</span>
@@ -314,19 +314,19 @@
 <span class="c1"># the profiles column has a DataFrame in each element which stores</span>
 <span class="c1"># all relevant profile information indexed by altitude</span>
 <span class="c1"># print part of the first profile, selection by integer location</span>
-<span class="k">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">55</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">55</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
 <span class="c1"># print part of profile, selection by altitude value</span>
-<span class="k">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">196</span><span class="p">:</span><span class="mi">207</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;profiles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">196</span><span class="p">:</span><span class="mi">207</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Output for both print statements:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>               ELEC_dens    GEO_lat    GEO_lon
-MSL_alt
-196.465454  81807.843750 -15.595786 -73.431015
-198.882019  83305.007812 -15.585764 -73.430191
-201.294342  84696.546875 -15.575747 -73.429382
-203.702469  86303.039062 -15.565735 -73.428589
-206.106354  87460.015625 -15.555729 -73.427803
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>               <span class="n">ELEC_dens</span>    <span class="n">GEO_lat</span>    <span class="n">GEO_lon</span>
+<span class="n">MSL_alt</span>
+<span class="mf">196.465454</span>  <span class="mf">81807.843750</span> <span class="o">-</span><span class="mf">15.595786</span> <span class="o">-</span><span class="mf">73.431015</span>
+<span class="mf">198.882019</span>  <span class="mf">83305.007812</span> <span class="o">-</span><span class="mf">15.585764</span> <span class="o">-</span><span class="mf">73.430191</span>
+<span class="mf">201.294342</span>  <span class="mf">84696.546875</span> <span class="o">-</span><span class="mf">15.575747</span> <span class="o">-</span><span class="mf">73.429382</span>
+<span class="mf">203.702469</span>  <span class="mf">86303.039062</span> <span class="o">-</span><span class="mf">15.565735</span> <span class="o">-</span><span class="mf">73.428589</span>
+<span class="mf">206.106354</span>  <span class="mf">87460.015625</span> <span class="o">-</span><span class="mf">15.555729</span> <span class="o">-</span><span class="mf">73.427803</span>
 </pre></div>
 </div>
 </div>
@@ -336,37 +336,37 @@ MSL_alt
 <p><strong>Modify Functions</strong></p>
 <blockquote>
 <div>The instrument object is passed to function without copying, modify in place.</div></blockquote>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_modify</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_func_modify</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">inst</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><strong>Add Functions</strong></p>
 <blockquote>
 <div>A copy of the instrument is passed to function, data to be added is returned.</div></blockquote>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><strong>Add Function Including Metadata</strong></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param1</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_func_add</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">optional_param1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="mf">2.</span><span class="o">*</span><span class="n">inst</span><span class="p">[</span><span class="s1">&#39;mlt&#39;</span><span class="p">],</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">,</span>
             <span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="s1">&#39;doubledouble&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="s1">&#39;hours&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Attaching Custom Function</strong></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_modify</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_modify</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">])</span>
-<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_add</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;double_mlt&#39;</span><span class="p">])</span>
+<span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func_add</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">optional_param2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 <span class="n">custom_complicated_analysis_over_season</span><span class="p">(</span><span class="n">ivm</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output of custom_func_modify will always be available from instrument object, regardless of what level the science analysis is performed.</p>
 <p>We can repeat the earlier VEFI example, this time using nano-kernel functionality.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">)</span>
 
@@ -388,7 +388,7 @@ MSL_alt
      <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
      <span class="k">if</span> <span class="ow">not</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
          <span class="c1"># compute mean absolute db_Mer using pandas functions and store</span>
-         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+         <span class="n">mean_dB</span><span class="p">[</span><span class="n">vefi</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># plot the result using pandas functionality</span>
 <span class="n">mean_dB</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean Absolute Perturbation in Meridional Magnetic Field&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mean Absolute Perturbation (&#39;</span><span class="o">+</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
@@ -396,9 +396,9 @@ MSL_alt
 </div>
 <p>Note the same result is obtained. The VEFI instrument object and analysis are performed at the same level, so there is no strict gain by using the pysat nano-kernel in this simple demonstration. However, we can  use the nano-kernel to translate this daily mean into an versatile instrument independent function.</p>
 <p><strong>Adding Instrument Independence</strong></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
 
@@ -411,7 +411,7 @@ MSL_alt
         <span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="c1"># compute mean absolute db_Mer using pandas functions and store</span>
-            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
    <span class="k">return</span> <span class="n">mean_val</span>
 
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">)</span>
@@ -435,7 +435,7 @@ MSL_alt
 </div>
 <p>The pysat nano-kernel lets you modify any data set as needed so that you can get the daily mean you desire, without having to modify the daily_mean function.</p>
 <p>Check the instrument independence using a different instrument. Whatever instrument is supplied may be modified in arbitrary ways by the nano-kernel.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span><span class="s1">&#39;gps&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;ionprf&#39;</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span> <span class="n">altitude_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">filter_cosmic</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
     <span class="n">cosmic</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">cosmic</span><span class="p">[(</span><span class="n">cosmic</span><span class="p">[</span><span class="s1">&#39;edmaxlat&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cosmic</span><span class="p">[</span><span class="s1">&#39;edmaxlat&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">)]</span>
@@ -452,7 +452,7 @@ MSL_alt
 </div>
 <p>daily_mean now works for any instrument, as long as the data to be averaged is 1D. This can be fixed.</p>
 <p><strong>Partial Independence from Dimensionality</strong></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">pysat</span>
 
 <span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
@@ -470,22 +470,22 @@ MSL_alt
             <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
                 <span class="c1"># 3D data, 2D data at every time</span>
-                <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">data_panel</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Panel</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]))</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_panel</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
                 <span class="c1"># 2D data, 1D data for each time</span>
                 <span class="n">data_frame</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
                 <span class="n">data_frame</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                <span class="c1"># 1D data</span>
-                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
 </div>
 <p>This code works for 1D, 2D, and 3D datasets, regardless of instrument platform, with only some minor changes from the initial VEFI specific code. In-situ measurements, remote profiles, and remote images. It is true the nested if statements aren&#8217;t the most elegant. Particularly the 3D case. However this code puts the data into an appropriate structure for pandas to align each of the profiles/images by their respective indices before performing the average. Note that the line to obtain the arithmetic mean is the same in all cases, .mean(axis=0, skipna=True). There is an opportunity here for pysat to clean up the little mess caused by dimensionality.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">pysat</span>
 
 <span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
@@ -502,7 +502,7 @@ MSL_alt
             <span class="c1"># data could be an image, or lower dimension, account for 2D and lower</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
@@ -515,47 +515,47 @@ MSL_alt
 <div class="section" id="iteration">
 <h2>Iteration<a class="headerlink" href="#iteration" title="Permalink to this headline">¶</a></h2>
 <p>The seasonal analysis loop is repeated commonly:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">date_array</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">season_date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">date_array</span><span class="p">:</span>
     <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Iteration support is built into the Instrument object to support this and similar cases. The whole VEFI data set may be iterated over on a daily basis using</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Each loop of the python for iteration initiates a vefi.load() for the next date, starting with the first available date. By default the instrument instance will iterate over all available data. To control the range, set the instrument bounds,</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># multi-season season</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># multi-season season</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="n">stop1</span><span class="p">,</span> <span class="n">stop2</span><span class="p">])</span>
 <span class="c1"># continuous season</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="c1"># iterate over custom season</span>
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The output is,</p>
-<div class="code python highlight-python"><div class="highlight"><pre>Returning cnofs vefi dc_b data for 05/09/10
-Maximum meridional magnetic perturbation  19.3937
-Returning cnofs vefi dc_b data for 05/10/10
-Maximum meridional magnetic perturbation  23.745
-Returning cnofs vefi dc_b data for 05/11/10
-Maximum meridional magnetic perturbation  25.673
-Returning cnofs vefi dc_b data for 05/12/10
-Maximum meridional magnetic perturbation  26.583
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">vefi</span> <span class="n">dc_b</span> <span class="n">data</span> <span class="k">for</span> <span class="mi">05</span><span class="o">/</span><span class="mi">09</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">Maximum</span> <span class="n">meridional</span> <span class="n">magnetic</span> <span class="n">perturbation</span>  <span class="mf">19.3937</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">vefi</span> <span class="n">dc_b</span> <span class="n">data</span> <span class="k">for</span> <span class="mi">05</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">Maximum</span> <span class="n">meridional</span> <span class="n">magnetic</span> <span class="n">perturbation</span>  <span class="mf">23.745</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">vefi</span> <span class="n">dc_b</span> <span class="n">data</span> <span class="k">for</span> <span class="mi">05</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">Maximum</span> <span class="n">meridional</span> <span class="n">magnetic</span> <span class="n">perturbation</span>  <span class="mf">25.673</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">vefi</span> <span class="n">dc_b</span> <span class="n">data</span> <span class="k">for</span> <span class="mi">05</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">Maximum</span> <span class="n">meridional</span> <span class="n">magnetic</span> <span class="n">perturbation</span>  <span class="mf">26.583</span>
 </pre></div>
 </div>
 <p>So far, the iteration support has only saved a single line of code, the .load line. However, this line in the examples above is tied to loading by date. What if we wanted to load by file instead? This would require changing the code. However, with the abstraction provided by the Instrument iteration, that is no longer the case.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span> <span class="s1">&#39;filename1&#39;</span><span class="p">,</span> <span class="s1">&#39;filename2&#39;</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span> <span class="s1">&#39;filename1&#39;</span><span class="p">,</span> <span class="s1">&#39;filename2&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="s1">&#39;Maximum meridional magnetic perturbation &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For VEFI there is only one file per day so there is no practical difference between the previous example. However, for instruments that have more than one file a day, there is a difference.</p>
 <p>Building support for this iteration into the mean_day example is easy.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">pysat</span>
 
 <span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
@@ -569,13 +569,13 @@ Maximum meridional magnetic perturbation  26.583
             <span class="c1"># data could be an image, or lower dimension, account for 2D and lower</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">mean_val</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mean_val</span>
 </pre></div>
 </div>
 <p>Since bounds are attached to the Instrument object, the start and stop dates for the season are no longer required as inputs. If a user forgets to specify the bounds, the loop will start on the first day of data and end on the last day.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># make a plot of daily dB_mer</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># make a plot of daily dB_mer</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="n">mean_dB</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">)</span>
 
@@ -613,128 +613,128 @@ Maximum meridional magnetic perturbation  26.583
 </table>
 <p>Changes in universal time are also used to delineate orbits. Pysat compares any gaps to the supplied orbital period, nominally assumed to be 97 minutes. As orbit periods aren&#8217;t constant, a 100% success rate is not be guaranteed.</p>
 <p>This section of pysat is still under development.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;mlt&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;local time&#39;</span><span class="p">}</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;mlt&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;local time&#39;</span><span class="p">}</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Orbit determination acts upon data loaded in the ivm object, so to begin we must load some data.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Orbits may be selected directly from the attached .orbit class. The data for the orbit is stored in .data.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>In [50]: ivm.orbits[1]
-Out[50]:
-Returning cnofs ivm  data for 12/27/12
-Returning cnofs ivm  data for 12/28/12
-Loaded Orbit:1
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">50</span><span class="p">]:</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">ivm</span>  <span class="n">data</span> <span class="k">for</span> <span class="mi">12</span><span class="o">/</span><span class="mi">27</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">ivm</span>  <span class="n">data</span> <span class="k">for</span> <span class="mi">12</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">Loaded</span> <span class="n">Orbit</span><span class="p">:</span><span class="mi">1</span>
 </pre></div>
 </div>
 <p>Note that getting the first orbit caused pysat to load the day previous, and then back to the current day. Orbits are one indexed though this will change. Pysat is checking here if the first orbit for 12/28/2012 actually started on 12/27/2012. In this case it does.</p>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In [51]: ivm[0:5,&#39;mlt&#39;]
-Out[51]:
-2012-12-27 23:05:14.584000    0.002449
-2012-12-27 23:05:15.584000    0.006380
-2012-12-27 23:05:16.584000    0.010313
-2012-12-27 23:05:17.584000    0.014245
-2012-12-27 23:05:18.584000    0.018178
-Name: mlt, dtype: float32
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">51</span><span class="p">]:</span> <span class="n">ivm</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">51</span><span class="p">]:</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">14.584000</span>    <span class="mf">0.002449</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">15.584000</span>    <span class="mf">0.006380</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">16.584000</span>    <span class="mf">0.010313</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">17.584000</span>    <span class="mf">0.014245</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">18.584000</span>    <span class="mf">0.018178</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mlt</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float32</span>
 
-In [52]: ivm[-5:,&#39;mlt&#39;]
-Out[52]:
-2012-12-28 00:41:50.563000    23.985415
-2012-12-28 00:41:51.563000    23.989031
-2012-12-28 00:41:52.563000    23.992649
-2012-12-28 00:41:53.563000    23.996267
-2012-12-28 00:41:54.563000    23.999886
-Name: mlt, dtype: float32
+<span class="n">In</span> <span class="p">[</span><span class="mi">52</span><span class="p">]:</span> <span class="n">ivm</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:,</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">52</span><span class="p">]:</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">50.563000</span>    <span class="mf">23.985415</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">51.563000</span>    <span class="mf">23.989031</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">52.563000</span>    <span class="mf">23.992649</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">53.563000</span>    <span class="mf">23.996267</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">00</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mf">54.563000</span>    <span class="mf">23.999886</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mlt</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float32</span>
 </pre></div>
 </div>
 <p>Let&#8217;s go back an orbit.</p>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In [53]: ivm.orbits.prev()
-Out[53]:
-Returning cnofs ivm  data for 12/27/12
-Loaded Orbit:15
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">53</span><span class="p">]:</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">53</span><span class="p">]:</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">ivm</span>  <span class="n">data</span> <span class="k">for</span> <span class="mi">12</span><span class="o">/</span><span class="mi">27</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">Loaded</span> <span class="n">Orbit</span><span class="p">:</span><span class="mi">15</span>
 
-In [54]: ivm[-5:,&#39;mlt&#39;]
-Out[54]:
-2012-12-27 23:05:09.584000    23.982796
-2012-12-27 23:05:10.584000    23.986725
-2012-12-27 23:05:11.584000    23.990656
-2012-12-27 23:05:12.584000    23.994587
-2012-12-27 23:05:13.584000    23.998516
-Name: mlt, dtype: float32
+<span class="n">In</span> <span class="p">[</span><span class="mi">54</span><span class="p">]:</span> <span class="n">ivm</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:,</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">54</span><span class="p">]:</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">09.584000</span>    <span class="mf">23.982796</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">10.584000</span>    <span class="mf">23.986725</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">11.584000</span>    <span class="mf">23.990656</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">12.584000</span>    <span class="mf">23.994587</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mf">13.584000</span>    <span class="mf">23.998516</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mlt</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float32</span>
 </pre></div>
 </div>
 <p>pysat loads the previous day, as needed, and returns the last orbit for 12/27/2012 that does not (or should not) extend into 12/28.</p>
 <p>If we continue to iterate orbits using</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>eventually the next day will be loaded to try and form a complete orbit. You can skip the iteration and just go for the last orbit of a day,</p>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In[] : ivm.orbits[-1]
-Out[]:
-Returning cnofs ivm  data for 12/29/12
-Loaded Orbit:1
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span><span class="p">[]</span> <span class="p">:</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[]:</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">ivm</span>  <span class="n">data</span> <span class="k">for</span> <span class="mi">12</span><span class="o">/</span><span class="mi">29</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">Loaded</span> <span class="n">Orbit</span><span class="p">:</span><span class="mi">1</span>
 </pre></div>
 </div>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In[72] : ivm[:5,&#39;mlt&#39;]
-Out[72]:
-2012-12-28 23:03:34.160000    0.003109
-2012-12-28 23:03:35.152000    0.007052
-2012-12-28 23:03:36.160000    0.010996
-2012-12-28 23:03:37.152000    0.014940
-2012-12-28 23:03:38.160000    0.018884
-Name: mlt, dtype: float32
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span><span class="p">[</span><span class="mi">72</span><span class="p">]</span> <span class="p">:</span> <span class="n">ivm</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">72</span><span class="p">]:</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">23</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mf">34.160000</span>    <span class="mf">0.003109</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">23</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mf">35.152000</span>    <span class="mf">0.007052</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">23</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mf">36.160000</span>    <span class="mf">0.010996</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">23</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mf">37.152000</span>    <span class="mf">0.014940</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">28</span> <span class="mi">23</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mf">38.160000</span>    <span class="mf">0.018884</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mlt</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float32</span>
 
-In[73] : ivm[-5:,&#39;mlt&#39;]
-Out[73]:
-2012-12-29 00:40:13.119000    23.982937
-2012-12-29 00:40:14.119000    23.986605
-2012-12-29 00:40:15.119000    23.990273
-2012-12-29 00:40:16.119000    23.993940
-2012-12-29 00:40:17.119000    23.997608
-Name: mlt, dtype: float32
+<span class="n">In</span><span class="p">[</span><span class="mi">73</span><span class="p">]</span> <span class="p">:</span> <span class="n">ivm</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:,</span><span class="s1">&#39;mlt&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">73</span><span class="p">]:</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">13.119000</span>    <span class="mf">23.982937</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">14.119000</span>    <span class="mf">23.986605</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">15.119000</span>    <span class="mf">23.990273</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">16.119000</span>    <span class="mf">23.993940</span>
+<span class="mi">2012</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">29</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">17.119000</span>    <span class="mf">23.997608</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mlt</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float32</span>
 </pre></div>
 </div>
 <p>Pysat loads the next day of data to see if the last orbit on 12/28/12 extends into 12/29/12, which it does. Note that the last orbit of 12/28/12 is the same as the first orbit of 12/29/12. Thus, if we ask for the next orbit,</p>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In[] : ivm.orbits.next()
-Loaded Orbit:2
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span><span class="p">[]</span> <span class="p">:</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="n">Loaded</span> <span class="n">Orbit</span><span class="p">:</span><span class="mi">2</span>
 </pre></div>
 </div>
 <p>pysat will indicate it is the second orbit of the day. Going back an orbit gives us orbit 16, but referenced to a different day. Earlier, the same orbit was labeled orbit 1.</p>
-<div class="code ipython highlight-python"><div class="highlight"><pre>In[] : ivm.orbits.prev()
-Returning cnofs ivm  data for 12/28/12
-Loaded Orbit:16
+<div class="code ipython highlight-default"><div class="highlight"><pre><span></span><span class="n">In</span><span class="p">[]</span> <span class="p">:</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
+<span class="n">Returning</span> <span class="n">cnofs</span> <span class="n">ivm</span>  <span class="n">data</span> <span class="k">for</span> <span class="mi">12</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">12</span>
+<span class="n">Loaded</span> <span class="n">Orbit</span><span class="p">:</span><span class="mi">16</span>
 </pre></div>
 </div>
 <p>Orbit iteration is built into ivm.orbits just like iteration by day is built into ivm.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">pandas</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ivm</span> <span class="ow">in</span> <span class="n">ivm</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s1">&#39;next available orbit &#39;</span><span class="p">,</span> <span class="n">ivm</span><span class="o">.</span><span class="n">data</span>
+    <span class="nb">print</span> <span class="s1">&#39;next available orbit &#39;</span><span class="p">,</span> <span class="n">ivm</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="iteration-and-instrument-independent-analysis">
 <h2>Iteration and Instrument Independent Analysis<a class="headerlink" href="#iteration-and-instrument-independent-analysis" title="Permalink to this headline">¶</a></h2>
 <p>Now we can generalize daily_mean into two functions, one that averages by day, the other by  orbit. Strictly speaking, the daily_mean above already does this with the right input.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mean_daily_val</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">mean_daily_val</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">)</span>
 <span class="n">mean_orbit_val</span> <span class="o">=</span> <span class="n">daily_mean</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">,</span> <span class="s1">&#39;dB_mer&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>However, the output of the by_orbit attempt gets rewritten for most orbits since the output from daily_mean is stored by date. Though this could be fixed, supplying an instrument object/iterator in one case and an orbit iterator in the other might be a bit inconsistent. Even if not, let&#8217;s try another route.</p>
 <p>We also don&#8217;t want to maintain two code bases that do almost the same thing. So instead, let&#8217;s create three functions, two of which simply call a hidden third.</p>
 <p><strong>Iteration Independence</strong></p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">daily_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Mean of data_label by day/file over Instrument.bounds&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">by_orbit_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Mean of data_label by orbit over Instrument.bounds&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_core_mean</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">data_label</span><span class="p">,</span> <span class="n">by_orbit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">by_day</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">by_orbit</span><span class="p">:</span>
         <span class="n">iterator</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">orbits</span>
@@ -753,7 +753,7 @@ Loaded Orbit:16
                <span class="c1"># compute mean absolute using pandas functions and store</span>
                <span class="c1"># data could be an image, or lower dimension, account for 2D and lower</span>
                <span class="n">data</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">data_label</span><span class="p">]</span>
-               <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+               <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
                <span class="k">if</span> <span class="n">by_orbit</span><span class="p">:</span>
                    <span class="n">date</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -761,7 +761,7 @@ Loaded Orbit:16
                    <span class="n">date</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span>
 
                <span class="n">data</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">computational_form</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-               <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+               <span class="n">mean_val</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">del</span> <span class="n">iterator</span>
     <span class="k">return</span> <span class="n">mean_val</span>
@@ -796,7 +796,7 @@ Loaded Orbit:16
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Russell Stoneback.
+        &copy; Copyright 2017, Russell Stoneback.
 
     </p>
   </div>
@@ -818,7 +818,7 @@ Loaded Orbit:16
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.3',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

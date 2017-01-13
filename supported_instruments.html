@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supported Instruments &mdash; pysat 0.4.3 documentation</title>
+  <title>Supported Instruments &mdash; pysat 0.4.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.4 documentation" href="index.html"/>
         <link rel="next" title="Adding a New Instrument" href="new_instrument.html"/>
         <link rel="prev" title="Code Examples" href="examples.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Supported Instruments</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supported Instruments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_ivm">C/NOFS IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_plp">C/NOFS PLP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.cnofs_vefi">C/NOFS VEFI</a></li>
@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.omni_hro">OMNI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.rocsat1_ivm">ROCSAT-1 IVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.superdarn_grdex">SuperDARN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pysat.instruments.timed_see">TIMED/SEE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
@@ -124,7 +125,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -422,8 +423,7 @@ sat.data filtering.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>None</strong> &#8211;
-sat Instrument object modified in place</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>None</strong> &#8211; sat Instrument object modified in place</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">NoneType</p>
@@ -553,6 +553,56 @@ of the National Science Foundation.</p>
 are constituted from what it is thought to be good data.</p>
 </div>
 </div>
+<div class="section" id="module-pysat.instruments.timed_see">
+<span id="timed-see"></span><h2>TIMED/SEE<a class="headerlink" href="#module-pysat.instruments.timed_see" title="Permalink to this headline">¶</a></h2>
+<p>Supports the SEE instrument on TIMED.</p>
+<p>Downloads data from the NASA Coordinated Data
+Analysis Web (CDAWeb).</p>
+<p>Supports two options for loading that may be
+specified at instantiation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param platform:</th><td class="field-body">&#8216;timed&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type platform:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param name:</th><td class="field-body">&#8216;see&#8217;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type name:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param tag:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type tag:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param flatten_twod:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">If True, then two dimensional data is flattened across
+columns. Name mangling is used to group data, first column
+is &#8216;name&#8217;, last column is &#8216;name_end&#8217;. In between numbers are
+appended &#8216;name_1&#8217;, &#8216;name_2&#8217;, etc. All data for a given 2D array
+may be accessed via, data.ix[:,&#8217;item&#8217;:&#8217;item_end&#8217;]
+If False, then 2D data is stored as a series of DataFrames,
+indexed by Epoch. data.ix[0, &#8216;item&#8217;]</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type flatten_twod:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">bool (True)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>no tag required</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Currently no cleaning routine.</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -574,7 +624,7 @@ are constituted from what it is thought to be good data.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Russell Stoneback.
+        &copy; Copyright 2017, Russell Stoneback.
 
     </p>
   </div>
@@ -596,7 +646,7 @@ are constituted from what it is thought to be good data.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.3',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

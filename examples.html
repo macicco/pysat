@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Code Examples &mdash; pysat 0.4.3 documentation</title>
+  <title>Code Examples &mdash; pysat 0.4.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.4 documentation" href="index.html"/>
         <link rel="next" title="Supported Instruments" href="supported_instruments.html"/>
         <link rel="prev" title="Tutorial" href="tutorial.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Code Examples</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#seasonal-occurrence-by-orbit">Seasonal Occurrence by Orbit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#orbit-by-orbit-plots">Orbit-by-Orbit Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#seasonal-averaging-of-ion-drifts-and-density-profiles">Seasonal Averaging of Ion Drifts and Density Profiles</a></li>
@@ -117,7 +117,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -145,11 +145,11 @@
 <div class="section" id="seasonal-occurrence-by-orbit">
 <h2>Seasonal Occurrence by Orbit<a class="headerlink" href="#seasonal-occurrence-by-orbit" title="Permalink to this headline">¶</a></h2>
 <p>How often does a particular thing occur on a orbit-by-orbit basis? Let&#8217;s find out. For VEFI, let us calculate the occurrence of a positive perturbation in the meridional component of the geomagnetic field.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pysat</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pds</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pds</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># set the directory to save plots to</span>
 <span class="n">results_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -158,7 +158,7 @@
 <span class="c1"># there are changes in the orbit (local time info not in file)</span>
 <span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
-                        <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
+                        <span class="n">clean_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
 
 <span class="c1"># define function to remove flagged values</span>
 <span class="k">def</span> <span class="nf">filter_vefi</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
@@ -184,13 +184,13 @@
 <span class="c1"># perform occurrence probability calculation</span>
 <span class="c1"># any data added by custom functions is available within routine below</span>
 <span class="n">ans</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">ssnl</span><span class="o">.</span><span class="n">occur_prob</span><span class="o">.</span><span class="n">by_orbit2D</span><span class="p">(</span><span class="n">vefi</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">144</span><span class="p">],</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span>
-             <span class="p">[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">104</span><span class="p">],</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">returnBins</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+             <span class="p">[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">104</span><span class="p">],</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">returnBins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># a dict indexed by data_label is returned</span>
 <span class="c1"># in this case, only one, we&#39;ll pull it out</span>
 <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">]</span>
 <span class="c1"># plot occurrence probability</span>
-<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;prob&#39;</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;prob&#39;</span><span class="p">]))</span>
 <span class="n">im</span><span class="o">=</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_x&#39;</span><span class="p">],</span> <span class="n">ans</span><span class="p">[</span><span class="s1">&#39;bin_y&#39;</span><span class="p">],</span> <span class="n">masked</span><span class="p">)</span>
 <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Occurrence Probability Delta-B Meridional &gt; 0&#39;</span><span class="p">)</span>
@@ -220,10 +220,10 @@
 <div class="section" id="orbit-by-orbit-plots">
 <h2>Orbit-by-Orbit Plots<a class="headerlink" href="#orbit-by-orbit-plots" title="Permalink to this headline">¶</a></h2>
 <p>Plotting a series of orbit-by-orbit plots is a great way to become familiar with a data set. If the data set doesn&#8217;t come with orbit information, this can be a challenge. Orbits also go past day breaks, so if data comes in daily files this requires loading multiple files at once, joining the data together, etc. pysat goes through that trouble for you.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pysat</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pds</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pds</span>
 
 <span class="c1"># set the directory to save plots to</span>
 <span class="n">results_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -232,7 +232,7 @@
 <span class="c1"># there are changes in the orbit (local time info not in file)</span>
 <span class="n">orbit_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
-                        <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
+                        <span class="n">clean_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">orbit_info</span><span class="p">)</span>
 
 <span class="c1"># set limits on dates analysis will cover, inclusive</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
@@ -263,7 +263,7 @@
     <span class="n">vefi</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1S&#39;</span><span class="p">,</span>  <span class="n">fill_method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span>
                                    <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;left&#39;</span> <span class="p">)</span>
 
-    <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
 
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;B_flag&#39;</span><span class="p">])</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span> <span class="n">vefi</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span> <span class="o">+</span><span class="s1">&#39; - &#39;</span> <span class="o">+</span>
@@ -295,7 +295,7 @@
 <h2>Seasonal Averaging of Ion Drifts and Density Profiles<a class="headerlink" href="#seasonal-averaging-of-ion-drifts-and-density-profiles" title="Permalink to this headline">¶</a></h2>
 <p>In-situ measurements of the ionosphere by the Ion Velocity Meter onboard C/NOFS provides information on plasma density, composition, ion temperature, and ion drifts. This provides a great deal of information on the ionosphere though this information is limited to the immediate vicinity of the satellite. COSMIC GPS measurements, with some processing, provide information on the vertical electron density distribution in the ionosphere. The vertical motion of ions measured by IVM should be reflected in the vertical plasma densities measured by COSMIC. To look at this relationship over all longitudes and local times, for magnetic latitudes near the geomagnetic equator, use the code below:</p>
 <p>Note the same averaging routine is used for both COSMIC and IVM, and that both 1D and 2D data are handled correctly. The routine below has not yet been uploaded to the repo. (Pending)</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c1"># instantiate IVM Object</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># instantiate IVM Object</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ivm&#39;</span><span class="p">,</span><span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">)</span>
 <span class="c1"># restrict meausurements to those near geomagnetic equator</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">restrictMLAT</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">maxMLAT</span><span class="o">=</span><span class="mf">25.</span><span class="p">)</span>
@@ -327,7 +327,7 @@
 </div>
 <img alt="_images/ssnl_median_ivm_cosmic_1d.png" class="align-center" src="_images/ssnl_median_ivm_cosmic_1d.png" />
 <p>The top image is the median ion drift from the IVM, while the remaining plots are derived from the COSMIC density profiles. COSMIC data does not come with the location of the profiles in magnetic coordinates, so this information is added using the nano-kernel.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">cosmic</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">addApexLong</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>call runs a routine that adds the needed information. This routine is currently only using a simple titled dipole model.
@@ -359,7 +359,7 @@ Similarly, using custom functions, locations away from the magnetic equator are 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Russell Stoneback.
+        &copy; Copyright 2017, Russell Stoneback.
 
     </p>
   </div>
@@ -381,7 +381,7 @@ Similarly, using custom functions, locations away from the magnetic equator are 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.3',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

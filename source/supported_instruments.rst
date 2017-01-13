@@ -61,3 +61,9 @@ SuperDARN
 
 .. automodule:: pysat.instruments.superdarn_grdex
    :members: __doc__
+
+TIMED/SEE
+---------
+
+.. automodule:: pysat.instruments.timed_see
+   :members: __doc__

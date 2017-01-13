@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; pysat 0.4.3 documentation</title>
+  <title>API &mdash; pysat 0.4.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pysat 0.4.3 documentation" href="index.html"/>
+    <link rel="top" title="pysat 0.4.4 documentation" href="index.html"/>
         <link rel="prev" title="Adding a New Instrument" href="new_instrument.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -88,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="supported_instruments.html">Supported Instruments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html">Adding a New Instrument</a></li>
 <li class="toctree-l1"><a class="reference internal" href="new_instrument.html#supported-data-templates">Supported Data Templates</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">API</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom">Custom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#files">Files</a></li>
@@ -125,7 +125,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -153,7 +153,7 @@
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Instrument">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>sat_id=None</em>, <em>clean_level='clean'</em>, <em>update_files=None</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=None</em>, <em>manual_org=None</em>, <em>directory_format=None</em>, <em>file_format=None</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>platform=None</em>, <em>name=None</em>, <em>tag=None</em>, <em>sat_id=None</em>, <em>clean_level='clean'</em>, <em>update_files=None</em>, <em>pad=None</em>, <em>orbit_info=None</em>, <em>inst_module=None</em>, <em>multi_file_day=None</em>, <em>manual_org=None</em>, <em>directory_format=None</em>, <em>file_format=None</em>, <em>temporary_file_list=False</em>, <em>*arg</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download, load, manage, modify and analyze science data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -174,6 +174,8 @@ See pysat.Orbits for more information.</li>
 <li><strong>inst_module</strong> (<em>module, optional</em>) &#8211; Provide instrument module directly.
 Takes precedence over platform/name.</li>
 <li><strong>update_files</strong> (<em>boolean, optional</em>) &#8211; If True, immediately query filesystem for instrument files and store.</li>
+<li><strong>temporary_file_list</strong> (<em>boolean, optional</em>) &#8211; If true, the list of Instrument files will not be written to disk.
+Prevents a race condition when running multiple pysat processes.</li>
 <li><strong>multi_file_day</strong> (<em>boolean, optional</em>) &#8211; Set to True if Instrument data files for a day are spread across
 multiple files and data for day n could be found in a file
 with a timestamp of day n-1 or n+1.</li>
@@ -195,71 +197,61 @@ instrument list_files routine.</li>
 <dl class="attribute">
 <dt id="Instrument.data">
 <code class="descname">data</code><a class="headerlink" href="#Instrument.data" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pandas.DataFrame</em></p>
-<p>loaded science data</p>
+<dd><p><em>pandas.DataFrame</em> &#8211; loaded science data</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.date">
 <code class="descname">date</code><a class="headerlink" href="#Instrument.date" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pandas.datetime</em></p>
-<p>date for loaded data</p>
+<dd><p><em>pandas.datetime</em> &#8211; date for loaded data</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.yr">
 <code class="descname">yr</code><a class="headerlink" href="#Instrument.yr" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em></p>
-<p>year for loaded data</p>
+<dd><p><em>int</em> &#8211; year for loaded data</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.bounds">
 <code class="descname">bounds</code><a class="headerlink" href="#Instrument.bounds" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>(datetime/filename/None, datetime/filename/None)</em></p>
-<p>bounds for loading data, supply array_like for a season with gaps</p>
+<dd><p><em>(datetime/filename/None, datetime/filename/None)</em> &#8211; bounds for loading data, supply array_like for a season with gaps</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.doy">
 <code class="descname">doy</code><a class="headerlink" href="#Instrument.doy" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em></p>
-<p>day of year for loaded data</p>
+<dd><p><em>int</em> &#8211; day of year for loaded data</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.files">
 <code class="descname">files</code><a class="headerlink" href="#Instrument.files" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pysat.Files</em></p>
-<p>interface to instrument files</p>
+<dd><p><em>pysat.Files</em> &#8211; interface to instrument files</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.meta">
 <code class="descname">meta</code><a class="headerlink" href="#Instrument.meta" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pysat.Meta</em></p>
-<p>interface to instrument metadata, similar to netCDF 1.6</p>
+<dd><p><em>pysat.Meta</em> &#8211; interface to instrument metadata, similar to netCDF 1.6</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.orbits">
 <code class="descname">orbits</code><a class="headerlink" href="#Instrument.orbits" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pysat.Orbits</em></p>
-<p>interface to extracting data orbit-by-orbit</p>
+<dd><p><em>pysat.Orbits</em> &#8211; interface to extracting data orbit-by-orbit</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.custom">
 <code class="descname">custom</code><a class="headerlink" href="#Instrument.custom" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pysat.Custom</em></p>
-<p>interface to instrument nano-kernel</p>
+<dd><p><em>pysat.Custom</em> &#8211; interface to instrument nano-kernel</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Instrument.kwargs">
 <code class="descname">kwargs</code><a class="headerlink" href="#Instrument.kwargs" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dictionary</em></p>
-<p>keyword arguments passed to instrument loading routine</p>
+<dd><p><em>dictionary</em> &#8211; keyword arguments passed to instrument loading routine</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -271,7 +263,7 @@ Alternatively, the module may be supplied directly
 using keyword inst_module.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># 1-second mag field data</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 1-second mag field data</span>
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span>
                         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span>
                         <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
@@ -280,8 +272,8 @@ using keyword inst_module.</p>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;db_mer&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;db_mer&#39;</span><span class="p">])</span>
 
 <span class="c1"># 1-second thermal plasma parameters</span>
 <span class="n">ivm</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span>
@@ -290,7 +282,7 @@ using keyword inst_module.</p>
                         <span class="n">clean_level</span><span class="o">=</span><span class="s1">&#39;clean&#39;</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
 <span class="n">ivm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;ionVelmeridional&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ivm</span><span class="p">[</span><span class="s1">&#39;ionVelmeridional&#39;</span><span class="p">])</span>
 
 <span class="c1"># Ionosphere profiles from GPS occultation</span>
 <span class="n">cosmic</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="s1">&#39;cosmic2013&#39;</span><span class="p">,</span>
@@ -302,73 +294,6 @@ using keyword inst_module.</p>
 <span class="n">cosmic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="pysat.Instrument.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience notation for accessing data; inst[&#8216;name&#8217;] is inst.data.name</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># By name</span>
-<span class="n">inst</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="c1"># By position</span>
-<span class="n">inst</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="c1"># Slicing by row</span>
-<span class="n">inst</span><span class="p">[</span><span class="n">row1</span><span class="p">:</span><span class="n">row2</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="c1"># By Date</span>
-<span class="n">inst</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="c1"># Slicing by date, inclusive</span>
-<span class="n">inst</span><span class="p">[</span><span class="n">datetime1</span><span class="p">:</span><span class="n">datetime2</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="c1"># Slicing by name and row/date</span>
-<span class="n">inst</span><span class="p">[</span><span class="n">datetime1</span><span class="p">:</span><span class="n">datetime1</span><span class="p">,</span> <span class="s1">&#39;name1&#39;</span><span class="p">:</span><span class="s1">&#39;name2&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pysat.Instrument.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterates instrument object by loading subsequent days or files.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Limits of iteration, and iteration type (date/file)
-set by <cite>bounds</cite> attribute.</p>
-<p class="last">Default bounds are the first and last dates from files on local system.</p>
-</div>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>
-<span class="n">inst</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">stop</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Another day loaded&#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pysat.Instrument.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Instrument.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience method for adding data to instrument.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Simple Assignment, default metadata assigned</span>
-<span class="c1"># &#39;long_name&#39; = &#39;name&#39;</span>
-<span class="c1"># &#39;units&#39; = &#39;&#39;</span>
-<span class="n">inst</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">newData</span>
-<span class="c1"># Assignment with Metadata</span>
-<span class="n">inst</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="n">new_data</span><span class="p">,</span>
-                <span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="n">long_name</span><span class="p">,</span>
-                <span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="n">units</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If no metadata provided and if metadata for &#8216;name&#8217; not already stored
-then default meta information is also added,
-long_name = &#8216;name&#8217;, and units = &#8216;&#8217;.</p>
-</div>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="pysat.Instrument.bounds">
 <code class="descname">bounds</code><a class="headerlink" href="#pysat.Instrument.bounds" title="Permalink to this definition">¶</a></dt>
@@ -392,7 +317,7 @@ list-like collection also accepted</li>
 <p class="last">Both start and stop must be the same type (date, or filename) or None</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span>
                         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                         <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -552,15 +477,15 @@ the instrument load routine is called so instrument objects may
 be passed safely to other routines and the data will always
 be processed appropriately.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">custom_func</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">None</span>
-<span class="n">instrument</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_func</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">None</span>
+<span class="n">instrument</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func</span><span class="p">,</span> <span class="s1">&#39;modify&#39;</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">custom_func2</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">custom_func2</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">opt_param1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">data_to_be_added</span>
-<span class="n">instrument</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func2</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">instrument</span><span class="o">.</span><span class="n">custom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">custom_func2</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">opt_param2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">instrument</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">instrument</span><span class="p">[</span><span class="s1">&#39;data_to_be_added&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">instrument</span><span class="p">[</span><span class="s1">&#39;data_to_be_added&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
@@ -632,7 +557,7 @@ data is accepted from return.</dd>
 <h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pysat.Files">
-<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em>, <em>manual_org=False</em>, <em>directory_format=None</em>, <em>update_files=False</em>, <em>file_format=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pysat.</code><code class="descname">Files</code><span class="sig-paren">(</span><em>sat</em>, <em>manual_org=False</em>, <em>directory_format=None</em>, <em>update_files=False</em>, <em>file_format=None</em>, <em>write_to_disk=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maintains collection of files for instrument object.</p>
 <p>Uses the list_files functions for each specific instrument
 to create an ordered collection of files in time. Used by
@@ -642,47 +567,41 @@ new files and creating an ordered list of files.</p>
 <dl class="attribute">
 <dt id="Files.base_path">
 <code class="descname">base_path</code><a class="headerlink" href="#Files.base_path" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>string</em></p>
-<p>path to .pysat directory in user home</p>
+<dd><p><em>string</em> &#8211; path to .pysat directory in user home</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Files.start_date">
 <code class="descname">start_date</code><a class="headerlink" href="#Files.start_date" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>datetime</em></p>
-<p>date of first file, used as default start bound for instrument
+<dd><p><em>datetime</em> &#8211; date of first file, used as default start bound for instrument
 object</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Files.stop_date">
 <code class="descname">stop_date</code><a class="headerlink" href="#Files.stop_date" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>datetime</em></p>
-<p>date of last file, used as default stop bound for instrument
+<dd><p><em>datetime</em> &#8211; date of last file, used as default stop bound for instrument
 object</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Files.data_path">
 <code class="descname">data_path</code><a class="headerlink" href="#Files.data_path" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>string</em></p>
-<p>path to the directory containing instrument files,
+<dd><p><em>string</em> &#8211; path to the directory containing instrument files,
 top_dir/platform/name/tag/</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Files.manual_org">
 <code class="descname">manual_org</code><a class="headerlink" href="#Files.manual_org" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em></p>
-<p>if True, then Files will look directly in pysat data directory
+<dd><p><em>bool</em> &#8211; if True, then Files will look directly in pysat data directory
 for data files and will not use /platform/name/tag</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Files.update_files">
 <code class="descname">update_files</code><a class="headerlink" href="#Files.update_files" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em></p>
-<p>updates files on instantiation if True</p>
+<dd><p><em>bool</em> &#8211; updates files on instantiation if True</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -692,7 +611,7 @@ instance. Exceptions are the classmethod from_os, provided to assist
 in generating the appropriate output for an instrument routine.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># convenient file access</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># convenient file access</span>
 <span class="n">inst</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="n">platform</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
                         <span class="n">sat_id</span><span class="o">=</span><span class="n">sat_id</span><span class="p">)</span>
 <span class="c1"># first file</span>
@@ -701,13 +620,13 @@ in generating the appropriate output for an instrument routine.</p>
 <span class="c1"># files from start up to stop (exclusive on stop)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
 
 <span class="c1"># files for date</span>
-<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">start</span><span class="p">])</span>
 
 <span class="c1"># files by slicing</span>
-<span class="k">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vefi</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
 
 <span class="c1"># get a list of new files</span>
 <span class="c1"># new files are those that weren&#39;t present the last time</span>
@@ -845,39 +764,8 @@ pysat Instrument object.</td>
 <dl class="attribute">
 <dt id="Meta.data">
 <code class="descname">data</code><a class="headerlink" href="#Meta.data" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pandas.DataFrame</em></p>
-<p>index is variable standard name, &#8216;units&#8217; and &#8216;long_name&#8217; are also stored along
+<dd><p><em>pandas.DataFrame</em> &#8211; index is variable standard name, &#8216;units&#8217; and &#8216;long_name&#8217; are also stored along
 with additional user provided labels.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pysat.Meta.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Meta.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience method for obtaining metadata.</p>
-<p>Maps to pandas DataFrame.ix method.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pysat.Meta.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Meta.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience method for adding metadata.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">meta</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Meta</span><span class="p">()</span>
-<span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">}</span>
-<span class="c1"># update &#39;units&#39; to new value</span>
-<span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">}</span>
-<span class="c1"># update &#39;long_name&#39; to new value</span>
-<span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">}</span>
-<span class="c1"># attach new info with partial information, &#39;long_name&#39; set to &#39;name2&#39;</span>
-<span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">}</span>
-<span class="c1"># units are set to &#39;&#39; by default</span>
-<span class="n">meta</span><span class="p">[</span><span class="s1">&#39;name3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span><span class="n">string</span><span class="p">}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="classmethod">
@@ -940,11 +828,12 @@ inst.orbit[orbit num].</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>sat</strong> (<em>pysat.Instrument instance</em>) &#8211; instrument object to determine orbits for</li>
 <li><strong>index</strong> (<em>string</em>) &#8211; name of the data series to use for determing orbit breaks</li>
-<li><strong>kind</strong> (<em>{'local time', 'longitude', 'polar'}</em>) &#8211; <p>kind of orbit, determines how orbital breaks are determined</p>
+<li><strong>kind</strong> (<em>{'local time', 'longitude', 'polar', 'orbit'}</em>) &#8211; <p>kind of orbit, determines how orbital breaks are determined</p>
 <ul>
 <li>local time: negative gradients in lt or breaks in inst.data.index</li>
 <li>longitude: negative gradients or breaks in inst.data.index</li>
 <li>polar: zero crossings in latitude or breaks in inst.data.index</li>
+<li>orbit: uses unique values of orbit number</li>
 </ul>
 </li>
 <li><strong>period</strong> (<em>np.timedelta64</em>) &#8211; length of time for orbital period, used to gauge when a break
@@ -965,9 +854,9 @@ by inst.orbits where inst = pysat.Instrument()</p>
 <p class="last">This class is still under development.</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;kind&#39;</span><span class="p">:</span><span class="s1">&#39;longitude&#39;</span><span class="p">}</span>
 <span class="n">vefi</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">Instrument</span><span class="p">(</span><span class="n">platform</span><span class="o">=</span><span class="s1">&#39;cnofs&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vefi&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;dc_b&#39;</span><span class="p">,</span>
-                        <span class="n">clean_level</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">info</span><span class="p">)</span>
+                        <span class="n">clean_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit_info</span><span class="o">=</span><span class="n">info</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">stop</span> <span class="o">=</span> <span class="n">pysat</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2009</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
@@ -975,7 +864,7 @@ by inst.orbits where inst = pysat.Instrument()</p>
 
 <span class="c1"># iterate over orbits</span>
 <span class="k">for</span> <span class="n">vefi</span> <span class="ow">in</span> <span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Next available orbit &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Next available orbit &#39;</span><span class="p">,</span> <span class="n">vefi</span><span class="p">[</span><span class="s1">&#39;dB_mer&#39;</span><span class="p">])</span>
 
 <span class="c1"># load fifth orbit of first day</span>
 <span class="n">vefi</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
@@ -990,39 +879,6 @@ by inst.orbits where inst = pysat.Instrument()</p>
 <span class="n">vefi</span><span class="o">.</span><span class="n">orbits</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="pysat.Orbits.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Orbits.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable convenience notation for loading orbit into parent object.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">inst</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
-<span class="n">inst</span><span class="o">.</span><span class="n">orbits</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Orbit data &#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A day of data must already be loaded.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pysat.Orbits.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Orbits.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Support iteration by orbit.</p>
-<p>For each iteration the next available orbit is loaded into
-inst.data.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">orbits</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s1">&#39;next available orbit &#39;</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Limits of iteration set by setting inst.bounds.</p>
-</div>
-</dd></dl>
-
 <dl class="method">
 <dt id="pysat.Orbits.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>orbit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pysat.Orbits.load" title="Permalink to this definition">¶</a></dt>
@@ -1095,8 +951,7 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
-A dict of dicts indexed by data_label. Each entry is dict with entries
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211; A dict of dicts indexed by data_label. Each entry is dict with entries
 &#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of orbits with any
 data; &#8216;bin_x&#8217; and &#8216;bin_y&#8217; are also returned if requested. Note that arrays
 are organized for direct plotting, y values along rows, x along columns.</p>
@@ -1135,8 +990,7 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
-A dict of dicts indexed by data_label. Each entry is dict with entries
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211; A dict of dicts indexed by data_label. Each entry is dict with entries
 &#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of orbits with any
 data; &#8216;bin_x&#8217;, &#8216;bin_y&#8217;, and &#8216;bin_z&#8217; are also returned if requested. Note
 that arrays are organized for direct plotting, z,y,x.</p>
@@ -1176,8 +1030,7 @@ e.g. inst[data_label]</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
-A dict of dicts indexed by data_label. Each entry is dict with entries
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211; A dict of dicts indexed by data_label. Each entry is dict with entries
 &#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of days with any
 data; &#8216;bin_x&#8217; and &#8216;bin_y&#8217; are also returned if requested. Note that arrays
 are organized for direct plotting, y values along rows, x along columns.</p>
@@ -1216,8 +1069,7 @@ Prob = (# of times with at least one hit)/(# of times in bin)</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211;
-A dict of dicts indexed by data_label. Each entry is dict with entries
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>occur_prob</strong> &#8211; A dict of dicts indexed by data_label. Each entry is dict with entries
 &#8216;prob&#8217; for the probability and &#8216;count&#8217; for the number of days with any
 data; &#8216;bin_x&#8217;, &#8216;bin_y&#8217;, and &#8216;bin_z&#8217; are also returned if requested. Note
 that arrays are organized for direct plotting, z,y,x.</p>
@@ -1247,8 +1099,7 @@ that arrays are organized for direct plotting, z,y,x.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
-simple mean of data_label indexed by day</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211; simple mean of data_label indexed by day</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
 </tr>
@@ -1266,8 +1117,7 @@ simple mean of data_label indexed by day</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
-simple mean of data_label indexed by start of each file</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211; simple mean of data_label indexed by start of each file</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
 </tr>
@@ -1285,8 +1135,7 @@ simple mean of data_label indexed by start of each file</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_label</strong> (<em>string</em>) &#8211; string identifying data product to be averaged</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211;
-simple mean of data_label indexed by start of each orbit</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mean</strong> &#8211; simple mean of data_label indexed by start of each orbit</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas Series</td>
 </tr>
@@ -1309,8 +1158,7 @@ simple mean of data_label indexed by start of each orbit</td>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>median</strong> &#8211;
-2D median accessed by data_label as a function of label1 and label2
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>median</strong> &#8211; 2D median accessed by data_label as a function of label1 and label2
 over the season delineated by bounds of passed instrument objects.
 Also includes &#8216;count&#8217; and &#8216;avg_abs_dev&#8217; as well as the values of
 the bin edges in &#8216;bin_x&#8217; and &#8216;bin_y&#8217;.</p>
@@ -1481,7 +1329,7 @@ stop dates.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Russell Stoneback.
+        &copy; Copyright 2017, Russell Stoneback.
 
     </p>
   </div>
@@ -1503,7 +1351,7 @@ stop dates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.3',
+            VERSION:'0.4.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
